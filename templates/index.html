@@ -1,0 +1,303 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+
+    </style>
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="wrapper">
+    <div class="sidebar" data-background-color="black" data-active-color="danger">
+
+    <!--
+        Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
+        Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
+    -->
+        <div class="sidebar-wrapper">
+            <div class="logo">
+                <a href="#" class="simple-text">
+                    Kontinnum
+                </a>
+            </div>
+            <ul class="nav">
+                <li class="active">
+                    <a href="#dataAggre" data-toggle="collapse">
+                        <i class="ti-menu-alt"></i>
+                        <p>Data Aggregation <b class="caret"></b></p>
+                    </a>
+                    <div class="collapse in kon-collapse" id="dataAggre">
+                        <ul class="nav">
+                            <li class="active">
+                                <a href="#">
+                                    <span class="sidebar-mini">
+                                        <i class="ti-panel"></i>
+                                    </span>
+                                    <span class="sidebar-normal">Feeds</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="sidebar-mini">
+                                        <i class="ti-flickr"></i>
+                                    </span>
+                                    <span class="sidebar-normal">Social Signals</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="sidebar-mini">
+                                        <i class="ti-hummer"></i>
+                                    </span>
+                                    <span class="sidebar-normal">Manage Aggr</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="#filterTags" data-toggle="collapse">
+                        <i class="ti-tag"></i>
+                        <p>Mentions <b class="caret"></b></p>
+                    </a>
+                    <div class="collapse kon-collapse" id="filterTags">
+                        <ul class="nav">
+                            <li>
+                                <a href="#">
+                                    <span class="sidebar-mini">
+                                        <i class="ti-tag"></i>
+                                    </span>
+                                    <span class="sidebar-normal">#apple</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="sidebar-mini">
+                                        <i class="ti-tag"></i>
+                                    </span>
+                                    <span class="sidebar-normal">#makeinindia</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="sidebar-mini">
+                                        <i class="ti-tag"></i>
+                                    </span>
+                                    <span class="sidebar-normal">#politics</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="sidebar-mini">
+                                        <i class="ti-tag"></i>
+                                    </span>
+                                    <span class="sidebar-normal">#summer</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="sidebar-mini">
+                                        <i class="ti-tag"></i>
+                                    </span>
+                                    <span class="sidebar-normal">#fml</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-panel">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar bar1"></span>
+                        <span class="icon-bar bar2"></span>
+                        <span class="icon-bar bar3"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Dashboard</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <!--<li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="ti-panel"></i>
+                                <p>Stats</p>
+                            </a>
+                        </li>-->
+                        <li>
+                            <a href="#">
+                                <i class="ti-settings"></i>
+                                <p>Settings</p>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input placeholder="Search" class="form-control border-input"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header" style="padding: 20px;position:relative;" data-toggle="collapse" data-target="#feed1">
+                                <h4 class="title">Feed #1</h4>
+                                <div class="stats">
+                                    <i class="ti-timer"></i> 7 hours ago
+                                </div>
+                                <i class="ti-angle-down" style="position: absolute;right: 25px;top: 25px;"></i>
+                            </div>
+                            <div class="collapse in" id="feed1">
+                                <div class="content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sem ipsum, placerat at cursus sit amet, ullamcorper sed felis. Suspendisse et malesuada neque. Fusce nulla lectus, dignissim eget pharetra at, congue eget neque. Pellentesque arcu est, tristique in ligula at, rhoncus maximus lacus. Proin vitae tincidunt augue.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header" style="padding: 20px;position:relative;" data-toggle="collapse" data-target="#feed1">
+                                <h4 class="title">Feed #2</h4>
+                                <div class="stats">
+                                    <i class="ti-timer"></i> 7 hours ago
+                                </div>
+                                <i class="ti-angle-down" style="position: absolute;right: 25px;top: 25px;"></i>
+                            </div>
+                            <div class="collapse in" id="feed1">
+                                <div class="content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sem ipsum, placerat at cursus sit amet, ullamcorper sed felis. Suspendisse et malesuada neque. Fusce nulla lectus, dignissim eget pharetra at, congue eget neque. Pellentesque arcu est, tristique in ligula at, rhoncus maximus lacus. Proin vitae tincidunt augue.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header" style="padding: 20px;position:relative;" data-toggle="collapse" data-target="#feed1">
+                                <h4 class="title">Feed #3</h4>
+                                <div class="stats">
+                                    <i class="ti-timer"></i> 7 hours ago
+                                </div>
+                                <i class="ti-angle-down" style="position: absolute;right: 25px;top: 25px;"></i>
+                            </div>
+                            <div class="collapse in" id="feed1">
+                                <div class="content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sem ipsum, placerat at cursus sit amet, ullamcorper sed felis. Suspendisse et malesuada neque. Fusce nulla lectus, dignissim eget pharetra at, congue eget neque. Pellentesque arcu est, tristique in ligula at, rhoncus maximus lacus. Proin vitae tincidunt augue.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header" style="padding: 20px;position:relative;" data-toggle="collapse" data-target="#feed1">
+                                <h4 class="title">Feed #4</h4>
+                                <div class="stats">
+                                    <i class="ti-timer"></i> 7 hours ago
+                                </div>
+                                <i class="ti-angle-down" style="position: absolute;right: 25px;top: 25px;"></i>
+                            </div>
+                            <div class="collapse in" id="feed1">
+                                <div class="content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sem ipsum, placerat at cursus sit amet, ullamcorper sed felis. Suspendisse et malesuada neque. Fusce nulla lectus, dignissim eget pharetra at, congue eget neque. Pellentesque arcu est, tristique in ligula at, rhoncus maximus lacus. Proin vitae tincidunt augue.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header" style="padding: 20px;position:relative;" data-toggle="collapse" data-target="#feed1">
+                                <h4 class="title">Feed #5</h4>
+                                <div class="stats">
+                                    <i class="ti-timer"></i> 7 hours ago
+                                </div>
+                                <i class="ti-angle-down" style="position: absolute;right: 25px;top: 25px;"></i>
+                            </div>
+                            <div class="collapse in" id="feed1">
+                                <div class="content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sem ipsum, placerat at cursus sit amet, ullamcorper sed felis. Suspendisse et malesuada neque. Fusce nulla lectus, dignissim eget pharetra at, congue eget neque. Pellentesque arcu est, tristique in ligula at, rhoncus maximus lacus. Proin vitae tincidunt augue.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Email Statistics</h4>
+                                <p class="category">Last Campaign Performance</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+
+                                <div class="footer">
+                                    <div class="chart-legend">
+                                        <i class="fa fa-circle text-info"></i> Open
+                                        <i class="fa fa-circle text-danger"></i> Bounce
+                                        <i class="fa fa-circle text-warning"></i> Unsubscribe
+                                    </div>
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="ti-timer"></i> Campaign sent 2 days ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card ">
+                            <div class="header">
+                                <h4 class="title">2015 Sales</h4>
+                                <p class="category">All products including Taxes</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartActivity" class="ct-chart"></div>
+
+                                <div class="footer">
+                                    <div class="chart-legend">
+                                        <i class="fa fa-circle text-info"></i> Tesla Model S
+                                        <i class="fa fa-circle text-warning"></i> BMW 5 Series
+                                    </div>
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="ti-check"></i> Data information certified
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+{% endblock %}
