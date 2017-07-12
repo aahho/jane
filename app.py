@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-import tweepy
+# import tweepy
 
 app = Flask(__name__) 
 
@@ -10,12 +10,12 @@ TWEEPY_ACCESS_TOKEN_KEY = "116363974-eeCyCHKj8V3NfAecuAdmS2ILwUSill5cARryBkVF"
 TWEEPY_ACCESS_TOKEN_SECRET = "3RiUUEfsjuLqz6R78CSPB5eP5ANirNm4lgtpLrbycezox"
 
 
-auth = tweepy.OAuthHandler(TWEEPY_CONSUMER_KEY, TWEEPY_CONSUMER_SECRET)
-auth.set_access_token(TWEEPY_ACCESS_TOKEN_KEY, TWEEPY_ACCESS_TOKEN_SECRET)
+# auth = tweepy.OAuthHandler(TWEEPY_CONSUMER_KEY, TWEEPY_CONSUMER_SECRET)
+# auth.set_access_token(TWEEPY_ACCESS_TOKEN_KEY, TWEEPY_ACCESS_TOKEN_SECRET)
 
-api = tweepy.API(auth, secure = True)
+# api = tweepy.API(auth, secure = True)
 
-tweepy = Tweepy(app)
+# tweepy = Tweepy(app)
 
 @app.route('/')
 def index():
