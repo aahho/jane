@@ -11,15 +11,15 @@
 
             </div>
             <ul id="sidenavList" class="nav">
-                <li v-for="item in items" :class="{active: item.active}">
+                <li v-for="(item, idx) in items" :class="{active: item.id === activeItem.id}">
                     <a :href="'#'+item.id" data-toggle="collapse" v-on:click="setActive(item)">
                         <i :class="item.className"></i>
                         <p>[[item.title]] <b class="caret" v-if="item.subitems"></b></p>
                     </a>
                     <div :id="item.id" class="collapse kon-collapse" v-if="item.subitems">
                         <ul class="nav">
-                            <li v-for="subitem in item.subitems" :class="{active: subitem.active}">
-                                <a href="#" v-on:click="setActive(subitem)">
+                            <li v-for="subitem in item.subitems" :class="{active: subitem.id === activeSubitem.id}">
+                                <a href="#" v-on:click="setActive(subitem, true, idx)">
                                     <span class="sidebar-mini">
                                         <i :class="subitem.className"></i>
                                     </span>
