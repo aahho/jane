@@ -3,102 +3,30 @@
 		Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
 		Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
 	-->
-    	<div class="sidebar-wrapper">
+    	<div id="" class="sidebar-wrapper">
             <div class="logo">
                 <a href="/dashboard" class="simple-text">
                     Kontinnum
                 </a>
 
             </div>
-            <ul class="nav">
-                <li>
-                <a href="#dataAggre" data-toggle="collapse">
-                        <i class="ti-menu-alt"></i>
-                        <p>News Feed <b class="caret"></b></p>
+            <ul id="sidenavList" class="nav">
+                <li v-for="item in items" :class="{active: item.active}">
+                    <a :href="'#'+item.id" data-toggle="collapse" v-on:click="setActive(item)">
+                        <i :class="item.className"></i>
+                        <p>[[item.title]] <b class="caret" v-if="item.subitems"></b></p>
                     </a>
-                </li>
-                <li>
-                    <a href="#dataAggre" data-toggle="collapse">
-                        <i class="ti-menu-alt"></i>
-                        <p>Data Aggregation <b class="caret"></b></p>
-                    </a>
-                    <div class="collapse kon-collapse" id="dataAggre">
+                    <div :id="item.id" class="collapse kon-collapse" v-if="item.subitems">
                         <ul class="nav">
-                            
-                            <li>
-                                <a href="#">
+                            <li v-for="subitem in item.subitems" :class="{active: subitem.active}">
+                                <a href="#" v-on:click="setActive(subitem)">
                                     <span class="sidebar-mini">
-                                        <i class="ti-panel"></i>
+                                        <i :class="subitem.className"></i>
                                     </span>
-                                    <span class="sidebar-normal">NewsFeeds</p>
+                                    <span class="sidebar-normal">[[subitem.title]]</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#">
-                                    <span class="sidebar-mini">
-                                        <i class="ti-flickr"></i>
-                                    </span>
-                                    <span class="sidebar-normal">Social Signals</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="sidebar-mini">
-                                        <i class="ti-hummer"></i>
-                                    </span>
-                                    <span class="sidebar-normal">Manage Aggr</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="active">
-                    <a href="#filterTags" data-toggle="collapse">
-                        <i class="ti-tag"></i>
-                        <p>Mentions <b class="caret"></b></p>
-                    </a>
-                    <div class="collapse in kon-collapse" id="filterTags">
-                        <ul class="nav">
-                            <li class="active">
-                                <a href="#">
-                                    <span class="sidebar-mini">
-                                        <i class="ti-tag"></i>
-                                    </span>
-                                    <span class="sidebar-normal">#apple</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="sidebar-mini">
-                                        <i class="ti-tag"></i>
-                                    </span>
-                                    <span class="sidebar-normal">#makeinindia</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="sidebar-mini">
-                                        <i class="ti-tag"></i>
-                                    </span>
-                                    <span class="sidebar-normal">#politics</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="sidebar-mini">
-                                        <i class="ti-tag"></i>
-                                    </span>
-                                    <span class="sidebar-normal">#summer</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="sidebar-mini">
-                                        <i class="ti-tag"></i>
-                                    </span>
-                                    <span class="sidebar-normal">#fml</p>
-                                </a>
-                            </li>
+
                         </ul>
                     </div>
                 </li>
