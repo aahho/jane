@@ -2,7 +2,7 @@ from flask import Flask, render_template
 # import tweepy
 
 app = Flask(__name__) 
-
+app.config.from_pyfile('config.cfg')
 
 TWEEPY_CONSUMER_KEY = "aakaNvoZG0NDnZip321lrGKEM"
 TWEEPY_CONSUMER_SECRET = "y1VJZ6ORvKypSMWB0yHCfcnFJxK9LSAbSxNAcn7hQmQc4QHsK9"
@@ -39,7 +39,9 @@ def show_tweets():
 # 	return render_template('login.html',error = error)
 
 
-
+@app.route('/hello')
+def hello_world():
+    return '<h1>Hello World</h1>'
 
 if __name__ == '__main__':
 	app.run(debug=True)

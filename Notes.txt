@@ -1,0 +1,18 @@
+
+
+
+
+
+---
+
+- Data Aggregation
+	- rss
+	- special sites (Later)
+	- twitter #tags
+	- facebook public
+- Filter and Sorting
+	- Tags
+	- Reports (Later)
+- Sentiment Analysis 
+- Link rank 
+- Summarize
