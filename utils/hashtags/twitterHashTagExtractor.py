@@ -6,7 +6,7 @@ import json
 import sys
 import requests
 
-print 
+
 if sys.argv[1] == "":
     hashtag = 'indianpolitics'
 
