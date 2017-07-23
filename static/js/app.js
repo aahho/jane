@@ -527,33 +527,34 @@
 					id: 'tweets',
 					title: 'Mentions',
 					className: 'ti-tag',
-					subitems: [
-						{
-							id: 'hashapple',
-							title: '#IndianPolitics',
-							className: 'ti-tag'
-						}
-						// {
-						// 	id: 'hasmakeinindia',
-						// 	title: '#makeinindia',
-						// 	className: 'ti-tag'
-						// },
-						// {
-						// 	id: 'hashpolitics',
-						// 	title: '#politics',
-						// 	className: 'ti-tag'
-						// },
-						// {
-						// 	id: 'hashsummer',
-						// 	title: '#summer',
-						// 	className: 'ti-tag'
-						// },
-						// {
-						// 	id: 'hashfml',
-						// 	title: '#fml',
-						// 	className: 'ti-tag'
-						// }
-					]
+                    subitems: null
+					// subitems: [
+					// 	{
+					// 		id: 'hashapple',
+					// 		title: '#IndianPolitics',
+					// 		className: 'ti-tag'
+					// 	}
+					// 	{
+					// 		id: 'hasmakeinindia',
+					// 		title: '#makeinindia',
+					// 		className: 'ti-tag'
+					// 	},
+					// 	{
+					// 		id: 'hashpolitics',
+					// 		title: '#politics',
+					// 		className: 'ti-tag'
+					// 	},
+					// 	{
+					// 		id: 'hashsummer',
+					// 		title: '#summer',
+					// 		className: 'ti-tag'
+					// 	},
+					// 	{
+					// 		id: 'hashfml',
+					// 		title: '#fml',
+					// 		className: 'ti-tag'
+					// 	}
+					// ]
 				}
 			],
 			activeItem: {
@@ -620,10 +621,10 @@
     				}
     			},
                 watch: {
-                        searchText: function (item) {
-                            this.searchItems(this.searchText, this.tweets);
-                            console.log('watch',item);
-                        }
+                    searchText: function (item) {
+                        this.searchItems(this.searchText, this.tweets);
+                        console.log('watch',item);
+                    }
                 },
                 methods: {
                     searchItems: _.debounce(function (searchText) {
@@ -634,6 +635,18 @@
                             // console.log('methods', item, searchText)
                         });
                     }, 500)
+                },
+                computed: {
+                    parsedTweets: function () {
+                        var urls = /(\b(https?|ftp):\/\/[A-Z0-9+&@#\/%?=~_|!:,.;-]*[-A-Z0-9+&@#\/%=~_|])/gim;
+                        return tweets_json.filter(function (item) {
+                            if(item.tweet.match(urls)) {
+                                item.tweet = item.tweet.replace(urls, '<a href="$1" target="_blank">$1</a>');
+                            }
+
+                            return item;
+                        });
+                    }
                 }
 			},
 			empty: {
