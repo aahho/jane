@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% block title %} Dashboard {% endblock %}
 {% block head %}
+    {% block title %} Dashboard {% endblock %}
     {{ super() }}
     <style type="text/css">
     </style>
@@ -66,7 +66,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="header" style="padding: 20px;position:relative;" data-toggle="collapse" :data-target="'#'+item.id">
-                        <h4 class="title">[[item.title]]</h4>
+                        <h4 class="title">[[item.handle]]</h4>
                         <div class="stats">
                             <i class="ti-timer"></i> [[item.timestamp]]
                         </div>
@@ -74,7 +74,7 @@
                     </div>
                     <div class="collapse" :id="item.id">
                         <div class="content">
-                            <p>[[item.summary]]</p>
+                            <p>[[item.tweet]]</p>
                         </div>
                     </div>
                 </div>
@@ -89,18 +89,22 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-
-                <input style="width:100%;line-height:20px" type="text" placeholder="Need basic search and url for @mntions. ">
-
+                <div class="form-group">
+                    <input placeholder="Search @mentions, #tags..." class="form-control border-input" v-model="searchText"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <div class="card">
-                    <div class="header" style="padding: 20px;position:relative;" data-toggle="collapse" data-target="#feed1">
+                    <div class="header" style="padding: 20px;position:relative;">
                         <h4 class="title">#IndianPolitics</h4>
                         <i class="ti-angle-down" style="position: absolute;right: 25px;top: 25px;"></i>
                     </div>
-                    <div class="collapse in" id="feed1">
+                    <div>
                         <div class="content">
                             <div class="list-group">
-                                <a href="#" class="list-group-item list-group-item-action row" v-for="item in tweets">
+                                <a href="#" v-show="tweets.length > 0" class="list-group-item list-group-item-action row" v-for="item in tweets">
                                     <b class="col-md-2">
                                      
                                         [[item.handle]]
@@ -111,6 +115,9 @@
                                     </span>
                                     <span class="badge">[[item.timestamp]]</span>
                                 </a>
+                                <p style="text-align: center;color: gray;" v-show="tweets.length === 0">
+                                    No results found.
+                                </p>
                             </div>
                         </div>
                     </div>
