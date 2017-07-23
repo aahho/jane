@@ -594,6 +594,31 @@
 		}
 	});
 
+    //tweet parser
+
+    function parseTweets() {
+        var urls = /(\b(https?|ftp):\/\/[A-Z0-9+&@#\/%?=~_|!:,.;-]*[-A-Z0-9+&@#\/%=~_|])/gim;
+        var mentions = /[^a-zA-Z0-9-_\.]@([A-Za-z]+[A-Za-z0-9_]+)/gim;
+        var hashtags = /[^a-zA-Z0-9-_\.]#([A-Za-z]+[A-Za-z0-9_]+)/gim;
+        return tweets_json.filter(function (item) {
+            item.handle = '<a href="https://twitter.com/'+item.handle+'" target="_blank">'+item.handle+'</a>';
+
+            if(item.tweet.match(urls)) {
+                item.tweet = item.tweet.replace(urls, '<a href="$1" target="_blank">$1</a>');
+            }
+            if(item.tweet.match(mentions)) {
+                item.tweet = item.tweet.replace(mentions, '<a href="https://twitter.com/$1" target="_blank">@$1</a>');
+            }
+            if(item.tweet.match(hashtags)) {
+                item.tweet = item.tweet.replace(hashtags, '<a href="https://twitter.com/search?q='+encodeURIComponent("$1")+'" target="_blank">#$1</a>');
+            }
+
+            return item;
+        });
+    }
+
+    tweets_json = parseTweets();    
+
 	var appContent = new Vue({
 		el: ELEMENTS.appContent,
 		delimiters: ["[[", "]]"],
@@ -635,18 +660,6 @@
                             // console.log('methods', item, searchText)
                         });
                     }, 500)
-                },
-                computed: {
-                    parsedTweets: function () {
-                        var urls = /(\b(https?|ftp):\/\/[A-Z0-9+&@#\/%?=~_|!:,.;-]*[-A-Z0-9+&@#\/%=~_|])/gim;
-                        return tweets_json.filter(function (item) {
-                            if(item.tweet.match(urls)) {
-                                item.tweet = item.tweet.replace(urls, '<a href="$1" target="_blank">$1</a>');
-                            }
-
-                            return item;
-                        });
-                    }
                 }
 			},
 			empty: {

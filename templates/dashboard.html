@@ -66,7 +66,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="header" style="padding: 20px;position:relative;" data-toggle="collapse" :data-target="'#'+item.id">
-                        <h4 class="title">[[item.handle]]</h4>
+                        <h4 class="title" v-html="item.handle"></h4>
                         <div class="stats">
                             <i class="ti-timer"></i> [[item.timestamp]]
                         </div>
@@ -74,7 +74,7 @@
                     </div>
                     <div class="collapse" :id="item.id">
                         <div class="content">
-                            <p>[[item.tweet]]</p>
+                            <p v-html="item.tweet"></p>
                         </div>
                     </div>
                 </div>
@@ -99,14 +99,13 @@
                 <div class="card">
                     <div class="header" style="padding: 20px;position:relative;">
                         <h4 class="title">#IndianPolitics</h4>
-                        <i class="ti-angle-down" style="position: absolute;right: 25px;top: 25px;"></i>
+                        <!-- <i class="ti-angle-down" style="position: absolute;right: 25px;top: 25px;"></i> -->
                     </div>
                     <div>
                         <div class="content">
                             <div class="list-group">
-                                <a :href="'https://twitter.com/'+item.handle" target="_blank" v-show="tweets.length > 0" class="list-group-item list-group-item-action row" v-for="item in parsedTweets">
-                                    <b class="col-md-2">
-                                        [[item.handle]]
+                                <a href="#" v-show="tweets.length > 0" class="list-group-item list-group-item-action row" v-for="item in tweets">
+                                    <b class="col-md-2" v-html="item.handle">
                                     </b>
                                     <span class="col-md-8" style="margin-left: 20px;" v-html="item.tweet"></span>
                                     <span class="badge">[[item.timestamp]]</span>
