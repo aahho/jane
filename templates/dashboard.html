@@ -89,16 +89,23 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
+
+                <input style="width:100%;line-height:20px" type="text" placeholder="Need basic search and url for @mntions. ">
+
                 <div class="card">
                     <div class="header" style="padding: 20px;position:relative;" data-toggle="collapse" data-target="#feed1">
-                        <h4 class="title">#apple</h4>
+                        <h4 class="title">#IndianPolitics</h4>
                         <i class="ti-angle-down" style="position: absolute;right: 25px;top: 25px;"></i>
                     </div>
                     <div class="collapse in" id="feed1">
                         <div class="content">
                             <div class="list-group">
                                 <a href="#" class="list-group-item list-group-item-action row" v-for="item in tweets">
-                                    <b class="col-md-2">[[item.handle]]</b>
+                                    <b class="col-md-2">
+                                     
+                                        [[item.handle]]
+                                     
+                                    </b>
                                     <span class="col-md-8" style="margin-left: 20px;">
                                         [[item.tweet]]
                                     </span>
