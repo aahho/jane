@@ -18,10 +18,10 @@ for url in RSS_URLS:
 
 posts = []
 
-for feed in feeds:
-    for post in feed.entries:
+for feed in feed.entriess:
+    for post in feed:
         posts.append({
-            'title': feeds['entries'][i].title,
+            'title': feed['entries'][i].title,
             'description': feeds['entries'][i].summary,
             'url': feeds['entries'][i].link,
         })
