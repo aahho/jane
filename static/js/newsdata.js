@@ -5,7 +5,8 @@
 window.getNewsList = function(){
     return[
 	{
-		"timestamp": "23 Jul 2017, 1:00 pm",
+		"id": 1,
+		"timestamp": moment("23 Jul 2017, 1:00 pm").fromNow(),
 		"title": "Save The Girl Child, But Tax Her For Being A Girl: The GST Logic",
 		"url": "https://www.youthkiawaaz.com/2017/07/sex-can-be-choice-marriage-can-be-choice-but-periods-is-not-a-choice/",
 		"source" : "youthkiawaaz.com",
@@ -15,7 +16,8 @@ window.getNewsList = function(){
 		"author": "Shashi Kumar"
 	},
 	{
-		"timestamp": "23 Jul 2017, 10:30 am",
+		"id": 2,
+		"timestamp": moment("23 Jul 2017, 10:30 am").fromNow(),
 		"title": "Of Chester Bennington And Social Media Grieving",
 		"url": "https://www.youthkiawaaz.com/2017/07/grief-in-the-digital-age/",
 		"source" : "youthkiawaaz.com",
@@ -25,7 +27,8 @@ window.getNewsList = function(){
 		"author": "Chaitanya Sethi"
 	},
 	{
-		"timestamp": "23 Jul 2017, 6:30 am",
+		"id": 3,
+		"timestamp": moment("23 Jul 2017, 6:30 am").fromNow(),
 		"title": "What India Needs To Do To Revive Kashmir’s Dying Economy",
 		"url": "https://www.youthkiawaaz.com/2017/07/kashmirs-staggering-economy-the-road-ahead/",
 		"source" : "youthkiawaaz.com",
@@ -35,7 +38,8 @@ window.getNewsList = function(){
 		"author": "Namit Bhasin"
 	},
 	{
-		"timestamp": "23 Aug 2012, 3:25 am",
+		"id": 4,
+		"timestamp": moment("23 Aug 2012, 3:25 am").fromNow(),
 		"title": "Problem: Elections! Solution: Emergency 2012!",
 		"url": "http://www.mediacrooks.com/2012/08/problem-elections-solution-emergency.html",
 		"source" : "mediacrooks.com",
@@ -44,7 +48,8 @@ window.getNewsList = function(){
 		"photo_url": "http://4.bp.blogspot.com/-0JLXSf_RLbw/UDWiBLmtdbI/AAAAAAAAAu0/m7uhAsiX9Uo/s320/BlockedSites.jpg",
 		"author": "Ravinar"
 	},	{
-		"timestamp": "19 Sep 2016, 9:57 am",
+		"id": 5,
+		"timestamp": moment("19 Sep 2016, 9:57 am").fromNow(),
 		"title": "Open Letter to PM Modi",
 		"url": "http://amreekandesi.com/2016/09/19/open-letter-to-pm-modi/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+amreekandesi+%28amreekandesi.com%29",
 		"source" : "amreekandesi.com",
@@ -53,7 +58,8 @@ window.getNewsList = function(){
 		"photo_url": "http://i0.wp.com/amreekandesi.com/wp-content/uploads/2016/09/modi-new-759.jpg?w=759",
 		"author": "Atulya Mahajan"
 	},	{
-		"timestamp": "1 Jun 2017, 10:43 am",
+		"id": 6,
+		"timestamp": moment("1 Jun 2017, 10:43 am").fromNow(),
 		"title": "Banning the Sale of Cattle for Slaughter - Government has no role in Kitchen ",
 		"url": "http://www.searchforanidentity.com/2017/06/banning-sale-of-cattle-for-slaughter.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+sajeevk+%28Astitva+-+Search+for+an+Identity%29",
 		"source" : "searchforanidentity.com",
@@ -62,7 +68,8 @@ window.getNewsList = function(){
 		"photo_url": "https://2.bp.blogspot.com/-Hry5DD81uec/WS_vewmqI9I/AAAAAAAADyU/6ERYAhTj5nscyWylOHr71ilqXVOqFyCCgCLcB/s640/Raw_beef_slices.jpg",
 		"author": "Sajeev"
 	},	{
-		"timestamp": "1 May 2017, 7:45 am",
+		"id": 7,
+		"timestamp": moment("1 May 2017, 7:45 am").fromNow(),
 		"title": "Frequently Asked Questions on GST (Goods and Services Tax) - Part I",
 		"url": "http://www.searchforanidentity.com/2017/04/frequently-asked-questions-on-gst-goods.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+sajeevk+%28Astitva+-+Search+for+an+Identity%29",
 		"source" : "searchforanidentity.com",
@@ -71,7 +78,8 @@ window.getNewsList = function(){
 		"photo_url": "https://1.bp.blogspot.com/-KRAdmJnz2AI/WQbniPiwL2I/AAAAAAAADxc/LKpfuQAb0_ktgrysLxH_evMOhrNsHF7iQCLcB/s320/Sarnath_Lion_Capital_of_Ashoka.jpg",
 		"author": "Sajeev"
 	},	{
-		"timestamp": "22 Jul 2017, 9:42 pm",
+		"id": 8,
+		"timestamp": moment("22 Jul 2017, 9:42 pm").fromNow(),
 		"title": "TN farmers to protest in Delhi, yet again: What does it imply?",
 		"url": "https://theindianeconomist.com/tn-farmers-protest-delhi-yet-imply/",
 		"source" : "theindianeconomist.com",
@@ -80,7 +88,8 @@ window.getNewsList = function(){
 		"photo_url": "https://i0.wp.com/theindianeconomist.com/wp-content/uploads/2017/07/jantar-mantar.jpg?w=1024",
 		"author": "Saarthak Anand"
 	},	{
-		"timestamp": "22 Jul 2017, 2:17 pm",
+		"id": 9,
+		"timestamp": moment("22 Jul 2017, 2:17 pm").fromNow(),
 		"title": "The Daily Fix: Communal tensions in coastal Karnataka are a failure of leadership and policing",
 		"url": "https://theindianeconomist.com/daily-fix-communal-tensions-coastal-karnataka-failure-leadership-policing/",
 		"source" : "theindianeconomist.com",
@@ -89,7 +98,8 @@ window.getNewsList = function(){
 		"photo_url": "https://i2.wp.com/theindianeconomist.com/wp-content/uploads/2017/07/63323-kyzdpdhrvm-1500264498.jpg?w=1200",
 		"author": "NA"
 	},	{
-		"timestamp": "22 Jul 2017, 9:03 am",
+		"id": 10,
+		"timestamp": moment("22 Jul 2017, 9:03 am").fromNow(),
 		"title": "New caste war in Uttar Pradesh: 152 of the 312 new law officers appointed by Adityanath are Brahmins ",
 		"url": "https://theindianeconomist.com/new-caste-war-uttar-pradesh-152-312-new-law-officers-appointed-adityanath-brahmins/",
 		"source" : "theindianeconomist.com",
@@ -98,7 +108,8 @@ window.getNewsList = function(){
 		"photo_url": "https://i1.wp.com/theindianeconomist.com/wp-content/uploads/2017/07/rtanegclpx-1491315719.jpg?w=1200",
 		"author": "Dhirendra K Jha"
 	},	{
-		"timestamp": "22 Jul 2017, 4:57 am",
+		"id": 11,
+		"timestamp": moment("22 Jul 2017, 4:57 am").fromNow(),
 		"title": "Karnataka transfers Bengaluru police official who claimed Sasikala got special treatment in jail ",
 		"url": "https://theindianeconomist.com/karnataka-transfers-bengaluru-police-official-claimed-sasikala-got-special-treatment-jail/",
 		"source" : "theindianeconomist.com",
@@ -107,7 +118,8 @@ window.getNewsList = function(){
 		"photo_url": "https://i2.wp.com/theindianeconomist.com/wp-content/uploads/2017/07/Police-Officer.jpg?w=1200",
 		"author": "NA"
 	},	{
-		"timestamp": "21 Jul 2017, 6:59 pm",
+		"id": 12,
+		"timestamp": moment("21 Jul 2017, 6:59 pm").fromNow(),
 		"title": "Crunch in the capital: New Delhi is running out of water ",
 		"url": "https://theindianeconomist.com/crunch-in-the-capital-new-delhi-is-running-out-of-water/",
 		"source" : "theindianeconomist.com",
@@ -116,7 +128,8 @@ window.getNewsList = function(){
 		"photo_url": "https://i1.wp.com/theindianeconomist.com/wp-content/uploads/2017/07/1280px-FEMA_-_44898_-_Empty_Lake_Delhi_and_boats_with_no_water.jpg?w=1280",
 		"author": "Asit K. Biswas"
 	},	{
-		"timestamp": "28 Mar 2017, 3:36 am",
+		"id": 13,
+		"timestamp": moment("28 Mar 2017, 3:36 am").fromNow(),
 		"title": "Aadhaar: The Promise and Reality of the Surveillance State",
 		"url": "https://aamjanata.com/aadhaar-promise-reality-surveillance-state/",
 		"source" : "aamjanata.com",
@@ -125,7 +138,8 @@ window.getNewsList = function(){
 		"photo_url": "https://aamjanata.com/wp-content/uploads/aadhaar-logo-one-unchangeable-password-everywhere-even-if-leaked-no-ok-reset-your-fingerprints.jpg",
 		"author": "VIDYUT"
 	},	{
-		"timestamp": "19 Jun 2017, 7:56 am",
+		"id": 14,
+		"timestamp": moment("19 Jun 2017, 7:56 am").fromNow(),
 		"title": "How Madhya Pradesh farmers agitation is testing CM Shivraj Chouhan's kisan putra image and his agri track record",
 		"url": "http://indiatoday.intoday.in/story/shivraj-singh-chouhan-farmers-agitation-madhya-pradesh/1/979116.html",
 		"source" : "indiatoday.intoday.in",
@@ -134,7 +148,8 @@ window.getNewsList = function(){
 		"photo_url": "http://media2.intoday.in/indiatoday/images/stories/shivraj-jun26-1_647_061517055753.jpg",
 		"author": "Rahul Noronha"
 	},	{
-		"timestamp": "9 Jun 2017, 3:05 pm",
+		"id": 15,
+		"timestamp": moment("9 Jun 2017, 3:05 pm").fromNow(),
 		"title": "Bovine card",
 		"url": "http://indiatoday.intoday.in/story/bovine-cow-beef-ban-bjp-nda-tamil-nadu-iit-madras-kerala-west-bengal/1/973500.html",
 		"source" : "indiatoday.intoday.in",
@@ -143,7 +158,8 @@ window.getNewsList = function(){
 		"photo_url": "http://media2.intoday.in/indiatoday/images/stories/cow-jun19-1_647_060917115816.jpg",
 		"author": "Uday Mahurkar"
 	},	{
-		"timestamp": "28 May 2017, 2:02 am",
+		"id": 16,
+		"timestamp": moment("28 May 2017, 2:02 am").fromNow(),
 		"title": "IAS officer's conviction sends shockwaves through bureaucracy, threatens to paralyse government",
 		"url": "http://indiatoday.intoday.in/story/h-c-gupta-convicted-corruption-madhya-pradesh/1/962434.html",
 		"source" : "indiatoday.intoday.in",
@@ -152,7 +168,8 @@ window.getNewsList = function(){
 		"photo_url": "http://media2.intoday.in/indiatoday/images/stories/babu-story-jun5-1_647_052517020641.jpg",
 		"author": "Asit Jolly"
 	},	{
-		"timestamp": "21 Jul 2017, 12:52 pm",
+		"id": 17,
+		"timestamp": moment("21 Jul 2017, 12:52 pm").fromNow(),
 		"title": "India's competitive parliamentary democracy needs a President, but pomp and Raj legacy worth it?",
 		"url": "http://indiatoday.intoday.in/story/president-india-ram-nath-kovind-dalit-rashtrapati-bhavan-expenditure-white-house/1/1006437.html",
 		"source" : "indiatoday.intoday.in",
@@ -161,7 +178,8 @@ window.getNewsList = function(){
 		"photo_url": "http://media2.intoday.in/indiatoday/images/stories/president-jul31-1-647_072117043939.jpg",
 		"author": "Ajit Kumar Jha"
 	},	{
-		"timestamp": "17 Jul 2017, 9:41 am",
+		"id": 18,
+		"timestamp": moment("17 Jul 2017, 9:41 am").fromNow(),
 		"title": "CBI raids against Lalu Prasad, son Tejashwi and the Mahagathbandhan crisis in Bihar ",
 		"url": "http://indiatoday.intoday.in/story/bihar-lalu-prasad-yadav-cbi-nitish-kumar-rjd/1/1000947.html",
 		"source" : "indiatoday.intoday.in",
@@ -170,7 +188,8 @@ window.getNewsList = function(){
 		"photo_url": "http://media2.intoday.in/indiatoday/images/stories/lalu-jul24-1_647_071317073334.jpg",
 		"author": "Amitabh Srivastava"
 	},	{
-		"timestamp": "10 Jul 2017, 8:11 am",
+		"id": 19,
+		"timestamp": moment("10 Jul 2017, 8:11 am").fromNow(),
 		"title": "Why Nitish Kumar is at the top of the pecking order in Bihar's politics",
 		"url": "http://indiatoday.intoday.in/story/bihar-nitish-kumar-lalu-prasad-yadav-nda-jdu-congress-lok-sabha-2019/1/995392.html",
 		"source" : "indiatoday.intoday.in",

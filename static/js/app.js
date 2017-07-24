@@ -10,8 +10,8 @@
 		appContent: '#appContent'
 	};
 
-    var tweets_json = window.getTweetList()
-    var newsfeed_json = window.getNewsList()
+    var tweets_json = window.getTweetList();
+    var newsfeed_json = window.getNewsList();
 
 
 	var sidenavList = new Vue({
@@ -126,9 +126,25 @@
 				data: function () {
 				  return {
 				  	feeds: newsfeed_json,
-                    searchText: 'Hello'
+                    searchText: ''
 				  }
-				}
+				},
+                watch: {
+                    searchText: function (item) {
+                        this.searchItems(this.searchText, this.tweets);
+                        console.log('watch',item);
+                    }
+                },
+                methods: {
+                    searchItems: _.debounce(function (searchText) {
+                        this.feeds = newsfeed_json.filter(function (item) {
+                            if(item.title.toLowerCase().indexOf(searchText.toLowerCase()) > -1 || item.summary.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
+                                return item;
+                            }
+                            // console.log('methods', item, searchText)
+                        });
+                    }, 500)
+                }
 			},
 			tweetslist: {
     			template: ELEMENTS.tweets,
