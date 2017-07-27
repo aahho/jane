@@ -44,7 +44,7 @@ print str(len(X['statuses'])) + " items have been written to " + thefilenameJson
 
 for item in X['statuses']:
 	some = {
-        "text": item['text'],
+        "tweet": item['text'],
         "handle": item['user']['screen_name'],
         "timestamp": item['user']['created_at']
     }

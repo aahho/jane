@@ -92,8 +92,8 @@
 
     function parseTweets() {
         var urls = /(\b(https?|ftp):\/\/[A-Z0-9+&@#\/%?=~_|!:,.;-]*[-A-Z0-9+&@#\/%=~_|])/gim;
-        var mentions = /[^a-zA-Z0-9-_\.]@([A-Za-z]+[A-Za-z0-9_]+)/gim;
-        var hashtags = /[^a-zA-Z0-9-_\.]#([A-Za-z]+[A-Za-z0-9_]+)/gim;
+        var mentions = /([^a-zA-Z0-9-_\.]@([A-Za-z]+[A-Za-z0-9_]+))/gim;
+        var hashtags = /([^a-zA-Z0-9-_\.]#([A-Za-z]+[A-Za-z0-9_]+))/gim;
         return tweets_json.filter(function (item) {
             item.handle = '<a href="https://twitter.com/'+item.handle+'" target="_blank">'+item.handle+'</a>';
 
@@ -101,10 +101,14 @@
                 item.tweet = item.tweet.replace(urls, '<a href="$1" target="_blank">$1</a>');
             }
             if(item.tweet.match(mentions)) {
-                item.tweet = item.tweet.replace(mentions, '<a href="https://twitter.com/$1" target="_blank">@$1</a>');
+                item.tweet = item.tweet.replace(mentions, '<a href="https://twitter.com/$1" target="_blank">$1</a>');
             }
             if(item.tweet.match(hashtags)) {
-                item.tweet = item.tweet.replace(hashtags, '<a href="https://twitter.com/search?q='+encodeURIComponent("$1")+'" target="_blank">#$1</a>');
+                item.tweet = item.tweet.replace(hashtags, function (match) {
+                	// console.log('tweet hastag replacer ', match);
+                	var mItem = encodeURIComponent(match);
+                	return '<a href="https://twitter.com/search?q='+mItem+'" target="_blank">'+match+'</a>'
+                });
             }
 
             return item;
