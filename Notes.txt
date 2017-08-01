@@ -1,0 +1,21 @@
+
+sudo apt-get update && sudo apt-get install python-pip python-dev nginx git build-essential python2.7-dev
+
+
+adduser kang
+gpasswd -a kang sudo
+su - kang
+
+---
+
+- Data Aggregation
+	- rss
+	- special sites (Later)
+	- twitter #tags
+	- facebook public
+- Filter and Sorting
+	- Tags
+	- Reports (Later)
+- Sentiment Analysis 
+- Link rank 
+- Summarize

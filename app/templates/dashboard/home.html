@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block head %}
+    {% block title %} Dashboard {% endblock %}
+    {{ super() }}
+    <style type="text/css">
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="wrapper">
+    {% include 'dashboard/sidebar.html' %}
+
+    <div class="main-panel">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar bar1"></span>
+                        <span class="icon-bar bar2"></span>
+                        <span class="icon-bar bar3"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Dashboard</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <!--<li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="ti-panel"></i>
+								<p>Stats</p>
+                            </a>
+                        </li>-->
+						<li>
+                            <a href="#">
+								<i class="ti-settings"></i>
+								<p>Settings</p>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+
+
+        <div id="appContent" class="content">
+            <component :is="currentView"></component>
+            <!-- <feeds-list></feeds-list> -->
+            <!-- <tweets-list></tweets-list> -->
+        </div>
+
+    </div>
+</div>
+
+<!-- Feeds -->
+<template id="feedslist">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input placeholder="Search title, summary..." class="form-control border-input" v-model="searchText"/>
+                </div>
+            </div>
+        </div>
+        <div class="row" v-for="item in feeds">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header row" style="padding: 20px;">
+                        <div class="col-md-10">
+                            <h4 class="title">
+                                <a :href="item.url" target="_blank">[[item.title]]</a>
+                            </h4>
+                            <div class="stats">
+                                <i class="ti-timer"></i> [[item.timestamp]]
+                            </div>
+                            <a data-toggle="collapse" :href="'#'+item.id">Summary</a>
+                        </div>
+                        <div class="col-md-2" v-if="item.photo_url !== 'NA'">
+                            <img :src="item.photo_url" class="pull-right" style="height: 50px;border-radius: 4px;box-shadow: 1px 1px 1px 1px #dcdcdc;"/>
+                        </div>
+                    </div>
+                    <div class="collapse in" :id="item.id">
+                        <div class="content" style="padding-top: 0;">
+                            <p v-html="item.summary"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<!-- Tweets -->
+<template id="tweetslist">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input placeholder="Search @mentions, #tags..." class="form-control border-input" v-model="searchText"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header" style="padding: 20px;position:relative;">
+                        <h4 class="title">#IndianPolitics</h4>
+                        <!-- <i class="ti-angle-down" style="position: absolute;right: 25px;top: 25px;"></i> -->
+                    </div>
+                    <div>
+                        <div class="content">
+                            <div class="list-group">
+                                <a href="#" v-show="tweets.length > 0" class="list-group-item list-group-item-action row" v-for="item in tweets">
+                                    <b class="col-md-2" v-html="item.handle">
+                                    </b>
+                                    <span class="col-md-8" style="margin-left: 20px;" v-html="item.tweet"></span>
+                                    <span class="badge">[[item.timestamp]]</span>
+                                </a>
+                                <p style="text-align: center;color: gray;" v-show="tweets.length === 0">
+                                    No results found.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+{% endblock %}
