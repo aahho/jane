@@ -4,8 +4,130 @@
 
 window.getNewsList = function(){
     return[
+    {
+		"id": 20,
+		"timestamp": moment("July 22, 2017 07:42 AM").fromNow(),
+		"title": "2 lakh IT jobs in two years: IT Minister Nara Lokesh",
+		"url": "http://www.newindianexpress.com/states/andhra-pradesh/2017/jul/22/2-lakh-it-jobs-in-two-years-it-minister-nara-lokesh-1631987.html",
+		"source" : "newindianexpress.com",
+		"summary": "Panchayat Raj and IT Minister Nara Lokesh has said the State government is taking all steps to provide 2 lakh jobs to unemployed youth in the information technology and electronics sector in the coming two years.The minister inaugurated the newly constructed building of Phycare Services India Private Limited at Auto Nagar in Mangalagiri on Friday.",
+		"krank" : 7,
+		"photo_url": "NA",
+		"author": "Express News Service"
+	},
 	{
-		"timestamp": "23 Jul 2017, 1:00 pm",
+		"id": 21,
+		"timestamp": moment("JULY 21, 2017 00:11 am").fromNow(),
+		"title": "‘Swachh Panchayats’ will be given star rating soon, says Lokesh",
+		"url": "http://www.thehindu.com/news/national/andhra-pradesh/swachh-panchayats-will-be-given-star-rating-soon-says-lokesh/article19319349.ece",
+		"source": "thehindu.com",
+		"summary": "Minister of Information Technology and Panchayat Raj and Rural Development Nara Lokesh said the government would give a rating on a scale of 7 stars to villages that qualify in the ‘Swachh Panchayat’ competition to be conducted soon. Addressing a review meeting on the activities of the Rural Water Supply Department on Thursday, Mr. Lokesh said priority should be given to supply of clean drinking water and regular cleaning of drains. He wanted nearly 33,000 overhead tanks to be cleaned up with the help of advanced technology.",
+		"krank": 6,
+		"photo_url": "http://www.thehindu.com/todays-paper/tp-national/tp-andhrapradesh/article19274219.ece/alternates/FREE_660/13kn-lokesh-nanGGF23GFV03jpgjpg",
+		"author": "SPECIAL CORRESPONDENT"
+	},
+	{
+		"id": 22,
+		"timestamp": moment("JULY 14, 2017 04:40 pm").fromNow(),
+		"title": "Lokesh promises to beautify Nandyal town, develop segment",
+		"url": "http://www.thehindu.com/todays-paper/tp-national/tp-andhrapradesh/lokesh-promises-to-beautify-nandyal-town-develop-segment/article19274220.ece",
+		"source": "thehindu.com",
+		"summary": "Minister for Panchayat Raj and IT Nara Lokesh on Thursday assured to take up beautification of Nandyal town and comprehensive development of Nandyal constituency and urged the people to elect Telugu Desam Party in the ensuing byelection.",
+		"krank": 6,
+		"photo_url": "http://www.thehindu.com/news/national/andhra-pradesh/article19319348.ece/alternates/FREE_660/21VJPG4-LOKESH",
+		"author": "Staff Reporter"
+	},
+	{
+		"id": 23,
+		"timestamp": moment("JULY 14, 2017 04:40 pm").fromNow(),
+		"title": "Vizag to have drone making facility soon",
+		"url": "http://www.thehansindia.com/posts/index/Andhra-Pradesh/2017-07-22/Vizag-to-have-drone-making-facility-soon/314009",
+		"source": "thehansindia.com",
+		"summary": "IT and panchayat raj minister Nara Lokesh sought the support of Carnegie Mellon University for establishing Drone Centre of Excellence in Visakhapatnam. He met prof. Raji Reddy of the varsity, here on Saturday. ",
+		"krank": 6,
+		"photo_url": "http://www.thehansindia.com/assets/naresh_8073.jpg",
+		"author": "Staff Reporter"
+	},
+	{
+		"id": 24,
+		"timestamp": moment("JULY 12, 2017 09:59 am").fromNow(),
+		"title": "Minister Lokesh promises basic amenities in all villages by 2019",
+		"url": "http://www.newindianexpress.com/states/andhra-pradesh/2017/jul/12/minister-lokesh-promises-basic-amenities-in-all-villages-by-2019-1627516.html",
+		"source": "newindianexpress.com",
+		"summary": "Holding a review meeting with the Panchayat Raj and Rural Development officials at the collector’s office here on Tuesday, Lokesh said that the government wants to construct underground drainage system in all major panchayats in the State. He said the government would allocate Rs 400 crore for the works this year and Rs 400 crore in the next year.",
+		"krank": 6,
+		"photo_url": "http://images.newindianexpress.com/uploads/user/imagelibrary/2017/7/12/original/Minister_Lokesh.jpg",
+		"author": "Express News Service"
+	},
+	{
+		"id": 25,
+		"timestamp": moment("JULY 12, 2017 09:59 am").fromNow(),
+		"title": "State set to build cement concrete roads in all villages by 2020",
+		"url": "http://timesofindia.indiatimes.com/city/visakhapatnam/state-set-to-build-cement-concrete-roads-in-all-villages-by-2020/articleshow/59705387.cms",
+		"source": "indiatimes.com",
+		"summary": '"We are confident of meeting the target. Chief minister N Chandrababu Naidu and panchayat raj minister Nara Lokesh are motivating the department to reach the target of 100 per cent CC roads in the state," panchayat raj commissioner B Ramanjaneyulu told TOI on Wednesday.',
+		"krank": 6,
+		"photo_url": "NA",
+		"author": "TNN"
+	},
+	{
+		"id": 26,
+		"timestamp": moment("April 15, 2017 04:11 pm").fromNow(),
+		"title": "On Ambedkar Jayanti, Chandrababu Nadu's son Nara Lokesh greeted audience on Babasaheb's 'death anniversary'",
+		"url": "http://indiatoday.intoday.in/story/nara-lokesh-chandrababu-naidu-ambedkar-jayanti-andhra-pradesh/1/929715.html",
+		"source": "intoday.com",
+		"summary": "Andhra Pradesh Panchayat Raj and Information technology Minister Nara Lokesh used the Telugu word \"Vardhanthi\" or 'death anniversary,' while greeting a gathering in Vijayawada on the occassion of Ambedkar Jayanti. That happened on Friday, the 126th birth anniversary of BR Ambedkar, at an event in Tummalapalli Kalakshetram.",
+		"krank": 6,
+		"photo_url": "http://media2.intoday.in/indiatoday/images/stories/nara-lokesh-647_041517013721.jpg",
+		"author": "Ashish Pandey"
+	},
+	{
+		"id": 27,
+		"timestamp": moment("April 15, 2017 04:11 pm").fromNow(),
+		"title": "Chandrababu Naidu’s son Nara Lokesh sees 23-fold growth in assets in 5 months",
+		"url": "http://www.hindustantimes.com/india-news/naidu-s-son-nara-lokesh-s-assets-grow-23-fold-to-rs-330-cr-in-five-months/story-Oj14vqvcO6URbeCvpPMqcJ.html",
+		"source": "hindustantimes.com",
+		"summary": "Lokesh, who filed his nomination papers for an MLC seat on Monday, submitted an affidavit to election authorities, indicating that the total value of his assets is around Rs 330 crore, including Rs 273.84 crore in the form of shares in Heritage Foods, fixed assets worth Rs 18 crore and ancestral property worth Rs 38.52 crore. Besides, he had loans of Rs 6.27 crore.",
+		"krank": 6,
+		"photo_url": "NA",
+		"author": "Srinivasa Rao Apparasu"
+	},
+	{
+		"id": 28,
+		"timestamp": moment("April 02, 2017 06:48 pm").fromNow(),
+		"title": "Chandrababu Naidu’s son Nara Lokesh takes oath as Minister",
+		"url": "http://www.thehindu.com/news/national/andhra-pradesh/chandrababu-naidus-son-nara-lokesh-takes-oath-as-minister/article17762250.ece",
+		"source": "thehindu.com",
+		"summary": "The ceremony began with administration of oath to the Telugu Desam party (TDP) A.P. president Kimidi Kala Venkat Rao (Srikakulam) at 9.20 a.m. Mr. Lokesh took oath as Minister next at dot 9.22 a.m. — the 'muhurtam' fixed for the Cabinet expansion. After taking oath Mr. Lokesh sought blessings from his father and the Governor.",
+		"krank": 6,
+		"photo_url": "http://www.thehindu.com/news/national/andhra-pradesh/article17762282.ece/alternates/FREE_300/VBK-NAIDUANDLOKESH",
+		"author": "G.V.R. Subba Rao"
+	},
+	{
+		"id": 29,
+		"timestamp": moment("March 10, 2017 01:47 pm").fromNow(),
+		"title": "I Can Explain, Says TDP Chief Chandrababu Naidu's Son Nara Lokesh About Very Good Fortune",
+		"url": "http://www.ndtv.com/andhra-pradesh-news/andhra-pradesh-chief-minister-naidus-sons-wealth-moves-from-14-to-330-crores-1667772",
+		"source": "ndtv.com",
+		"summary": "Politician Nara Lokesh says a reported quantum leap in his fortune is being widely misunderstood and distorted. The Stanford graduate's father, Chandrababu Naidu, is the Chief Minister of Andhra Pradesh, which has brought special scrutiny to his declared assets.",
+		"krank": 6,
+		"photo_url": "https://i.ndtvimg.com/i/2017-03/lokesh-nara-650_650x400_61489050912.jpg",
+		"author": "Uma Sudhir"
+	},
+	{
+		"id": 30,
+		"timestamp": moment("March 31, 2017 01:14 pm").fromNow(),
+		"title": "Chandrababu Naidu to Induct Son Nara Lokesh Into Cabinet on April 2",
+		"url": "http://www.news18.com/news/politics/chandrababu-naidu-to-induct-son-nara-lokesh-into-cabinet-on-april-2-1366510.html",
+		"source": "news18.com",
+		"summary": "Andhra Pradesh Chief Minister N Chandrababu Naidu is all set to reshuffle his Cabinet on April 2 at 9:25 am, the auspicious time fixed for the Cabinet expansion. The reshuffle will finally see the induction of Chandrababu Naidu's son and TDP general secretary, Nara Lokesh, into the Cabinet. Nara Lokesh took oath as the member of the Legislative Council on Thursday.",
+		"krank": 6,
+		"photo_url": "http://img01.ibnlive.in/ibnlive/uploads/2017/03/chandrababu-naidu-875.gif",
+		"author": "Sakshi Khanna"
+	},
+	{
+		"id": 1,
+		"timestamp": moment("23 Jul 2017, 1:00 pm").fromNow(),
 		"title": "Save The Girl Child, But Tax Her For Being A Girl: The GST Logic",
 		"url": "https://www.youthkiawaaz.com/2017/07/sex-can-be-choice-marriage-can-be-choice-but-periods-is-not-a-choice/",
 		"source" : "youthkiawaaz.com",
@@ -15,7 +137,8 @@ window.getNewsList = function(){
 		"author": "Shashi Kumar"
 	},
 	{
-		"timestamp": "23 Jul 2017, 10:30 am",
+		"id": 2,
+		"timestamp": moment("23 Jul 2017, 10:30 am").fromNow(),
 		"title": "Of Chester Bennington And Social Media Grieving",
 		"url": "https://www.youthkiawaaz.com/2017/07/grief-in-the-digital-age/",
 		"source" : "youthkiawaaz.com",
@@ -25,7 +148,8 @@ window.getNewsList = function(){
 		"author": "Chaitanya Sethi"
 	},
 	{
-		"timestamp": "23 Jul 2017, 6:30 am",
+		"id": 3,
+		"timestamp": moment("23 Jul 2017, 6:30 am").fromNow(),
 		"title": "What India Needs To Do To Revive Kashmir’s Dying Economy",
 		"url": "https://www.youthkiawaaz.com/2017/07/kashmirs-staggering-economy-the-road-ahead/",
 		"source" : "youthkiawaaz.com",
@@ -35,7 +159,8 @@ window.getNewsList = function(){
 		"author": "Namit Bhasin"
 	},
 	{
-		"timestamp": "23 Aug 2012, 3:25 am",
+		"id": 4,
+		"timestamp": moment("23 Aug 2012, 3:25 am").fromNow(),
 		"title": "Problem: Elections! Solution: Emergency 2012!",
 		"url": "http://www.mediacrooks.com/2012/08/problem-elections-solution-emergency.html",
 		"source" : "mediacrooks.com",
@@ -44,7 +169,8 @@ window.getNewsList = function(){
 		"photo_url": "http://4.bp.blogspot.com/-0JLXSf_RLbw/UDWiBLmtdbI/AAAAAAAAAu0/m7uhAsiX9Uo/s320/BlockedSites.jpg",
 		"author": "Ravinar"
 	},	{
-		"timestamp": "19 Sep 2016, 9:57 am",
+		"id": 5,
+		"timestamp": moment("19 Sep 2016, 9:57 am").fromNow(),
 		"title": "Open Letter to PM Modi",
 		"url": "http://amreekandesi.com/2016/09/19/open-letter-to-pm-modi/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+amreekandesi+%28amreekandesi.com%29",
 		"source" : "amreekandesi.com",
@@ -53,7 +179,8 @@ window.getNewsList = function(){
 		"photo_url": "http://i0.wp.com/amreekandesi.com/wp-content/uploads/2016/09/modi-new-759.jpg?w=759",
 		"author": "Atulya Mahajan"
 	},	{
-		"timestamp": "1 Jun 2017, 10:43 am",
+		"id": 6,
+		"timestamp": moment("1 Jun 2017, 10:43 am").fromNow(),
 		"title": "Banning the Sale of Cattle for Slaughter - Government has no role in Kitchen ",
 		"url": "http://www.searchforanidentity.com/2017/06/banning-sale-of-cattle-for-slaughter.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+sajeevk+%28Astitva+-+Search+for+an+Identity%29",
 		"source" : "searchforanidentity.com",
@@ -62,7 +189,8 @@ window.getNewsList = function(){
 		"photo_url": "https://2.bp.blogspot.com/-Hry5DD81uec/WS_vewmqI9I/AAAAAAAADyU/6ERYAhTj5nscyWylOHr71ilqXVOqFyCCgCLcB/s640/Raw_beef_slices.jpg",
 		"author": "Sajeev"
 	},	{
-		"timestamp": "1 May 2017, 7:45 am",
+		"id": 7,
+		"timestamp": moment("1 May 2017, 7:45 am").fromNow(),
 		"title": "Frequently Asked Questions on GST (Goods and Services Tax) - Part I",
 		"url": "http://www.searchforanidentity.com/2017/04/frequently-asked-questions-on-gst-goods.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+sajeevk+%28Astitva+-+Search+for+an+Identity%29",
 		"source" : "searchforanidentity.com",
@@ -71,7 +199,8 @@ window.getNewsList = function(){
 		"photo_url": "https://1.bp.blogspot.com/-KRAdmJnz2AI/WQbniPiwL2I/AAAAAAAADxc/LKpfuQAb0_ktgrysLxH_evMOhrNsHF7iQCLcB/s320/Sarnath_Lion_Capital_of_Ashoka.jpg",
 		"author": "Sajeev"
 	},	{
-		"timestamp": "22 Jul 2017, 9:42 pm",
+		"id": 8,
+		"timestamp": moment("22 Jul 2017, 9:42 pm").fromNow(),
 		"title": "TN farmers to protest in Delhi, yet again: What does it imply?",
 		"url": "https://theindianeconomist.com/tn-farmers-protest-delhi-yet-imply/",
 		"source" : "theindianeconomist.com",
@@ -80,7 +209,8 @@ window.getNewsList = function(){
 		"photo_url": "https://i0.wp.com/theindianeconomist.com/wp-content/uploads/2017/07/jantar-mantar.jpg?w=1024",
 		"author": "Saarthak Anand"
 	},	{
-		"timestamp": "22 Jul 2017, 2:17 pm",
+		"id": 9,
+		"timestamp": moment("22 Jul 2017, 2:17 pm").fromNow(),
 		"title": "The Daily Fix: Communal tensions in coastal Karnataka are a failure of leadership and policing",
 		"url": "https://theindianeconomist.com/daily-fix-communal-tensions-coastal-karnataka-failure-leadership-policing/",
 		"source" : "theindianeconomist.com",
@@ -89,7 +219,8 @@ window.getNewsList = function(){
 		"photo_url": "https://i2.wp.com/theindianeconomist.com/wp-content/uploads/2017/07/63323-kyzdpdhrvm-1500264498.jpg?w=1200",
 		"author": "NA"
 	},	{
-		"timestamp": "22 Jul 2017, 9:03 am",
+		"id": 10,
+		"timestamp": moment("22 Jul 2017, 9:03 am").fromNow(),
 		"title": "New caste war in Uttar Pradesh: 152 of the 312 new law officers appointed by Adityanath are Brahmins ",
 		"url": "https://theindianeconomist.com/new-caste-war-uttar-pradesh-152-312-new-law-officers-appointed-adityanath-brahmins/",
 		"source" : "theindianeconomist.com",
@@ -98,7 +229,8 @@ window.getNewsList = function(){
 		"photo_url": "https://i1.wp.com/theindianeconomist.com/wp-content/uploads/2017/07/rtanegclpx-1491315719.jpg?w=1200",
 		"author": "Dhirendra K Jha"
 	},	{
-		"timestamp": "22 Jul 2017, 4:57 am",
+		"id": 11,
+		"timestamp": moment("22 Jul 2017, 4:57 am").fromNow(),
 		"title": "Karnataka transfers Bengaluru police official who claimed Sasikala got special treatment in jail ",
 		"url": "https://theindianeconomist.com/karnataka-transfers-bengaluru-police-official-claimed-sasikala-got-special-treatment-jail/",
 		"source" : "theindianeconomist.com",
@@ -107,7 +239,8 @@ window.getNewsList = function(){
 		"photo_url": "https://i2.wp.com/theindianeconomist.com/wp-content/uploads/2017/07/Police-Officer.jpg?w=1200",
 		"author": "NA"
 	},	{
-		"timestamp": "21 Jul 2017, 6:59 pm",
+		"id": 12,
+		"timestamp": moment("21 Jul 2017, 6:59 pm").fromNow(),
 		"title": "Crunch in the capital: New Delhi is running out of water ",
 		"url": "https://theindianeconomist.com/crunch-in-the-capital-new-delhi-is-running-out-of-water/",
 		"source" : "theindianeconomist.com",
@@ -116,7 +249,8 @@ window.getNewsList = function(){
 		"photo_url": "https://i1.wp.com/theindianeconomist.com/wp-content/uploads/2017/07/1280px-FEMA_-_44898_-_Empty_Lake_Delhi_and_boats_with_no_water.jpg?w=1280",
 		"author": "Asit K. Biswas"
 	},	{
-		"timestamp": "28 Mar 2017, 3:36 am",
+		"id": 13,
+		"timestamp": moment("28 Mar 2017, 3:36 am").fromNow(),
 		"title": "Aadhaar: The Promise and Reality of the Surveillance State",
 		"url": "https://aamjanata.com/aadhaar-promise-reality-surveillance-state/",
 		"source" : "aamjanata.com",
@@ -125,7 +259,8 @@ window.getNewsList = function(){
 		"photo_url": "https://aamjanata.com/wp-content/uploads/aadhaar-logo-one-unchangeable-password-everywhere-even-if-leaked-no-ok-reset-your-fingerprints.jpg",
 		"author": "VIDYUT"
 	},	{
-		"timestamp": "19 Jun 2017, 7:56 am",
+		"id": 14,
+		"timestamp": moment("19 Jun 2017, 7:56 am").fromNow(),
 		"title": "How Madhya Pradesh farmers agitation is testing CM Shivraj Chouhan's kisan putra image and his agri track record",
 		"url": "http://indiatoday.intoday.in/story/shivraj-singh-chouhan-farmers-agitation-madhya-pradesh/1/979116.html",
 		"source" : "indiatoday.intoday.in",
@@ -134,7 +269,8 @@ window.getNewsList = function(){
 		"photo_url": "http://media2.intoday.in/indiatoday/images/stories/shivraj-jun26-1_647_061517055753.jpg",
 		"author": "Rahul Noronha"
 	},	{
-		"timestamp": "9 Jun 2017, 3:05 pm",
+		"id": 15,
+		"timestamp": moment("9 Jun 2017, 3:05 pm").fromNow(),
 		"title": "Bovine card",
 		"url": "http://indiatoday.intoday.in/story/bovine-cow-beef-ban-bjp-nda-tamil-nadu-iit-madras-kerala-west-bengal/1/973500.html",
 		"source" : "indiatoday.intoday.in",
@@ -143,7 +279,8 @@ window.getNewsList = function(){
 		"photo_url": "http://media2.intoday.in/indiatoday/images/stories/cow-jun19-1_647_060917115816.jpg",
 		"author": "Uday Mahurkar"
 	},	{
-		"timestamp": "28 May 2017, 2:02 am",
+		"id": 16,
+		"timestamp": moment("28 May 2017, 2:02 am").fromNow(),
 		"title": "IAS officer's conviction sends shockwaves through bureaucracy, threatens to paralyse government",
 		"url": "http://indiatoday.intoday.in/story/h-c-gupta-convicted-corruption-madhya-pradesh/1/962434.html",
 		"source" : "indiatoday.intoday.in",
@@ -152,7 +289,8 @@ window.getNewsList = function(){
 		"photo_url": "http://media2.intoday.in/indiatoday/images/stories/babu-story-jun5-1_647_052517020641.jpg",
 		"author": "Asit Jolly"
 	},	{
-		"timestamp": "21 Jul 2017, 12:52 pm",
+		"id": 17,
+		"timestamp": moment("21 Jul 2017, 12:52 pm").fromNow(),
 		"title": "India's competitive parliamentary democracy needs a President, but pomp and Raj legacy worth it?",
 		"url": "http://indiatoday.intoday.in/story/president-india-ram-nath-kovind-dalit-rashtrapati-bhavan-expenditure-white-house/1/1006437.html",
 		"source" : "indiatoday.intoday.in",
@@ -161,7 +299,8 @@ window.getNewsList = function(){
 		"photo_url": "http://media2.intoday.in/indiatoday/images/stories/president-jul31-1-647_072117043939.jpg",
 		"author": "Ajit Kumar Jha"
 	},	{
-		"timestamp": "17 Jul 2017, 9:41 am",
+		"id": 18,
+		"timestamp": moment("17 Jul 2017, 9:41 am").fromNow(),
 		"title": "CBI raids against Lalu Prasad, son Tejashwi and the Mahagathbandhan crisis in Bihar ",
 		"url": "http://indiatoday.intoday.in/story/bihar-lalu-prasad-yadav-cbi-nitish-kumar-rjd/1/1000947.html",
 		"source" : "indiatoday.intoday.in",
@@ -170,7 +309,8 @@ window.getNewsList = function(){
 		"photo_url": "http://media2.intoday.in/indiatoday/images/stories/lalu-jul24-1_647_071317073334.jpg",
 		"author": "Amitabh Srivastava"
 	},	{
-		"timestamp": "10 Jul 2017, 8:11 am",
+		"id": 19,
+		"timestamp": moment("10 Jul 2017, 8:11 am").fromNow(),
 		"title": "Why Nitish Kumar is at the top of the pecking order in Bihar's politics",
 		"url": "http://indiatoday.intoday.in/story/bihar-nitish-kumar-lalu-prasad-yadav-nda-jdu-congress-lok-sabha-2019/1/995392.html",
 		"source" : "indiatoday.intoday.in",

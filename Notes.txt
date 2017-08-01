@@ -1,7 +1,10 @@
 
+sudo apt-get update && sudo apt-get install python-pip python-dev nginx git build-essential python2.7-dev
 
 
-
+adduser kang
+gpasswd -a kang sudo
+su - kang
 
 ---
 

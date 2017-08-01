@@ -8,7 +8,7 @@
 
 {% block content %}
     <div class="wrapper">
-    {% include 'partials/sidebar.html' %}
+    {% include 'dashboard/sidebar.html' %}
 
     <div class="main-panel">
         <nav class="navbar navbar-default">
@@ -58,27 +58,30 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <input placeholder="Search" class="form-control border-input"/>
+                    <input placeholder="Search title, summary..." class="form-control border-input" v-model="searchText"/>
                 </div>
             </div>
         </div>
         <div class="row" v-for="item in feeds">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="header" style="padding: 20px;position:relative;" data-toggle="collapse" :data-target="'#'+item.id">
-                        
-                        [[ item ]]
-                        
-                        
-                        <h4 class="title" v-html="item.handle"></h4>
-                        <div class="stats">
-                            <i class="ti-timer"></i> [[item.timestamp]]
+                    <div class="header row" style="padding: 20px;">
+                        <div class="col-md-10">
+                            <h4 class="title">
+                                <a :href="item.url" target="_blank">[[item.title]]</a>
+                            </h4>
+                            <div class="stats">
+                                <i class="ti-timer"></i> [[item.timestamp]]
+                            </div>
+                            <a data-toggle="collapse" :href="'#'+item.id">Summary</a>
                         </div>
-                        <a href="#" style="position: absolute;right: 25px;top: 25px;">Summary</a>
+                        <div class="col-md-2" v-if="item.photo_url !== 'NA'">
+                            <img :src="item.photo_url" class="pull-right" style="height: 50px;border-radius: 4px;box-shadow: 1px 1px 1px 1px #dcdcdc;"/>
+                        </div>
                     </div>
-                    <div class="collapse" :id="item.id">
-                        <div class="content">
-                            <p v-html="item.tweet"></p>
+                    <div class="collapse in" :id="item.id">
+                        <div class="content" style="padding-top: 0;">
+                            <p v-html="item.summary"></p>
                         </div>
                     </div>
                 </div>
