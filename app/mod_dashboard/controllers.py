@@ -9,7 +9,18 @@ mod_dashboard = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 def home():
 	return render_template('dashboard/home.html')
 
-@mod_dashboard.route('/bot')
-def form():
-	return render_template('dashboard/bot.html')
+@mod_dashboard.route('/feeds')
+def feeds():
+	return render_template('dashboard/partials/feeds.html')
 
+@mod_dashboard.route('/tweets')
+def tweets():
+	return render_template('dashboard/partials/tweets.html')
+
+@mod_dashboard.route('/fb')
+def fb():
+	return render_template('dashboard/partials/facebook.html')
+
+@mod_dashboard.route('/posting')
+def posting():
+	return render_template('dashboard/partials/posting.html')

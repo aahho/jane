@@ -5,8 +5,11 @@
 
 	const ELEMENTS = {
 		sidenav: '#sidenavList',
+		home: '#home',
 		tweets: '#tweetslist',
 		feeds: '#feedslist',
+		facebook: '#facebook',
+		bots: '#posting',
 		appContent: '#appContent'
 	};
 
@@ -20,81 +23,64 @@
 		data: {
 			items: [
 				{
+					id: 'home',
+					slug: '',
+					title: 'Home',
+					className: 'ti-home',
+					subitems: null
+				},
+				{
 					id: 'feeds',
+					slug: 'feeds',
 					title: 'News Feed',
 					className: 'ti-rss-alt',
 					subitems: null
 				},
 				{
 					id: 'tweets',
+					slug: 'tweets',
 					title: 'Twitter',
 					className: 'ti-tag',
                     subitems: null
 
 				},
 				{
-					id: 'facebook',
-					title: 'facebook',
+					id: 'fb',
+					slug: 'fb',
+					title: 'Facebook',
 					className: 'ti-facebook',
                     subitems: null
 
 				},
 				{
-					id: 'dataAggr',
-					title: 'Data Aggregation',
-					className: 'ti-menu-alt',
-					subitems: [
-						{
-							id: 'hashSocial',
-							title: 'Social Signals',
-							className: 'ti-flickr'
-						},
-						{
-							id: 'hashManage',
-							title: 'Manage Aggr',
-							className: 'ti-hummer'
-						}
-					]
-				},
+					id: 'posting',
+					slug: 'posting',
+					title: 'Posting',
+					className: 'ti-flickr-alt',
+                    subitems: null
+
+				}
+				// {
+				// 	id: 'dataAggr',
+				// 	slug: 'dataAggr',
+				// 	title: 'Data Aggregation',
+				// 	className: 'ti-menu-alt',
+				// 	subitems: [
+				// 		{
+				// 			id: 'hashSocial',
+				// 			title: 'Social Signals',
+				// 			className: 'ti-flickr'
+				// 		},
+				// 		{
+				// 			id: 'hashManage',
+				// 			title: 'Manage Aggr',
+				// 			className: 'ti-hummer'
+				// 		}
+				// 	]
+				// }
 				
 			],
-			activeItem: {
-				id: 'feeds',
-				title: 'News Feed',
-				className: 'ti-rss-alt',
-				subitems: null
-			},
-			activeSubitem: {},
-		},
-		methods: {
-			setActive: function (item, isSub, idx) {
-				console.log(this.items);
-				if(item.subitems !== null && !isSub) {
-					this.activeItem = item;
-					this.activeSubitem = item.subitems[0];
-				} else if(item.subitems === null){
-					this.activeItem = item;
-					this.activeSubitem = {};
-				} else if(isSub) {
-					this.activeSubitem = item
-					this.activeItem = this.items[idx]
-					console.log(item, isSub, idx);
-				}
-
-				switch(this.activeItem.id) {
-					case 'feeds':
-						appContent.$data.currentView = 'feedslist';
-						break;
-					case 'tweets':
-						appContent.$data.currentView = 'tweetslist';
-						break;
-					case 'facebook':
-						appContent.$data.currentView = 'fblist';
-						break;	
-					default: appContent.$data.currentView = 'empty';
-				}
-
-			}
+			activeView: ''
 		}
 	});
 
@@ -106,7 +92,7 @@
         var hashtags = /([^a-zA-Z0-9-_\.]#([A-Za-z]+[A-Za-z0-9_]+))/gim;
         return tweets_json.filter(function (item) {
             item.handle = '<a href="https://twitter.com/'+item.handle+'" target="_blank">'+item.handle+'</a>';
-
+			item.timestamp = moment(item.timestamp).fromNow();
             if(item.tweet.match(urls)) {
                 item.tweet = item.tweet.replace(urls, '<a href="$1" target="_blank">$1</a>');
             }
@@ -131,10 +117,19 @@
 		el: ELEMENTS.appContent,
 		delimiters: ["[[", "]]"],
 		data: {
-			currentView: 'feedslist'
+			currentView: ''
 		},
 		components: {
-			feedslist: {
+			home: {
+				template: ELEMENTS.home,
+				delimiters: ["[[", "]]"],
+				data: function () {
+					return {
+
+					}
+				}
+			},
+			feeds: {
 				template: ELEMENTS.feeds,
 				delimiters: ["[[", "]]"],
 				data: function () {
@@ -160,7 +155,7 @@
                     }, 500)
                 }
 			},
-			tweetslist: {
+			tweets: {
     			template: ELEMENTS.tweets,
     			delimiters: ["[[", "]]"],
     			data: function () {
@@ -186,9 +181,56 @@
                     }, 500)
                 }
 			},
+			fb: {
+				template: ELEMENTS.facebook,
+				delimiters: ["[[", "]]"],
+				data: function () {
+					return {
+						tweets: tweets_json,
+                        searchText: ''
+					}
+				},
+				watch: {
+                    searchText: function (item) {
+                        this.searchItems(this.searchText, this.tweets);
+                        console.log('watch',item);
+                    }
+                },
+                methods: {
+                    searchItems: _.debounce(function (searchText) {
+                        this.tweets = tweets_json.filter(function (item) {
+                            if(item.handle.toLowerCase().indexOf(searchText.toLowerCase()) > -1 || item.tweet.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
+                                return item;
+                            }
+                            // console.log('methods', item, searchText)
+                        });
+                    }, 500)
+                }
+			},
+			posting: {
+				template: ELEMENTS.bots,
+				delimiters: ["[[", "]]"],
+				data: function () {
+					return {}
+				}
+			},
 			empty: {
 				template: '<h1>Nothing here</h1>'
 			}
 		}
 	});
+
+	let getCurrentView = function () {
+		let viewName = window.location.pathname.split('/').pop();
+		console.log(viewName);
+		if(viewName === '' || viewName === 'dashboard') {
+			sidenavList.$data.activeView = 'home';
+			appContent.$data.currentView = 'home';
+			return;
+		}
+		sidenavList.$data.activeView = viewName;
+		appContent.$data.currentView = viewName;
+	}
+
+	getCurrentView();
 }(window, Vue, moment, _));
