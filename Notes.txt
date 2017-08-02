@@ -1,5 +1,23 @@
 
+1. Cron Job
+Feeds Only 
+1. Autofeeds
+2. Varun can add feeds and category 
+3. K Rank - Auto calcuate 
+4. Sentiment Analysis
+5. Keyword extraction 
+6. Full Page Store
+7. Summary 
+
+30th 
+---
+
+
+
+'pip install -r requirements.txt
+
 sudo apt-get update && sudo apt-get install python-pip python-dev nginx git build-essential python2.7-dev
+
 
 
 adduser kang

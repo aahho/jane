@@ -11,7 +11,7 @@
 	};
 
     var tweets_json = window.getTweetList();
-    var newsfeed_json = window.getNewsList();
+	var newsfeed_json = window.getNewsList();
 
 
 	var sidenavList = new Vue({
@@ -29,6 +29,13 @@
 					id: 'tweets',
 					title: 'Twitter',
 					className: 'ti-tag',
+                    subitems: null
+
+				},
+				{
+					id: 'facebook',
+					title: 'facebook',
+					className: 'ti-facebook',
                     subitems: null
 
 				},
@@ -81,6 +88,9 @@
 					case 'tweets':
 						appContent.$data.currentView = 'tweetslist';
 						break;
+					case 'facebook':
+						appContent.$data.currentView = 'fblist';
+						break;	
 					default: appContent.$data.currentView = 'empty';
 				}
 

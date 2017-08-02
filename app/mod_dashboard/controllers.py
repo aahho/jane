@@ -8,3 +8,8 @@ mod_dashboard = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 @mod_dashboard.route('/')
 def home():
 	return render_template('dashboard/home.html')
+
+@mod_dashboard.route('/bot')
+def form():
+	return render_template('dashboard/bot.html')
+
