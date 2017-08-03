@@ -1,4 +1,4 @@
-(function (window, Vue, moment, _) {
+(function (window, Vue, moment, _, FB) {
 
     console.log(window.getTweetList());
 
@@ -204,14 +204,38 @@
                             }
                             // console.log('methods', item, searchText)
                         });
-                    }, 500)
+					}, 500)
                 }
 			},
 			posting: {
 				template: ELEMENTS.bots,
 				delimiters: ["[[", "]]"],
 				data: function () {
-					return {}
+					return {
+						fbmessage: '',
+						twmessage: ''
+					}
+				},
+				methods: {
+					fbPost: function () {
+						// console.log(this.fbmessage);
+						// this.$http({
+						// 	url: 'https://graph.facebook.com/'+ fbAuth.userID+'/feed?message='+this.fbmessage+'&access_token='+fbAuth.accessToken
+						// }).then(function (response) {
+						// });
+
+						FB.api("/me/feed", "POST", {
+								message: this.fbmessage
+							}, function (response) {
+								console.log('fb post response', response, this.fbmessage);
+							}
+						)
+
+						this.fbmessage = '';
+					},
+					twPost: function () {
+						// console.log(this.twmessage);
+					}
 				}
 			},
 			empty: {
@@ -233,4 +257,27 @@
 	}
 
 	getCurrentView();
-}(window, Vue, moment, _));
+
+	let fbAuth = undefined;
+
+	let statusChangeCallback = function (response) {
+		if(response.status === 'connected') {
+			fbAuth = response.authResponse;
+		} else {
+			FB.login(function (response) {
+				fbAuth = response.authResponse;
+			}, {scope: 'public_profile,email,publish_actions'});
+		}
+	}
+
+	if(appContent.$data.currentView === 'posting') {
+		FB.init({
+			appId: '310136052730751',
+			cookie: true,
+			version: 'v2.8'
+		});
+		FB.getLoginStatus(function(response) {
+			statusChangeCallback(response);
+		});
+	}
+}(window, Vue, moment, _, FB));

@@ -127,10 +127,10 @@
                     </div>
                     <div class="content">
                         <div class="card-text">
-                            <textarea class="form-control border-input" placeholder="Post to twitter"></textarea>
+                            <textarea class="form-control border-input" placeholder="Post to twitter" v-model="twmessage"></textarea>
                         </div>
                         <div style="padding-top: 15px;">
-                            <a href="#" class="btn btn-primary">Post</a>
+                            <button id="twPost" class="btn btn-primary" v-on:click="twPost">Post</button>
                         </div>
                     </div>
                 </div>
@@ -142,10 +142,10 @@
                     </div>
                     <div class="content">
                         <div class="card-text">
-                            <textarea class="form-control border-input" placeholder="Post to facebook"></textarea>
+                            <textarea class="form-control border-input" placeholder="Post to facebook" v-model="fbmessage"></textarea>
                         </div>
                         <div style="padding-top: 15px;">
-                            <a href="#" class="btn btn-primary">Post</a>
+                            <button id="fbPost" class="btn btn-primary" v-on:click="fbPost">Post</button>
                         </div>
                     </div>
                 </div>
