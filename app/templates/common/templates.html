@@ -21,7 +21,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="header row" style="padding: 20px;">
-                        <div class="col-md-10">
+                        <div :class="{ 'col-md-9' : item.photo_url !== 'NA', 'col-md-11': item.photo_url === 'NA'}">
                             <h4 class="title">
                                 <a :href="item.url" target="_blank">[[item.title]]</a>
                             </h4>
@@ -32,6 +32,12 @@
                         </div>
                         <div class="col-md-2" v-if="item.photo_url !== 'NA'">
                             <img :src="item.photo_url" class="pull-right" style="height: 50px;border-radius: 4px;box-shadow: 1px 1px 1px 1px #dcdcdc;"/>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="pull-right" style="text-align: center;">
+                                <div>kRank</div>
+                                <div>[[item.krank]]</div>
+                            </div>
                         </div>
                     </div>
                     <div class="collapse in" :id="item.id">

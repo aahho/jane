@@ -14,7 +14,10 @@
 	};
 
     var tweets_json = window.getTweetList();
-	var newsfeed_json = window.getNewsList();
+	var newsfeed_json = window.getNewsList().sort(function (a, b) {
+		console.log('sort ', a , b);
+		return b.krank - a.krank;
+	});
 
 
 	var sidenavList = new Vue({
@@ -44,14 +47,14 @@
                     subitems: null
 
 				},
-				{
-					id: 'fb',
-					slug: 'fb',
-					title: 'Facebook',
-					className: 'ti-facebook',
-                    subitems: null
+				// {
+				// 	id: 'fb',
+				// 	slug: 'fb',
+				// 	title: 'Facebook',
+				// 	className: 'ti-facebook',
+                //     subitems: null
 
-				},
+				// },
 				{
 					id: 'posting',
 					slug: 'posting',
