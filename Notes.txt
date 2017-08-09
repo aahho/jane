@@ -1,4 +1,97 @@
 
+
+2. Autofeeds + Varun can add feeds and category 
+
+
+1. Form to add things. 
+2. Feed + Cat 
+3. K Rank - Auto calcuate ( class)
+6. Full Page Store
+
+---
+// feed_sources
+
+https://alistapart.com/
+
+{
+	id
+	url
+	rssLink
+	title
+	descripton
+	last_fetched
+	active: bool 
+	Keywords	
+	frequency
+
+}
+
+feed_sources_feed_catefory
+{
+	feed_sources_id
+	feed_caterogy_id
+}
+
+
+feed_caterogy
+{
+	id
+	name
+	slug
+}
+
+
+Raw
+(
+	https://alistapart.com/article/web-maintainability-survey
+	item 
+	{
+		id
+		title
+		feed_sources_id
+		item_link 
+		text
+		author 
+		full_text
+		last_fetched
+		published date 
+		updated date 
+
+
+		images XXX
+		tags 
+
+	}
+
+)
+Processed 
+{
+	items[rank, analysis]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4. Sentiment Analysis ( class )
+
+--
+
+5. Keyword extraction 
+7. Summary 
+1. Cron Job
+
+----
+
 source env/bin/activate
 
 pip install -r requirements.txt
