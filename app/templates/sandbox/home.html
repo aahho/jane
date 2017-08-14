@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block head %}
+    {% block title %} Dashboard {% endblock %}
+    {{ super() }}
+    <style type="text/css">
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+    {% for e in entries %}
+    <ul>
+        <li> <a href="{{ e.link }}">{{ e.title }}</a> - @ {{ e.published }} </li>
+    </ul>
+    {% endfor %}
+    </div>
+
+    
+
+{% include 'common/templates.html' %}
+
+
+{% endblock %}

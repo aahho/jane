@@ -56,8 +56,6 @@ Raw
 		last_fetched
 		published date 
 		updated date 
-
-
 		images XXX
 		tags 
 
@@ -66,8 +64,18 @@ Raw
 )
 Processed 
 {
-	items[rank, analysis]
+	item 
+	{
+		id
+		item_id
+		k_rank
+
+
+
+	}
 }
+
+we'll talk later 
 
 
 
