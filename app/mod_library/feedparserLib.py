@@ -1,7 +1,7 @@
 import feedparser
+from app.mod_library.baseLib import KBaseLib as KBKBaseLibClass
 
-
-class kFeedParser(KBKBaseLib):
+class kFeedParser(KBKBaseLibClass):
     
     RSS_URLS = [
             'http://feeds.feedburner.com/RockPaperShotgun',
@@ -17,11 +17,12 @@ class kFeedParser(KBKBaseLib):
 
     def getFeeds(self):
         items = []
+        entries = []
         feedsList = self.getFeedUrlList()
         for item in feedsList:
-            entries.extend(feedparser.parse(url).entries)
+            entries.extend(feedparser.parse(item).entries)
 
-        return items
+        return entries
 
     
     #@todo event ( post triggers in flask ) run after success in getFeeds. 

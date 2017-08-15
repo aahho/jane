@@ -14,7 +14,7 @@ def not_found(error):
 
 # Import a module / component using its blueprint handler variable (mod_auth)
 # from app.mod_auth.controllers import mod_auth as auth_module
-from app.mod_library.KBaseLib import KBaseLib
+from app.mod_library.baseLib import mod_lib as BaseLib
 from app.mod_sandbox.controllers import mod_sandbox as sandbox
 from app.mod_home.controllers import mod_home as home
 from app.mod_dashboard.controllers import mod_dashboard as dashboard
@@ -25,4 +25,4 @@ app.register_blueprint(home)
 app.register_blueprint(dashboard)
 app.register_blueprint(manage)
 app.register_blueprint(sandbox)
-app.register_blueprint(KBaseLib)
+app.register_blueprint(BaseLib)
