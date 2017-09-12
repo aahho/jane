@@ -9,3 +9,11 @@ mod_home = Blueprint('home', __name__, url_prefix='/')
 @mod_home.route('/')
 def index():
 	return render_template('index.html')
+
+@mod_home.route('/companies')
+def companies():
+    return "Company List"
+
+@mod_home.route('/companies/<id>/stocks')
+def stocks():
+    return "Stock details of the company"

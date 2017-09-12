@@ -9,4 +9,5 @@ mod_sandbox = Blueprint('sandbox', __name__, url_prefix='/sandbox')
 def home():
 	x = FeedParserClass()
 	entries = x.getFeeds()
+        # FeederRepo().save(entries)
 	return render_template('sandbox/home.html',entries=entries)

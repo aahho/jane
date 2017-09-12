@@ -11,3 +11,5 @@ tweepy==1.8
 virtualenv==15.0.3
 Werkzeug==0.12.2
 WTForms==2.1
+Flask-MongoAlchemy==0.7.2
+Flask-Script==2.0.6

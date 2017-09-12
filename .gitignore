@@ -18,3 +18,5 @@ htmlcov
 .coverage.*
 *,cover
 .vscode
+*.swp
+*.swo

@@ -1,11 +1,16 @@
 # Import flask and template operators
 from flask import Flask, render_template
+from flask_mongoalchemy import MongoAlchemy
+from  mod_database.models import db
 
 # Define the WSGI application object
 app = Flask(__name__)
 
 # Configurations
 app.config.from_object('config')
+
+# init database
+db.init_app(app)
 
 # Sample HTTP error handling
 @app.errorhandler(404)
