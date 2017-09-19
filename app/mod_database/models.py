@@ -15,9 +15,11 @@ class Company(Base):
     stockExchangeCode = db.StringField()
     type = db.StringField()
     frequency = db.StringField()
-    refreshedAt = db.DateTimeField(use_tz=False, required=False)
+    refreshedAt = db.DateTimeField(use_tz=True, required=False)
     oldestAvailableDate = db.DateTimeField(use_tz=False, required=False)
     newAvailableDate = db.DateTimeField(use_tz=False, required=False)
+    history = db.ListField(db.DictField(db.AnythingField()), default_empty=True)
+    #columns = db.ListField(db.StringField(), default_empty=True)
     #favouritesCount = db.IntField(required=False) # can be used to show how many users make it as favourite
 
 class ComanyNews(Base):

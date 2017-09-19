@@ -1,5 +1,6 @@
 import os
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))  
+APP_DIR = BASE_DIR + '/app'
 
 # Statement for enabling the development environment
 DEBUG = True
@@ -31,3 +32,4 @@ TWEEPY_ACCESS_TOKEN_SECRET = "3RiUUEfsjuLqz6R78CSPB5eP5ANirNm4lgtpLrbycezox"
 
 MONGOALCHEMY_DATABASE = 'stocks'
 FIXTURES_DIR = '' # will be used when loading fixtures
+#SEEDER_MODULE = 'app.mod_utils.managers.seeder'

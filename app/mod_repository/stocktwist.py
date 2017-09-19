@@ -1,14 +1,14 @@
-import base
+from base import BaseRepo
 from app.mod_database import models
 
-class CompanyRepo(base.Repo):
+class CompanyRepo(BaseRepo):
     model = models.Company
 
-class StockRepo(base.Repo):
+class StockRepo(BaseRepo):
     model = models.Stock
 
-class UserRepo(base.Repo):
+class UserRepo(BaseRepo):
     model = models.User
 
-class CommentsRepo(base.Repo):
+class CommentsRepo(BaseRepo):
     model = models.Comment
