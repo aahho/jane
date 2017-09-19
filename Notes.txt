@@ -1,3 +1,9 @@
+---------------------
+- We will follow PEP-8 standards see the link for details
+    https://www.python.org/dev/peps/pep-0008/
+- Databse is mongodb
+    using mongoalchemy : http://www.mongoalchemy.org/
+----------------------
 
 
 2. Autofeeds + Varun can add feeds and category 
