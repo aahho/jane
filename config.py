@@ -23,6 +23,7 @@ CSRF_SESSION_KEY = "secret"
 # Secret key for signing cookies
 SECRET_KEY = "secret"
 
+API_VERSION = 'v1'
 
 
 TWEEPY_CONSUMER_KEY = "aakaNvoZG0NDnZip321lrGKEM"

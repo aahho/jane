@@ -1,6 +1,7 @@
 
 from base import SeedManager
 from seeder import FirstTimeDataSeeder
+from managers import *
 
 def sub_opts(app, **kwargs):
     pass

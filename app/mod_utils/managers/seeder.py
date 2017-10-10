@@ -1,13 +1,13 @@
 from flask import json
 
-from base import BaseSeeder
+from base import BaseCommand
 from app.mod_database import models
 from app.mod_utils import fileop
 from config import APP_DIR, BASE_DIR
 from app.mod_repository.stocktwist import CompanyRepo, StockRepo
 from app.mod_utils import helper
 
-class FirstTimeDataSeeder(BaseSeeder):
+class FirstTimeDataSeeder(BaseCommand):
     json_path = APP_DIR + '/mod_utils/stockdetails/'
 
     def __init__(self):
@@ -16,7 +16,6 @@ class FirstTimeDataSeeder(BaseSeeder):
 
     def run(self):
         json_files = fileop.list_all_files(self.json_path, only_files=True, extension='json', with_path=True)
-        json_files = [json_files[-1]]
         for json_file in json_files:
             try:
                 print json_file

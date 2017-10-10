@@ -5,7 +5,7 @@ from flask_script import Manager, Command, Option, prompt_bool
 from app.mod_utils import helper
 import config
 
-class BaseSeeder(Command):
+class BaseCommand(Command):
     __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
