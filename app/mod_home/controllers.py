@@ -5,6 +5,7 @@ from flask import Blueprint, request, render_template, \
 import views
 from app.mod_library import response
 from app.mod_library import router
+import validators
 
 
 # Define the blueprint: 'home', set its url prefix: app.url/auth
@@ -19,16 +20,22 @@ def index():
 def companies():
     #return response.json(views.list_all_company())
     print views.list_all_company()
-    return {'a': 'aaa'}
     return response.paginate(views.list_all_company())
 
 @router.api('companies/<company_code>/stocks')
 def stocks(company_code):
     return response.json(views.get_current_stock_of_company(company_code))
 
-@router.api('login')
+@router.api('login', methods=['POST'], validator=validators.VLogin)
 def login():
-    return views.login_user(request.values)
+    """
+    request.args
+    request.form
+    request.files
+    request.values
+    request.json
+    """
+    return views.login_user(request.json)
 
 @router.api('users', methods=['POST'])
 def signup():

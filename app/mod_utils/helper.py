@@ -1,8 +1,10 @@
 import importlib
 import sys
+import bcrypt
 from datetime import datetime
 
 from dateutil import parser
+from uuid import uuid4
 
 import config
 
@@ -31,3 +33,15 @@ def get_def(def_name, module=base_module):
 
 def str_to_datetime(string):
     return parser.parse(string)
+
+def hash_it(string):
+    return bcrypt.hashpw(str(string), bcrypt.gensalt())
+
+def check_hash(string, hashed_string):
+    return bcrypt.checkpw(str(string), str(hashed_string))
+
+def random_string():
+    return str(uuid4())
+
+def generate_token():
+    return random_string()

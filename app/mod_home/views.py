@@ -5,6 +5,7 @@ import quandl
 
 from app.mod_repository.stocktwist import CompanyRepo, UserRepo
 import transformers
+from app.mod_library.exception import SException
 
 company_repo = CompanyRepo()
 user_repo = UserRepo()
@@ -43,9 +44,18 @@ def get_all_stocks_of_company():
     pass
 
 def signup_user(data):
-    result = user_repo.create(data)
+    if UserRepo().user_exists(email=data['email']):
+        raise SException('User already exists', 409)
+    result = UserRepo().create_user(data)
     return transformers.user(result)
 
 def login_user(data):
-    pass
+    user = UserRepo().login_user(data.get('email'), data.get('password'))
+    """
+    user_repository = UserRepo()
+    if not user_repository.check_password(data.get('email'), data.get('password')):
+        raise SException('Invalid credentials', 400)
+    return transformers.user(user_repository.user)
+    """
+    return transformers.user(user)
 

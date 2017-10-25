@@ -95,10 +95,9 @@ class BaseRepo(object):
     def _all(self, query_set):
         return [self.transformer(obj) for obj in iter(query_set)]
 
-    def paginate(self, per_page=None, page=None, error_out=False):
-        print "Asdfsdf"
-        page = int(request.args['page']) if page is None else page
-        per_page = int(request.args['items']) if per_page is None else per_page
+    def paginate(self, per_page=10, page=None, error_out=False):
+        page = int(request.values.get('page', 1)) if page is None else page
+        #per_page = int(request.args['items']) if per_page is None else per_page
         if page < 1 and error_out:
             abort(404)
 
@@ -116,10 +115,14 @@ class BaseRepo(object):
         """
         return self.query.save(self.model, data)
 
-    def create(self, data):
+    def create(self, data=None, **kwargs):
         #self.connection.create(self.model, data)
-        self.model(**data).save()
-        return self.filter(email=data['email']).first()
+        if data is None:
+            data = kwargs
+        model_obj = self.model(**data)
+        model_obj.save()
+        return model_obj
+        #return self.filter(email=data['email']).first()
 
     def update(self, data):
         return self.connection.update(self.model, data)
@@ -131,4 +134,5 @@ class BaseRepo(object):
         if expressions is None:
             return self.query.filter(data)
         return self.query.filter(expressions, data)
+
 

@@ -1,10 +1,13 @@
 import sys, os
 
 def create(file_path, data):
-    pass
+    f = open(file_path, "w")
+    f.write(data)
+    f.close()
+    return f
 
-def open_file(file_path):
-    return open(file_path)
+def open_file(file_path, mode='r'):
+    return open(file_path, mode)
 
 def read(file_path):
     f = open(file_path, "r")

@@ -24,3 +24,11 @@ def paginate(paginator):
                 'items': paginator.per_page,
                 }
     })
+
+def exception(e):
+    r = json({
+            'message': e.message,
+            'code': e.status_code
+        })
+    r.status_code = e.status_code
+    return r

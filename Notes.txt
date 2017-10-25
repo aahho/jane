@@ -3,6 +3,8 @@
     https://www.python.org/dev/peps/pep-0008/
 - Databse is mongodb
     using mongoalchemy : http://www.mongoalchemy.org/
+- Stock API Quandl
+    https://www.quandl.com/api/v3/datasets/NSE/TCS.json?api_key=xMH7BiBu6s24LHCizug3
 ----------------------
 
 

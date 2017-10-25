@@ -15,3 +15,5 @@ Flask-MongoAlchemy==0.7.2
 Flask-Script==2.0.6
 python-dateutil==2.6.1
 pytz==2017.2
+bcrypt==3.1.4
+uuid==1.30

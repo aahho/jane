@@ -72,6 +72,17 @@ class User(Base):
 
     email_index = Index().ascending('email').unique()
 
+    def tokens(self):
+        d = UserToken.query.filter({'user': self})
+        print dir(d)
+        return d.all()
+
+class UserToken(Base):
+    config_collection_name = 'user_tokens'
+
+    user = db.DocumentField(User)
+    token = db.StringField()
+
 class Comment(Base):
     config_collection_name = 'comments'
 

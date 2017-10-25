@@ -1,6 +1,6 @@
 
 from base import SeedManager
-from seeder import FirstTimeDataSeeder
+from seeder import FirstTimeDataSeeder, StockGetter
 from managers import *
 
 def sub_opts(app, **kwargs):
@@ -12,3 +12,4 @@ seed_manager = SeedManager(sub_opts)
 # seed_manager = SeedManager(app) 
 
 seed_manager.add_command('FirstTimeDataSeeder', FirstTimeDataSeeder())
+seed_manager.add_command('StockGetter', StockGetter())
