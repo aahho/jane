@@ -6,6 +6,18 @@ from app.mod_library.exception import SException
 class CompanyRepo(BaseRepo):
     model = models.Company
 
+    def company_exists(self, company_id):
+        return bool(self.filter(id=company_id).count())
+
+    def get_company(self, company_id):
+        company = self.filter(id=company_id).first()
+        if not company:
+            raise SException("Comany not found", 404)
+        return company
+
+class CommentRepo(BaseRepo):
+    model = models.Comment
+
 class StockRepo(BaseRepo):
     model = models.Stock
 
@@ -33,11 +45,20 @@ class UserRepo(BaseRepo):
         if not helper.check_hash(password, user.password):
             raise SException('Invalid credentials', 400)
         # create user token
-        token = UserToken().create(user=user, token=helper.generate_token())
+        token = UserTokenRepo().create(user=user, token=helper.generate_token())
         return token
 
-class UserToken(BaseRepo):
+class UserTokenRepo(BaseRepo):
     model = models.UserToken
+
+    def get_auth_user(self, token):
+        token = self.filter(token=token).first()
+        if not token:
+            raise SException('Invalid authorization token', 401)
+        return token.user
 
 class CommentsRepo(BaseRepo):
     model = models.Comment
+
+class ReplyCommentRepo(BaseRepo):
+    model = models.Reply

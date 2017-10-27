@@ -2,8 +2,9 @@ import requests
 from datetime import datetime, date, timedelta
 
 import quandl
+from flask import request
 
-from app.mod_repository.stocktwist import CompanyRepo, UserRepo
+from app.mod_repository.stocktwist import CompanyRepo, UserRepo, UserTokenRepo, CommentRepo, ReplyCommentRepo
 import transformers
 from app.mod_library.exception import SException
 
@@ -42,6 +43,37 @@ def get_current_stock_of_company(company_code):
 
 def get_all_stocks_of_company():
     pass
+
+def add_comment_to_company(company_id, message):
+    user = UserTokenRepo().get_auth_user(request.headers.get('Authorization'))
+    company = CompanyRepo().get_company(company_id)
+    comment = CommentRepo().create({
+                'user': user,
+                'company': company,
+                'message': message
+            })
+    return transformers.transform_comment(comment)
+
+def list_comments_of_company(company_id):
+    company = CompanyRepo().get_company(company_id)
+    return CommentRepo().set_transformer(transformers.transform_comment).filter_self(company=company).paginate()
+
+def reply_to_comment(company_id, comment_id, message, reply_to_id=None):
+    user = UserTokenRepo().get_auth_user(request.headers.get('Authorization'))
+    company = CompanyRepo().get_company(company_id)
+    comment = CommentRepo().get(id=comment_id)
+    reply = ReplyCommentRepo().create({
+            "user": user,
+            "message": message
+        })
+    comment.replies.append(reply)
+    comment.save()
+    return transformers.transform_reply(reply)
+
+def list_replies_of_comments(company_id, comment_id):
+    company = CompanyRepo().get_company(company_id)
+    comment = CommentRepo().get(id=comment_id)
+    return ReplyCommentRepo().set_transformer(transformers.transform_reply).c_paginate(comment.replies)
 
 def signup_user(data):
     if UserRepo().user_exists(email=data['email']):

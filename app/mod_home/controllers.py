@@ -25,6 +25,20 @@ def companies():
 def stocks(company_code):
     return response.json(views.get_current_stock_of_company(company_code))
 
+@router.api('companies/<company_id>/comments', methods=['GET', 'POST'])
+def comments(company_id):
+    if request.method == 'POST':
+        return response.json(views.add_comment_to_company(company_id, request.json.get('data')))
+    else:
+        return response.paginate(views.list_comments_of_company(company_id))
+
+@router.api('companies/<company_id>/comments/<comment_id>/reply', methods=['GET', 'POST'])
+def reply(company_id, comment_id):
+    if request.method == 'POST':
+        return response.json(views.reply_to_comment(company_id, comment_id, request.json.get('data'), request.json.get('replyTo', None)))
+    else:
+        return response.paginate(views.list_replies_of_comments(company_id, comment_id))
+
 @router.api('login', methods=['POST'], validator=validators.VLogin)
 def login():
     """

@@ -87,8 +87,16 @@ class BaseRepo(object):
         self.limit = limit
         return self
 
-    def get(self):
-        pass
+    def get(self, id=None):
+        if id is not None:
+            obj = self.objects.filter(id=id).first()
+            if not obj:
+                raise SException(self.model.__str__() + " data not found", 404)
+            return obj
+        return self.objects.all()
+
+    def first(self):
+        return self.objects.first()
 
     def fields(self, *field_names):
         return self.query.fields(field_names)
@@ -131,6 +139,15 @@ class BaseRepo(object):
         return Pagination(self, page, per_page, self.objects.count(), items)
         return self.model.query.paginate(items)
 
+    def c_paginate(self, total_data, per_page=None, page=None):
+        from flask_mongoengine.pagination import Pagination as PG
+
+        page = int(request.values.get('page', 1)) if page is None else page
+        per_page = int(request.values.get('items', 10)) if per_page is None else per_page
+        pagination = PG(total_data, page, per_page)
+        pagination.items = [self.transformer(item) for item in pagination.items]
+        return pagination
+
     def save(self, data):
         """
         Create or Update data into table
@@ -156,5 +173,9 @@ class BaseRepo(object):
         if expressions is None:
             return self.objects.filter(**data)
         return self.objects.filter(expressions, data)
+
+    def filter_self(self, expressions=None, **data):
+        self.objects = self.filter(expressions, **data)
+        return self
 
 

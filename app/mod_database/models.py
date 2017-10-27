@@ -79,8 +79,6 @@ class ComanyNews(Base):
 """
 
 class Stock(Base):
-    config_collection_name = 'stocks'
-
     name = db.StringField()
     company = db.ReferenceField(Company)
     date = db.DateTimeField(use_tz=False, required=False)
@@ -92,8 +90,11 @@ class Stock(Base):
     totalTradeQuantity = db.FloatField()
     turnover = db.FloatField() # in lacs
 
+    meta = {
+            'collection': 'stocks'        
+    }
+
 class User(Base):
-    config_collection_name = 'users'
 
     #id = db.ObjectIdField()
     name = db.StringField()
@@ -105,26 +106,41 @@ class User(Base):
 
     #email_index = Index().ascending('email').unique()
 
+    meta = {
+            'collection': 'users'        
+    }
+
     def tokens(self):
         d = UserToken.objects(**{'user': self})
         return d.all()
 
 class UserToken(Base):
-    config_collection_name = 'user_tokens'
-
     user = db.ReferenceField(User)
     token = db.StringField()
     expiresAt = db.DateTimeField(required=True, default=helper.add_days_to_date(datetime.now(), 7))
 
-class Comment(Base):
-    config_collection_name = 'comments'
+    meta = {
+            'collection': 'user_tokens'        
+    }
 
-    company = db.StringField() # has to change to document or a foreign field
-    message = db.StringField()
-    user = db.StringField() # has to change to document or a foreign field
+class Reply(Base):
+    message = db.StringField(required=True)
+    user = db.ReferenceField(User)
+
+    meta = {
+            'collection': 'replies'        
+    }
+
+class Comment(Base):
+    company = db.ReferenceField(Company)
+    message = db.StringField(required=True)
+    user = db.ReferenceField(User)
     # check https://paper.dropbox.com/doc/Stock-twits-cBsgmgxy6NTO4TtwkblA8
-    replies = db.ListField(db.DictField(), default_empty=True) # modify and use document field
-    commentedAt = db.DateTimeField(required=False)
+    replies = db.ListField(db.ReferenceField(Reply), default_empty=True)
+
+    meta = {
+            'collection': 'comments'        
+    }
 
 """
 class FeedParser(Base):

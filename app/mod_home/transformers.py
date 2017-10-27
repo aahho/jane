@@ -36,6 +36,29 @@ def company_with_current_stock(data):
         }
     return result
 
+def transform_comment(comment):
+    return {
+            "id": comment.get_id(),
+            "user": user(comment.user),
+            "data": comment.message,
+            "commentedAt": comment.createdAt
+        }
+
+def transform_reply(reply):
+    return {
+            "id": reply.get_id(),
+            "user": user(reply.user),
+            "data": reply.message,
+            "commentedAt": reply.createdAt
+        }
+
+def transform_comment_with_replies(comment):
+    comment_data = transform_comment(comment)
+    comment_data['replies'] = []
+    for reply in comment.replies:
+        comment_data['replies'].append(transform_reply(reply))
+    return comment_data
+
 def user(user):
     return {
         'id': user.get_id(),
