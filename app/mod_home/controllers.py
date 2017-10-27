@@ -19,7 +19,6 @@ def index():
 @router.api('companies')
 def companies():
     #return response.json(views.list_all_company())
-    print views.list_all_company()
     return response.paginate(views.list_all_company())
 
 @router.api('companies/<company_code>/stocks')

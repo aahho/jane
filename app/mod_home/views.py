@@ -57,5 +57,5 @@ def login_user(data):
         raise SException('Invalid credentials', 400)
     return transformers.user(user_repository.user)
     """
-    return transformers.user(user)
+    return transformers.user_with_token(user)
 

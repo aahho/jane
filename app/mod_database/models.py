@@ -1,26 +1,52 @@
+from datetime import datetime
+
+from flask_mongoengine import MongoEngine
 from flask_mongoalchemy import MongoAlchemy
 from mongoalchemy.document import Index
 
 from app.mod_home import transformers
 from app.mod_repository.base import MainQuery
+from app.mod_utils import helper
 
-db = MongoAlchemy()
+#db = MongoAlchemy()
+db = MongoEngine()
 
 class Base(db.Document):
-    query_class = MainQuery
+    #query_class = MainQuery
 
-    createdAt = db.CreatedField(tz_aware=False)
-    updatedAt = db.ModifiedField(tz_aware=False)
+    createdAt = db.DateTimeField()
+    updatedAt = db.DateTimeField(default=datetime.now)
 
     transformer = lambda x: x
     excludes = []
     includes = []
 
+    meta = {
+        'abstract': True,
+    }
+
+    def __init__(self, *args, **values):
+        super(Base, self).__init__(*args, **values)
+
+    def save(self, *args, **kwargs):
+        """
+        Override save method to set created field only once
+        """
+        if not self.createdAt:
+            self.createdAt = datetime.now()
+        self.updatedAt = datetime.now()
+        return super(Base, self).save(*args, **kwargs)
+
+    @classmethod
+    def get_fields(cls):
+        print "includes called"
+        cls.includes = cls._fields.keys()
+        return cls.includes
+
     def get_id(self):
-        return self.mongo_id.__str__()
+        return self.id.__str__()
 
 class Company(Base):
-    config_collection_name = 'companies'
 
     name = db.StringField()
     code = db.StringField()
@@ -28,28 +54,35 @@ class Company(Base):
     stockExchangeCode = db.StringField()
     type = db.StringField()
     frequency = db.StringField()
-    refreshedAt = db.DateTimeField(use_tz=False, required=False)
-    oldestAvailableDate = db.DateTimeField(use_tz=False, required=False)
-    newAvailableDate = db.DateTimeField(use_tz=False, required=False)
-    history = db.ListField(db.DictField(db.AnythingField()), default_empty=True)
+    refreshedAt = db.DateTimeField(required=False)
+    oldestAvailableDate = db.DateTimeField(required=False)
+    newAvailableDate = db.DateTimeField(required=False)
+    history = db.ListField(db.DictField(), default_empty=True)
     #columns = db.ListField(db.StringField(), default_empty=True)
     #favouritesCount = db.IntField(required=False) # can be used to show how many users make it as favourite
+
+    meta = {
+            'collection': 'companies'        
+    }
 
     #transformer = transformers.company_meta
     excludes = ['history']
 
+
+"""
 class ComanyNews(Base):
     config_collection_name = 'companiesNews'
 
     company = db.StringField() # has to change to document or a foreign field
     news = db.ListField(db.DictField(db.StringField()), default_empty=True)
     date = db.DateTimeField(use_tz=False, required=False)
+"""
 
 class Stock(Base):
     config_collection_name = 'stocks'
 
     name = db.StringField()
-    company = db.StringField() # has to change to document or a RefField field
+    company = db.ReferenceField(Company)
     date = db.DateTimeField(use_tz=False, required=False)
     open = db.FloatField()
     high = db.FloatField()
@@ -66,22 +99,22 @@ class User(Base):
     name = db.StringField()
     email = db.StringField()
     password = db.StringField()
-    lastLoginAt = db.DateTimeField(use_tz=False, required=False)
-    lastActiveAt = db.DateTimeField(use_tz=False, required=False)
-    favourites = db.ListField(db.DictField(db.StringField()), default_empty=True)
+    lastLoginAt = db.DateTimeField(required=False)
+    lastActiveAt = db.DateTimeField(required=False)
+    favourites = db.ListField(db.DictField(), default_empty=True)
 
-    email_index = Index().ascending('email').unique()
+    #email_index = Index().ascending('email').unique()
 
     def tokens(self):
-        d = UserToken.query.filter({'user': self})
-        print dir(d)
+        d = UserToken.objects(**{'user': self})
         return d.all()
 
 class UserToken(Base):
     config_collection_name = 'user_tokens'
 
-    user = db.DocumentField(User)
+    user = db.ReferenceField(User)
     token = db.StringField()
+    expiresAt = db.DateTimeField(required=True, default=helper.add_days_to_date(datetime.now(), 7))
 
 class Comment(Base):
     config_collection_name = 'comments'
@@ -90,12 +123,14 @@ class Comment(Base):
     message = db.StringField()
     user = db.StringField() # has to change to document or a foreign field
     # check https://paper.dropbox.com/doc/Stock-twits-cBsgmgxy6NTO4TtwkblA8
-    replies = db.ListField(db.DictField(db.AnythingField()), default_empty=True) # modify and use document field
-    commentedAt = db.DateTimeField(use_tz=False, required=False)
+    replies = db.ListField(db.DictField(), default_empty=True) # modify and use document field
+    commentedAt = db.DateTimeField(required=False)
 
+"""
 class FeedParser(Base):
     config_collection_name = 'feedparse'
 
     trading = db.ListField(db.DictField(db.StringField()), default_empty=True)
     newsfeed = db.ListField(db.DictField(db.StringField()), default_empty=True)
+"""
 

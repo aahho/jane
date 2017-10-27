@@ -30,13 +30,11 @@ class UserRepo(BaseRepo):
         user = self.filter(email=email).first()
         if not user:
             raise SException('User not found', 404)
-        print user.tokens()
-        return user
         if not helper.check_hash(password, user.password):
             raise SException('Invalid credentials', 400)
         # create user token
         token = UserToken().create(user=user, token=helper.generate_token())
-        return user
+        return token
 
 class UserToken(BaseRepo):
     model = models.UserToken

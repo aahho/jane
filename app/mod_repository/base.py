@@ -58,6 +58,7 @@ class Pagination(object):
         return self.query.paginate(self.page - 1, self.per_page, error_out)
 
 
+# @decorator_to_create_new_instance_while_method_calling
 class BaseRepo(object):
 
     __abstract__ = True
@@ -67,11 +68,14 @@ class BaseRepo(object):
         if not hasattr(self, 'model'):
             raise Exception('Please define model in your class ' + self.__repr__())
         
+        """
+        self.query = self.model.query
         # Take includes as fields if defined
         self.fields = self.model.includes if len(self.model.includes) else self.model.get_fields().keys()
         # Exclude the fields
         self.fields = list(set(self.fields).difference(self.model.excludes))
-        self.query = self.model.query
+        """
+        self.objects = self.model.objects
         self.transformer = transformer if transformer is not None else self.model.transformer
         self.limit = 10
 
@@ -95,18 +99,36 @@ class BaseRepo(object):
     def _all(self, query_set):
         return [self.transformer(obj) for obj in iter(query_set)]
 
-    def paginate(self, per_page=10, page=None, error_out=False):
+    def only(self, *only):
+        self.objects = self.objects.only(*only)
+        return self
+
+    def exclude(self, *exclude):
+        self.objects = self.objects.exclude(*exclude)
+        return self
+
+    def paginate(self, per_page=None, page=None, error_out=False):
+        from flask_mongoengine.pagination import Pagination as PG
         page = int(request.values.get('page', 1)) if page is None else page
-        #per_page = int(request.args['items']) if per_page is None else per_page
+        per_page = int(request.values.get('items', 10)) if per_page is None else per_page
         if page < 1 and error_out:
             abort(404)
+        pagination = self.objects.only(*self.model.includes).exclude(*self.model.excludes).paginate(page=page, per_page=per_page)
+        pagination.items = [self.transformer(item) for item in pagination.items]
+        return pagination
+        """
+        #return self.only(*self.model.includes).exclude(*self.model.excludes).paginate(page=page, per_page=per_page)
+        return self.objects.only(*self.model.includes).exclude(*self.model.excludes).paginate(page=page, per_page=per_page)
+        """
 
-        items = self._all(self.query.skip((page - 1) * per_page).limit(per_page).fields(*self.fields))
+        self.only(*self.model.includes).exclude(*self.model.excludes)
+        #items = self._all(self.objects.skip((page - 1) * per_page).limit(per_page))
 
-        if len(items) < 1 and page != 1 and error_out:
-            abort(404)
+        #if len(items) < 1 and page != 1 and error_out:
+        #    abort(404)
 
-        return Pagination(self, page, per_page, self.query.count(), items)
+        return PG(self.objects, page, per_page)
+        return Pagination(self, page, per_page, self.objects.count(), items)
         return self.model.query.paginate(items)
 
     def save(self, data):
@@ -132,7 +154,7 @@ class BaseRepo(object):
 
     def filter(self, expressions=None, **data):
         if expressions is None:
-            return self.query.filter(data)
-        return self.query.filter(expressions, data)
+            return self.objects.filter(**data)
+        return self.objects.filter(expressions, data)
 
 

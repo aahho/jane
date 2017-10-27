@@ -1,7 +1,7 @@
 import importlib
 import sys
 import bcrypt
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from dateutil import parser
 from uuid import uuid4
@@ -33,6 +33,9 @@ def get_def(def_name, module=base_module):
 
 def str_to_datetime(string):
     return parser.parse(string)
+
+def add_days_to_date(date, days):
+    return date + timedelta(days=days)
 
 def hash_it(string):
     return bcrypt.hashpw(str(string), bcrypt.gensalt())

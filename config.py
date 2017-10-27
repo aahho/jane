@@ -32,5 +32,12 @@ TWEEPY_ACCESS_TOKEN_KEY = "116363974-eeCyCHKj8V3NfAecuAdmS2ILwUSill5cARryBkVF"
 TWEEPY_ACCESS_TOKEN_SECRET = "3RiUUEfsjuLqz6R78CSPB5eP5ANirNm4lgtpLrbycezox"
 
 MONGOALCHEMY_DATABASE = 'stocks'
+MONGODB_SETTINGS = {
+        'db': 'stocks',
+        'host': '127.0.0.1',
+        'port': 27017,
+        'username': '',
+        'password': ''
+    }
 FIXTURES_DIR = '' # will be used when loading fixtures
 #SEEDER_MODULE = 'app.mod_utils.managers.seeder'

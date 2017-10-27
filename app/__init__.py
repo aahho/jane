@@ -2,19 +2,21 @@ import pytz
 # Import flask and template operators
 from flask import Flask, render_template
 from flask_mongoalchemy import MongoAlchemy
+from flask_cors import CORS
 from  mod_database.models import db
 from app.mod_library import exception, response
 
 # Define the WSGI application object
 app = Flask(__name__)
 
+# CORS for application
+CORS(app)
+
 # Configurations
 app.config.from_object('config')
 
 # init database
 db.init_app(app)
-db.Document._session.timezone = pytz.utc
-db.session.timezone = pytz.utc
 
 # Sample HTTP error handling
 @app.errorhandler(404)

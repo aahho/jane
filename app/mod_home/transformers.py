@@ -42,3 +42,9 @@ def user(user):
         'email': user.email,
         'name': user.name,
     }
+
+def user_with_token(token):
+    user_data = user(token.user)
+    user_data['token'] = token.token
+    user_data['expiresAt'] = token.expiresAt
+    return user_data
