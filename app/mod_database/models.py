@@ -49,9 +49,9 @@ class Base(db.Document):
 class Company(Base):
 
     name = db.StringField()
-    code = db.StringField(unique=True)
+    code = db.StringField(required=True, unique=True)
     description = db.StringField()
-    stockExchangeCode = db.StringField()
+    stockExchangeCode = db.StringField(required=True)
     type = db.StringField()
     frequency = db.StringField()
     refreshedAt = db.DateTimeField(required=False)
@@ -63,7 +63,20 @@ class Company(Base):
     #favouritesCount = db.IntField(required=False) # can be used to show how many users make it as favourite
 
     meta = {
-            'collection': 'companies'        
+            'collection': 'companies',
+            'indexes': [
+                'historyCount',
+                'code',
+                #'$title',  # text index
+                #'#title',  # hashed index
+                #('title', '-rating'),
+                #('category', '_cls'),
+                #{
+                #    'fields': ['created'],
+                #    'expireAfterSeconds': 3600
+                #}
+            ],
+            #'ordering': ['-historyCount']
     }
 
     #transformer = transformers.company_meta

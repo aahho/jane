@@ -19,7 +19,7 @@ def list_all_company():
     #r = company_repo.filter(name = 'TCS').fields(('name', 'code',))
     #r = company_repo.filter({'name' : 'TCS'}).fields(('name', 'code',))
     #r = company_repo.set_transformer(transformers.company).all()
-    r = company_repo.set_transformer(transformers.company).paginate()
+    r = company_repo.set_transformer(transformers.company).orderBy('-historyCount').paginate()
     print len(r.items)
     return r
 

@@ -119,6 +119,10 @@ class BaseRepo(object):
         self.objects = self.objects.only(*only)
         return self
 
+    def orderBy(self, *columns):
+        self.objects = self.objects.order_by(*columns)
+        return self
+
     def exclude(self, *exclude):
         self.objects = self.objects.exclude(*exclude)
         return self
