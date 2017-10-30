@@ -49,7 +49,7 @@ class Base(db.Document):
 class Company(Base):
 
     name = db.StringField()
-    code = db.StringField()
+    code = db.StringField(unique=True)
     description = db.StringField()
     stockExchangeCode = db.StringField()
     type = db.StringField()
@@ -58,6 +58,7 @@ class Company(Base):
     oldestAvailableDate = db.DateTimeField(required=False)
     newAvailableDate = db.DateTimeField(required=False)
     history = db.ListField(db.DictField(), default_empty=True)
+    historyCount = db.IntField(default=0)
     #columns = db.ListField(db.StringField(), default_empty=True)
     #favouritesCount = db.IntField(required=False) # can be used to show how many users make it as favourite
 

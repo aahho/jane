@@ -3,6 +3,7 @@ from math import ceil
 from flask_mongoalchemy import BaseQuery
 from flask import request
 
+from app.mod_library.exception import SException
 
 def transform(data):
     return data
@@ -87,11 +88,18 @@ class BaseRepo(object):
         self.limit = limit
         return self
 
-    def get(self, id=None):
+    def get(self, id=None, code=None):
         if id is not None:
             obj = self.objects.filter(id=id).first()
             if not obj:
-                raise SException(self.model.__str__() + " data not found", 404)
+                #raise SException(self.model.__str__() + " data not found", 404)
+                raise SException("Model data not found", 404)
+            return obj
+        if code is not None:
+            obj = self.objects.filter(code=code).first()
+            if not obj:
+                #raise SException(self.model.__str__() + " data not found", 404)
+                raise SException("Model data not found", 404)
             return obj
         return self.objects.all()
 

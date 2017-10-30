@@ -30,10 +30,16 @@ def get_current_stock_of_company(company_code):
     """
     https://www.quandl.com/api/v3/datasets/NSE/TCS.json?api_key=xMH7BiBu6s24LHCizug3
     """
-    print today_date
-    response = requests.get('https://www.quandl.com/api/v3/datasets/NSE/' + company_code + '.json?start_date=' + yesterday_date + '&end_date=' + today_date + '&api_key=xMH7BiBu6s24LHCizug3')
+    #response = requests.get('https://www.quandl.com/api/v3/datasets/NSE/' + company_code + '.json?start_date=' + yesterday_date + '&end_date=' + today_date + '&api_key=xMH7BiBu6s24LHCizug3')
+    company = CompanyRepo().get(code=company_code)
+    if not company:
+        raise SException("Error in company code", 400)
+    response = requests.get('https://www.quandl.com/api/v3/datasets/' + \
+            company.stockExchangeCode + '/' + company_code + '.json?api_key=xMH7BiBu6s24LHCizug3')
+    #response = requests.get('https://www.quandl.com/api/v3/datasets/NSE/' + company_code + '.json?api_key=xMH7BiBu6s24LHCizug3')
     if response.status_code == 200:
         data = response.json()['dataset']
+        data['company'] = company
         return transformers.company_with_current_stock(data)
     else:
         return response.json()

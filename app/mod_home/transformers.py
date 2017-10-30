@@ -16,7 +16,7 @@ def company(model):
 
 def company_with_current_stock(data):
     result = {
-        "id": data['dataset_code'],
+        "id": data['company'].get_id(),
         "name": data['name'],
         "code": data['dataset_code'],
         "refreshedAt": data['refreshed_at'],
