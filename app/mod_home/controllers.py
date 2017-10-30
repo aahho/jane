@@ -39,6 +39,14 @@ def reply(company_id, comment_id):
     else:
         return response.paginate(views.list_replies_of_comments(company_id, comment_id))
 
+@router.api('companies/filter', methods=['GET'])
+def filter():
+    return response.paginate(views.filter(request.args.get('q', None)))
+
+@router.api('companies/trending', methods=['GET'])
+def trending():
+    return response.paginate(views.list_trending_companies())
+
 @router.api('login', methods=['POST'], validator=validators.VLogin)
 def login():
     """
@@ -53,3 +61,4 @@ def login():
 @router.api('users', methods=['POST'])
 def signup():
     return views.signup_user(request.json)
+

@@ -67,6 +67,8 @@ class Company(Base):
             'indexes': [
                 'historyCount',
                 'code',
+                'name',
+                ('code', 'name'),
                 #'$title',  # text index
                 #'#title',  # hashed index
                 #('title', '-rating'),

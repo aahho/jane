@@ -3,6 +3,7 @@ from datetime import datetime, date, timedelta
 
 import quandl
 from flask import request
+from mongoengine.queryset.visitor import Q
 
 from app.mod_repository.stocktwist import CompanyRepo, UserRepo, UserTokenRepo, CommentRepo, ReplyCommentRepo
 import transformers
@@ -20,11 +21,17 @@ def list_all_company():
     #r = company_repo.filter({'name' : 'TCS'}).fields(('name', 'code',))
     #r = company_repo.set_transformer(transformers.company).all()
     r = company_repo.set_transformer(transformers.company).orderBy('-historyCount').paginate()
-    print len(r.items)
     return r
 
 def list_trending_companies():
-    pass
+    return list_all_company()
+
+def filter(data):
+    if data is None:
+        raise SException("You have to provide something.", 400)
+    result = CompanyRepo().set_transformer(transformers.company).filter_self(Q(name__icontains=data) | Q(code__icontains=data)).paginate()
+    print result
+    return result
 
 def get_current_stock_of_company(company_code):
     """
