@@ -1,7 +1,7 @@
 import importlib
 import sys
 import bcrypt
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 from dateutil import parser
 from uuid import uuid4
@@ -30,6 +30,9 @@ def get_class(cls_name, module=base_module):
 
 def get_def(def_name, module=base_module):
     return get_attr_of_module(module, def_name)
+
+def today():
+    return date.today().strftime("%Y-%m-%d")
 
 def str_to_datetime(string):
     return parser.parse(string)

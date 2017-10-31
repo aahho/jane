@@ -20,7 +20,10 @@ def list_all_company():
     #r = company_repo.filter(name = 'TCS').fields(('name', 'code',))
     #r = company_repo.filter({'name' : 'TCS'}).fields(('name', 'code',))
     #r = company_repo.set_transformer(transformers.company).all()
-    r = company_repo.set_transformer(transformers.company).orderBy('-historyCount').paginate()
+    r = company_repo.set_transformer(transformers.company)\
+            .skip_list('slice__history')\
+            .set_excludes([])\
+            .orderBy('-historyCount').paginate()
     return r
 
 def list_trending_companies():

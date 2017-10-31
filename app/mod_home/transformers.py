@@ -12,6 +12,7 @@ def company(model):
         "code": model.code,
         "description": model.description,
         "stockExchangeCode": model.stockExchangeCode,
+        "stock": model.history[0] if len(model.history) > 0 else {}
     }
 
 def company_with_current_stock(data):

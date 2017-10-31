@@ -77,6 +77,8 @@ class BaseRepo(object):
         self.fields = list(set(self.fields).difference(self.model.excludes))
         """
         self.objects = self.model.objects
+        self.includes = self.model.includes
+        self.excludes = self.model.excludes
         self.transformer = transformer if transformer is not None else self.model.transformer
         self.limit = 10
 
@@ -86,6 +88,14 @@ class BaseRepo(object):
 
     def set_limit(self, limit):
         self.limit = limit
+        return self
+
+    def set_excludes(self, excludes):
+        self.excludes = excludes
+        return self
+
+    def set_includes(self, includes):
+        self.includes = includes
         return self
 
     def get(self, id=None, code=None):
@@ -127,13 +137,17 @@ class BaseRepo(object):
         self.objects = self.objects.exclude(*exclude)
         return self
 
+    def skip_list(self, field, skip=0, limit=1):
+        self.objects = self.objects.fields(**{field: [skip, limit]})
+        return self
+
     def paginate(self, per_page=None, page=None, error_out=False):
         from flask_mongoengine.pagination import Pagination as PG
         page = int(request.values.get('page', 1)) if page is None else page
         per_page = int(request.values.get('items', 10)) if per_page is None else per_page
         if page < 1 and error_out:
             abort(404)
-        pagination = self.objects.only(*self.model.includes).exclude(*self.model.excludes).paginate(page=page, per_page=per_page)
+        pagination = self.objects.only(*self.includes).exclude(*self.excludes).paginate(page=page, per_page=per_page)
         pagination.items = [self.transformer(item) for item in pagination.items]
         return pagination
         """
