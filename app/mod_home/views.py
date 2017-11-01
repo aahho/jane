@@ -8,6 +8,7 @@ from mongoengine.queryset.visitor import Q
 from app.mod_repository.stocktwist import CompanyRepo, UserRepo, UserTokenRepo, CommentRepo, ReplyCommentRepo
 import transformers
 from app.mod_library.exception import SException
+from app.mod_library import auth
 
 company_repo = CompanyRepo()
 user_repo = UserRepo()
@@ -21,7 +22,7 @@ def list_all_company():
     #r = company_repo.filter({'name' : 'TCS'}).fields(('name', 'code',))
     #r = company_repo.set_transformer(transformers.company).all()
     r = company_repo.set_transformer(transformers.company)\
-            .skip_list('slice__history')\
+            .skip_list('slice__history', 0, 1)\
             .set_excludes([])\
             .orderBy('-historyCount').paginate()
     return r
@@ -32,8 +33,8 @@ def list_trending_companies():
 def filter(data):
     if data is None:
         raise SException("You have to provide something.", 400)
-    result = CompanyRepo().set_transformer(transformers.company).filter_self(Q(name__icontains=data) | Q(code__icontains=data)).paginate()
-    print result
+    result = CompanyRepo().set_transformer(transformers.company)\
+            .filter_self(Q(name__icontains=data) | Q(code__icontains=data)).paginate()
     return result
 
 def get_current_stock_of_company(company_code):
@@ -60,13 +61,16 @@ def get_current_stock_of_company(company_code):
 def get_all_stocks_of_company():
     pass
 
-def add_comment_to_company(company_id, message):
-    user = UserTokenRepo().get_auth_user(request.headers.get('Authorization'))
+@auth.auth_required
+def add_comment_to_company(company_id, data):
+    #user = UserTokenRepo().get_auth_user(request.headers.get('Authorization'))
+    user = auth.user()
     company = CompanyRepo().get_company(company_id)
     comment = CommentRepo().create({
                 'user': user,
                 'company': company,
-                'message': message
+                'message': data['data'],
+                'type': data['type']
             })
     return transformers.transform_comment(comment)
 
@@ -90,6 +94,32 @@ def list_replies_of_comments(company_id, comment_id):
     company = CompanyRepo().get_company(company_id)
     comment = CommentRepo().get(id=comment_id)
     return ReplyCommentRepo().set_transformer(transformers.transform_reply).c_paginate(comment.replies)
+
+@auth.auth_required
+def add_to_watchlist(company_id):
+    company = CompanyRepo().get_company(company_id)
+    user = UserRepo().objects.no_dereference()\
+            .filter(id=auth.user().id)\
+            .update(add_to_set__favourites=company)
+    return "Added successfully"
+
+@auth.auth_required
+def remove_from_watchlist(company_id):
+    company = CompanyRepo().get_company(company_id)
+    user = UserRepo().objects.no_dereference()\
+            .filter(id=auth.user().id)\
+            .update(pull__favourites=company)
+    return "Removed successfully"
+
+@auth.auth_required
+def list_of_watchlist():
+    user = UserRepo().objects.no_dereference().filter(id=auth.user().id).first()
+    company_ids = [u.id for u in user.favourites]
+    return CompanyRepo().set_transformer(transformers.company)\
+            .skip_list('slice__history', 0, 1)\
+            .set_excludes([])\
+            .filter_self(id__in=company_ids)\
+            .paginate_self()
 
 def signup_user(data):
     if UserRepo().user_exists(email=data['email']):

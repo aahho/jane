@@ -10,7 +10,7 @@ class CompanyRepo(BaseRepo):
         return bool(self.filter(id=company_id).count())
 
     def get_company(self, company_id):
-        company = self.filter(id=company_id).first()
+        company = self.set_excludes(['history']).filter_self(id=company_id).first()
         if not company:
             raise SException("Comany not found", 404)
         return company
@@ -52,7 +52,7 @@ class UserTokenRepo(BaseRepo):
     model = models.UserToken
 
     def get_auth_user(self, token):
-        token = self.filter(token=token).first()
+        token = self.filter(token=token, expiresAt__gt=helper.now()).first()
         if not token:
             raise SException('Invalid authorization token', 401)
         return token.user

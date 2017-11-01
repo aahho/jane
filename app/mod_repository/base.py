@@ -1,6 +1,6 @@
 from math import ceil
 
-from flask_mongoalchemy import BaseQuery
+from flask_mongoengine import BaseQuerySet
 from flask import request
 
 from app.mod_library.exception import SException
@@ -8,7 +8,7 @@ from app.mod_library.exception import SException
 def transform(data):
     return data
 
-class MainQuery(BaseQuery):
+class MainQuerySet(BaseQuerySet):
     pass
 
 class Pagination(object):
@@ -137,7 +137,11 @@ class BaseRepo(object):
         self.objects = self.objects.exclude(*exclude)
         return self
 
-    def skip_list(self, field, skip=0, limit=1):
+    def skip_list(self, field, skip=None, limit=None):
+        limit = int(request.values.get('items', 5)) if limit is None else limit
+        if skip is None:
+            skip = int(request.values.get('page', 0)) * limit
+        print skip, limit
         self.objects = self.objects.fields(**{field: [skip, limit]})
         return self
 
@@ -174,6 +178,15 @@ class BaseRepo(object):
         pagination.items = [self.transformer(item) for item in pagination.items]
         return pagination
 
+    def paginate_self(self, per_page=None, page=None):
+        from flask_mongoengine.pagination import Pagination as PG
+
+        page = int(request.values.get('page', 1)) if page is None else page
+        per_page = int(request.values.get('items', 10)) if per_page is None else per_page
+        pagination = PG(self.objects.all(), page, per_page)
+        pagination.items = [self.transformer(item) for item in pagination.items]
+        return pagination
+
     def save(self, data):
         """
         Create or Update data into table
@@ -199,6 +212,10 @@ class BaseRepo(object):
         if expressions is None:
             return self.objects.filter(**data)
         return self.objects.filter(expressions, data)
+
+    def _select_fields(self, includes=[], excludes=[]):
+        self.objects = self.objects.only(*includes).exclude(*excludes)
+        return self
 
     def filter_self(self, expressions=None, **data):
         self.objects = self.filter(expressions, **data)

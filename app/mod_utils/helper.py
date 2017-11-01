@@ -34,6 +34,9 @@ def get_def(def_name, module=base_module):
 def today():
     return date.today().strftime("%Y-%m-%d")
 
+def now():
+    return datetime.now()
+
 def str_to_datetime(string):
     return parser.parse(string)
 

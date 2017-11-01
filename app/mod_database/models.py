@@ -5,15 +5,13 @@ from flask_mongoalchemy import MongoAlchemy
 from mongoalchemy.document import Index
 
 from app.mod_home import transformers
-from app.mod_repository.base import MainQuery
+from app.mod_repository.base import MainQuerySet
 from app.mod_utils import helper
 
 #db = MongoAlchemy()
 db = MongoEngine()
 
 class Base(db.Document):
-    #query_class = MainQuery
-
     createdAt = db.DateTimeField()
     updatedAt = db.DateTimeField(default=datetime.now)
 
@@ -23,6 +21,7 @@ class Base(db.Document):
 
     meta = {
         'abstract': True,
+        'queryset_class': MainQuerySet
     }
 
     def __init__(self, *args, **values):
@@ -47,7 +46,6 @@ class Base(db.Document):
         return self.id.__str__()
 
 class Company(Base):
-
     name = db.StringField()
     code = db.StringField(required=True, unique=True)
     description = db.StringField()
@@ -59,8 +57,8 @@ class Company(Base):
     newAvailableDate = db.DateTimeField(required=False)
     history = db.ListField(db.DictField(), default_empty=True)
     historyCount = db.IntField(default=0)
+    watchlistCount = db.IntField(default=0)
     #columns = db.ListField(db.StringField(), default_empty=True)
-    #favouritesCount = db.IntField(required=False) # can be used to show how many users make it as favourite
 
     meta = {
             'collection': 'companies',
@@ -83,6 +81,11 @@ class Company(Base):
 
     #transformer = transformers.company_meta
     excludes = ['history']
+
+    @property
+    def watchlistcount(self):
+        return User.objects.no_dereference().filter(favourites=self).count()
+        #return self.watchlistCount
 
 
 """
@@ -111,19 +114,21 @@ class Stock(Base):
     }
 
 class User(Base):
-
     #id = db.ObjectIdField()
     name = db.StringField()
     email = db.StringField()
     password = db.StringField()
     lastLoginAt = db.DateTimeField(required=False)
     lastActiveAt = db.DateTimeField(required=False)
-    favourites = db.ListField(db.DictField(), default_empty=True)
+    favourites = db.ListField(db.ReferenceField(Company), default_empty=True)
 
     #email_index = Index().ascending('email').unique()
 
     meta = {
-            'collection': 'users'        
+            'collection': 'users',
+            'indexes': [
+                    'favourites'
+                ]
     }
 
     def tokens(self):
@@ -150,6 +155,7 @@ class Reply(Base):
 class Comment(Base):
     company = db.ReferenceField(Company)
     message = db.StringField(required=True)
+    type = db.StringField(default='text')
     user = db.ReferenceField(User)
     # check https://paper.dropbox.com/doc/Stock-twits-cBsgmgxy6NTO4TtwkblA8
     replies = db.ListField(db.ReferenceField(Reply), default_empty=True)

@@ -12,6 +12,8 @@ def company(model):
         "code": model.code,
         "description": model.description,
         "stockExchangeCode": model.stockExchangeCode,
+        "refreshedAt": model.refreshedAt,
+        "watchlistCount": model.watchlistcount,
         "stock": model.history[0] if len(model.history) > 0 else {}
     }
 
@@ -25,6 +27,7 @@ def company_with_current_stock(data):
     }
 
     if len(data['data']):
+        # send by stockExchangeCode
         result['stock'] =  {
             "data": data['data'][0][0],
             "open": data['data'][0][1],
@@ -42,6 +45,7 @@ def transform_comment(comment):
             "id": comment.get_id(),
             "user": user(comment.user),
             "data": comment.message,
+            "type": comment.type,
             "commentedAt": comment.createdAt
         }
 

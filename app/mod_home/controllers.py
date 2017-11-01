@@ -28,7 +28,7 @@ def stocks(company_code):
 @router.api('companies/<company_id>/comments', methods=['GET', 'POST'])
 def comments(company_id):
     if request.method == 'POST':
-        return response.json(views.add_comment_to_company(company_id, request.json.get('data')))
+        return response.json(views.add_comment_to_company(company_id, request.json))
     else:
         return response.paginate(views.list_comments_of_company(company_id))
 
@@ -38,6 +38,16 @@ def reply(company_id, comment_id):
         return response.json(views.reply_to_comment(company_id, comment_id, request.json.get('data'), request.json.get('replyTo', None)))
     else:
         return response.paginate(views.list_replies_of_comments(company_id, comment_id))
+
+@router.api('users/watchlist', methods=['GET'])
+@router.api('companies/<company_id>/watchlist', methods=['POST', 'DELETE'])
+def watchlist(company_id=None):
+    if request.method == 'POST':
+        return response.json(views.add_to_watchlist(company_id))
+    if request.method == 'DELETE':
+        return response.json(views.remove_from_watchlist(company_id))
+    else:
+        return response.paginate(views.list_of_watchlist())
 
 @router.api('companies/filter', methods=['GET'])
 def filter():
