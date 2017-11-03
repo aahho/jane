@@ -1,5 +1,6 @@
 import requests
 from datetime import datetime, date, timedelta
+import json
 
 import quandl
 from flask import request
@@ -66,10 +67,11 @@ def add_comment_to_company(company_id, data):
     #user = UserTokenRepo().get_auth_user(request.headers.get('Authorization'))
     user = auth.user()
     company = CompanyRepo().get_company(company_id)
+    msg = json.dumps(data['data']) if data['type'] == 'attachment' else data['data']
     comment = CommentRepo().create({
                 'user': user,
                 'company': company,
-                'message': data['data'],
+                'message': msg,
                 'type': data['type']
             })
     return transformers.transform_comment(comment)

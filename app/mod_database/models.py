@@ -1,4 +1,5 @@
 from datetime import datetime
+import json
 
 from flask_mongoengine import MongoEngine
 from flask_mongoalchemy import MongoAlchemy
@@ -163,6 +164,12 @@ class Comment(Base):
     meta = {
             'collection': 'comments'        
     }
+
+    @property
+    def _message(self):
+        if self.type == 'attachment':
+            return json.loads(self.message)
+        return self.message
 
 """
 class FeedParser(Base):

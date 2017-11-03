@@ -44,7 +44,7 @@ def transform_comment(comment):
     return {
             "id": comment.get_id(),
             "user": user(comment.user),
-            "data": comment.message,
+            "data": comment._message,
             "type": comment.type,
             "commentedAt": comment.createdAt
         }
