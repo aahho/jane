@@ -68,6 +68,11 @@ def login():
     """
     return views.login_user(request.json)
 
+@router.api('users/logout', methods=['GET'])
+def logout():
+    views.logout_user()
+    return "Success"
+
 @router.api('users', methods=['POST'])
 def signup():
     return views.signup_user(request.json)

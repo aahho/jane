@@ -145,3 +145,6 @@ def login_user(data):
     """
     return transformers.user_with_token(user)
 
+def logout_user():
+    return UserTokenRepo().filter(token=request.headers.get('Authorization')).delete()
+
