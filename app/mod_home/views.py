@@ -6,7 +6,8 @@ import quandl
 from flask import request
 from mongoengine.queryset.visitor import Q
 
-from app.mod_repository.stocktwist import CompanyRepo, UserRepo, UserTokenRepo, CommentRepo, ReplyCommentRepo
+from app.mod_repository.stocktwist import CompanyRepo, UserRepo,\
+UserTokenRepo, CommentRepo, ReplyCommentRepo, UploadRepo
 import transformers
 from app.mod_library.exception import SException
 from app.mod_library import auth
@@ -67,18 +68,23 @@ def add_comment_to_company(company_id, data):
     #user = UserTokenRepo().get_auth_user(request.headers.get('Authorization'))
     user = auth.user()
     company = CompanyRepo().get_company(company_id)
-    msg = json.dumps(data['data']) if data['type'] == 'attachment' else data['data']
+    msg, upload_data = (data['data']['id'], UploadRepo().create(data['data'])) if data['type'] == 'attachment' else (data['data'], None)
+    #upload_data = UploadRepo().create(data['data'])
     comment = CommentRepo().create({
                 'user': user,
                 'company': company,
                 'message': msg,
-                'type': data['type']
+                'type': data['type'],
+                'attachment': upload_data
             })
     return transformers.transform_comment(comment)
 
 def list_comments_of_company(company_id):
     company = CompanyRepo().get_company(company_id)
-    return CommentRepo().set_transformer(transformers.transform_comment).filter_self(company=company).paginate()
+    return CommentRepo().set_transformer(transformers.transform_comment)\
+            .filter_self(company=company)\
+            .set_order_by('-createdAt')\
+            .paginate()
 
 def reply_to_comment(company_id, comment_id, message, reply_to_id=None):
     user = UserTokenRepo().get_auth_user(request.headers.get('Authorization'))

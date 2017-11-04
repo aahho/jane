@@ -19,3 +19,7 @@ def users():
     #print UserRepo().create({'name': 'Kishan', 'email': 'kkl'})
     #print UserRepo().all()
     return "USers"
+
+@mod_manage.route('/uploads', methods=['POST'])
+def upload():
+    return "upload"

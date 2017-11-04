@@ -79,6 +79,7 @@ class BaseRepo(object):
         self.objects = self.model.objects
         self.includes = self.model.includes
         self.excludes = self.model.excludes
+        self.order_by = []
         self.transformer = transformer if transformer is not None else self.model.transformer
         self.limit = 10
 
@@ -133,6 +134,10 @@ class BaseRepo(object):
         self.objects = self.objects.order_by(*columns)
         return self
 
+    def set_order_by(self, *columns):
+        self.order_by = columns
+        return self
+
     def exclude(self, *exclude):
         self.objects = self.objects.exclude(*exclude)
         return self
@@ -151,7 +156,10 @@ class BaseRepo(object):
         per_page = int(request.values.get('items', 10)) if per_page is None else per_page
         if page < 1 and error_out:
             abort(404)
-        pagination = self.objects.only(*self.includes).exclude(*self.excludes).paginate(page=page, per_page=per_page)
+        pagination = self.objects.only(*self.includes)\
+                .exclude(*self.excludes)\
+                .order_by(*self.order_by)\
+                .paginate(page=page, per_page=per_page)
         pagination.items = [self.transformer(item) for item in pagination.items]
         return pagination
         """

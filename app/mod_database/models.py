@@ -145,6 +145,18 @@ class UserToken(Base):
             'collection': 'user_tokens'        
     }
 
+class Upload(db.DynamicDocument):
+    selfLink = db.StringField(required=True)
+
+    includes = []
+    excludes = []
+
+    meta = {
+            'collection': 'uploads'    
+        }
+    transformer = transformers.transform_upload
+
+
 class Reply(Base):
     message = db.StringField(required=True)
     user = db.ReferenceField(User)
@@ -160,15 +172,21 @@ class Comment(Base):
     user = db.ReferenceField(User)
     # check https://paper.dropbox.com/doc/Stock-twits-cBsgmgxy6NTO4TtwkblA8
     replies = db.ListField(db.ReferenceField(Reply), default_empty=True)
+    attachment = db.ReferenceField(Upload)
 
     meta = {
-            'collection': 'comments'        
+            'collection': 'comments',
+            'indexes': ['createdAt']
     }
 
     @property
     def _message(self):
         if self.type == 'attachment':
-            return json.loads(self.message)
+            try:
+                return Upload.transformer(self.attachment)
+            except:
+                pass
+            #return json.loads(self.message)
         return self.message
 
 """

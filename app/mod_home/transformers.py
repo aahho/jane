@@ -40,6 +40,14 @@ def company_with_current_stock(data):
         }
     return result
 
+def transform_upload(upload):
+
+    return {
+            'id': upload.id.__str__(),
+            'selfLink': upload.selfLink,
+            'title': upload.title
+        }
+
 def transform_comment(comment):
     return {
             "id": comment.get_id(),

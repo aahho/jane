@@ -62,3 +62,6 @@ class CommentsRepo(BaseRepo):
 
 class ReplyCommentRepo(BaseRepo):
     model = models.Reply
+
+class UploadRepo(BaseRepo):
+    model = models.Upload
