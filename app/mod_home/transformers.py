@@ -41,6 +41,7 @@ def company_with_current_stock(data):
     return result
 
 def transform_upload(upload):
+    print dir(upload)
 
     return {
             'id': upload.id.__str__(),
