@@ -68,6 +68,10 @@ def login():
     """
     return views.login_user(request.json)
 
+@router.api('login/google', methods=['GET'])
+def google_login():
+    return views.google_login_user(request.args.get('code'))
+
 @router.api('users/logout', methods=['GET'])
 def logout():
     views.logout_user()

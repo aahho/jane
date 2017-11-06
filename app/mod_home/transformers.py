@@ -41,11 +41,13 @@ def company_with_current_stock(data):
     return result
 
 def transform_upload(upload):
+    print dir(upload)
 
     return {
             'id': upload.id.__str__(),
             'selfLink': upload.selfLink,
-            'title': upload.title
+            'title': upload.title,
+            'comment': upload.comment
         }
 
 def transform_comment(comment):

@@ -51,6 +51,9 @@ class UserRepo(BaseRepo):
 class UserTokenRepo(BaseRepo):
     model = models.UserToken
 
+    def create(self, user, token):
+        return super(UserTokenRepo, self).create(user=user, token=token)
+
     def get_auth_user(self, token):
         token = self.filter(token=token, expiresAt__gt=helper.now()).first()
         if not token:
