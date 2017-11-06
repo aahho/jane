@@ -146,7 +146,7 @@ class BaseRepo(object):
         limit = int(request.values.get('items', 5)) if limit is None else limit
         if skip is None:
             skip = int(request.values.get('page', 0)) * limit
-        print skip, limit
+        #print skip, limit
         self.objects = self.objects.fields(**{field: [skip, limit]})
         return self
 

@@ -145,6 +145,13 @@ def login_user(data):
     """
     return transformers.user_with_token(user)
 
+def google_login_user(code):
+    # Get from google
+    # check user is in database
+    # if not exists create user
+    user = UserRepo().login_user(data.get('email'), data.get('password'))
+    return transformers.user_with_token(user)
+
 def logout_user():
     return UserTokenRepo().filter(token=request.headers.get('Authorization')).delete()
 

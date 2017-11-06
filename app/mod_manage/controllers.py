@@ -13,7 +13,7 @@ mod_manage = Blueprint('manage', __name__, url_prefix='/manage')
 @mod_manage.route('/companies')
 def company_list():
     companies = views.list_companies()
-    return render_template('manage/company/list.html', companies=companies)
+    return render_template('manage/company/list.html', paginator=companies)
 
 @mod_manage.route('/companies/<company_id>')
 def companies_admin(company_id):
@@ -27,7 +27,7 @@ def companies_admin(company_id):
 def user_list():
     users = views.list_users()
     print users
-    return render_template('manage/user/list.html', users = users)
+    return render_template('manage/user/list.html', paginator = users)
 
 @mod_manage.route('/users/<user_id>')
 def user_admin(user_id):

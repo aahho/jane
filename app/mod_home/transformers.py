@@ -45,7 +45,8 @@ def transform_upload(upload):
     return {
             'id': upload.id.__str__(),
             'selfLink': upload.selfLink,
-            'title': upload.title
+            'title': upload.title,
+            'comment': upload.comment
         }
 
 def transform_comment(comment):
