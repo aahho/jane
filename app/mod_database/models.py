@@ -147,6 +147,7 @@ class UserToken(Base):
 
 class Upload(db.DynamicDocument):
     selfLink = db.StringField(required=True)
+    uploaderId = db.StringField(required=True, unique=True)
 
     includes = []
     excludes = []
@@ -167,7 +168,7 @@ class Reply(Base):
 
 class Comment(Base):
     company = db.ReferenceField(Company)
-    message = db.StringField(required=True)
+    message = db.StringField()
     type = db.StringField(default='text')
     user = db.ReferenceField(User)
     # check https://paper.dropbox.com/doc/Stock-twits-cBsgmgxy6NTO4TtwkblA8
@@ -180,14 +181,13 @@ class Comment(Base):
     }
 
     @property
-    def _message(self):
-        if self.type == 'attachment':
-            try:
+    def _attachment(self):
+        try:
+            if self.attachment:
                 return Upload.transformer(self.attachment)
-            except:
-                pass
-            #return json.loads(self.message)
-        return self.message
+        except Exception as e:
+            pass
+        return None
 
 """
 class FeedParser(Base):

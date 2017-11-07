@@ -26,5 +26,5 @@ def update_upload(upload_id, data):
     if 'id' in data: del data['id']
     # if we give 'size' as attr it is giving error so make it '_size'
     if 'size' in data: data['_size'] = data['size']; del data['size'];
-    return UploadRepo().objects.filter(id=upload_id).update(**data)
+    return UploadRepo().objects.filter(uploaderId=upload_id).update(**data)
 

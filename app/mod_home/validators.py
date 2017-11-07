@@ -7,6 +7,7 @@ class Validator(object):
 
     def __init__(self):
         self.errors = set()
+        self.check_key_for = []
 
     def validate(self, data):
         for key, value in self.rule.iteritems():
@@ -15,7 +16,7 @@ class Validator(object):
                 self.errors.add('Please provide ' + key)
                 continue
 
-            if not self._apply_dtypes(dtype, value, data[key]):
+            if (key in data) and (not self._apply_dtypes(dtype, value, data[key])):
                 self.errors.add(key + ' is not ' + dtype)
 
         if len(self.errors) == 0:
@@ -34,6 +35,8 @@ class Validator(object):
     def _apply_exists(self, exist, key, data):
         if exist == 'required':
             return key in data
+        if exist == 'sometimes':
+            self.check_key_for.append(key)
         return True
 
     def _apply_dtypes(self, dtype, rule_value, request_value):
@@ -41,6 +44,8 @@ class Validator(object):
             return isinstance(request_value, str) \
                     or isinstance(request_value, unicode)
 
+        if dtype == 'dict':
+            return isinstance(request_value, dict) 
         return True
 
 def login(data):
@@ -49,5 +54,12 @@ def login(data):
 class VLogin(Validator):
     rule = {
             "email": "required|string",
-            "password": "required"
+            "password": "required",
+        }
+
+class VAttachment(Validator):
+    rule = {
+            "type": "required|string",
+            "comment": "sometimes|string",
+            "data": "sometimes|dict",
         }

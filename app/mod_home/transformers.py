@@ -1,3 +1,4 @@
+import json
 
 def company_meta(model):
     return {
@@ -41,20 +42,23 @@ def company_with_current_stock(data):
     return result
 
 def transform_upload(upload):
-    print dir(upload)
+    data = json.loads(upload.to_json())
+    data['id'] = upload.id.__str__()
+    del data['_id']
+    return data
 
     return {
             'id': upload.id.__str__(),
             'selfLink': upload.selfLink,
             'title': upload.title,
-            'comment': upload.comment
         }
 
 def transform_comment(comment):
     return {
             "id": comment.get_id(),
             "user": user(comment.user),
-            "data": comment._message,
+            "data": comment._attachment,
+            "comment": comment.message,
             "type": comment.type,
             "commentedAt": comment.createdAt
         }

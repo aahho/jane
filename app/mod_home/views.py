@@ -68,8 +68,16 @@ def add_comment_to_company(company_id, data):
     #user = UserTokenRepo().get_auth_user(request.headers.get('Authorization'))
     user = auth.user()
     company = CompanyRepo().get_company(company_id)
-    msg, upload_data = (data['data']['id'], UploadRepo().create(data['data'])) if data['type'] == 'attachment' else (data['data'], None)
-    #upload_data = UploadRepo().create(data['data'])
+
+    msg, upload_data = (data.get('comment', None), None)
+    if data['type'] == 'attachment':
+        if 'data' not in data:
+            raise SException("Please provide attachment to upload")
+        data['data']['uploaderId'] = data['data']['id']
+        del data['data']['id']
+        upload_data = UploadRepo().create(data['data'])
+    elif msg is None or msg == '':
+        raise SException("Please provide some comment")
     comment = CommentRepo().create({
                 'user': user,
                 'company': company,

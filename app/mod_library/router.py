@@ -11,7 +11,10 @@ def api(rule, validator=lambda x : True, **options):
     def route(route_func):
         def route_control_func(*args, **kwargs):
 
-            #print validator().validate(request.json)
+            if request.method != 'GET':
+                validator().validate(request.json)
+
+            # we can send data from here to route function
             result = route_func(*args, **kwargs)
             if not isinstance(result, Response):
                 result = response.json(result)

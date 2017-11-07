@@ -25,7 +25,7 @@ def companies():
 def stocks(company_code):
     return response.json(views.get_current_stock_of_company(company_code))
 
-@router.api('companies/<company_id>/comments', methods=['GET', 'POST'])
+@router.api('companies/<company_id>/comments', methods=['GET', 'POST'], validator=validators.VAttachment)
 def comments(company_id):
     if request.method == 'POST':
         return response.json(views.add_comment_to_company(company_id, request.json))
