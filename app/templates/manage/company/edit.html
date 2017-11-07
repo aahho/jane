@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>SuperheroAdmin - Bootstrap Admin Template</title>
+	<!-- bootstrap -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
+
+	<!-- libraries -->
+    <link href="{{ url_for('static', filename='css/font-awesome.css') }}" type="text/css" rel="stylesheet" />
+
+	<!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/layout.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/element.css') }}">
+
+	<!-- this page specific styles -->
+	<link rel="stylesheet" href="http://superhero.phoonio.com/css/libs/datepicker.css" type="text/css" />
+	<link rel="stylesheet" href="http://superhero.phoonio.com/css/libs/daterangepicker.css" type="text/css" />
+	<link rel="stylesheet" href="http://superhero.phoonio.com/css/libs/bootstrap-timepicker.css" type="text/css" />
+	<link rel="stylesheet" href="http://superhero.phoonio.com/css/libs/select2.css" type="text/css" />
+
+	<!-- google font libraries -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
+	
+</head>
+<body>
+	<header class="navbar" id="header-navbar">
+		<div class="container">
+			<a href="index.html" id="logo" class="navbar-brand col-md-3 col-sm-3 col-xs-12">
+				<img src="" alt=""/> <span>Noodlestock Admin</span>
+			</a>
+			
+			<button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="fa fa-bars"></span>
+			</button>
+			
+            <!--
+			<div class="nav-no-collapse pull-right" id="header-nav">
+				<ul class="nav navbar-nav pull-right">
+					<li class="mobile-search">
+						<a class="btn">
+							<i class="fa fa-search"></i>
+						</a>
+						
+						<div class="drowdown-search">
+							<form role="search">
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Search...">
+									<i class="fa fa-search nav-search-icon"></i>
+								</div>
+							</form>
+						</div>
+						
+					</li>
+					<li class="dropdown hidden-xs">
+						<a class="btn dropdown-toggle" data-toggle="dropdown">
+							<i class="fa fa-warning"></i>
+							<span class="count">8</span>
+						</a>
+						<ul class="dropdown-menu notifications-list">
+							<li class="pointer">
+								<div class="pointer-inner">
+									<div class="arrow"></div>
+									<div class="arrow-border"></div>
+								</div>
+							</li>
+							<li class="item-header">You have 6 new notifications</li>
+							<li class="item">
+								<a href="#">
+									<i class="fa fa-comment"></i>
+									<span class="content">New comment on ‘Awesome P...</span>
+									<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+								</a>
+							</li>
+							<li class="item">
+								<a href="#">
+									<i class="fa fa-plus"></i>
+									<span class="content">New user registration</span>
+									<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+								</a>
+							</li>
+							<li class="item">
+								<a href="#">
+									<i class="fa fa-envelope"></i>
+									<span class="content">New Message from George</span>
+									<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+								</a>
+							</li>
+							<li class="item">
+								<a href="#">
+									<i class="fa fa-shopping-cart"></i>
+									<span class="content">New purchase</span>
+									<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+								</a>
+							</li>
+							<li class="item">
+								<a href="#">
+									<i class="fa fa-eye"></i>
+									<span class="content">New order</span>
+									<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+								</a>
+							</li>
+							<li class="item-footer">
+								<a href="#">
+									View all notifications
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="dropdown hidden-xs">
+						<a class="btn dropdown-toggle" data-toggle="dropdown">
+							<i class="fa fa-envelope-o"></i>
+							<span class="count">16</span>
+						</a>
+						<ul class="dropdown-menu notifications-list messages-list">
+							<li class="pointer">
+								<div class="pointer-inner">
+									<div class="arrow"></div>
+									<div class="arrow-border"></div>
+								</div>
+							</li>
+							<li class="item first-item">
+								<a href="#">
+									<img src="img/samples/messages-photo-1.png" alt=""/>
+									<span class="content">
+										<span class="content-headline">
+											George Clooney
+										</span>
+										<span class="content-text">
+											Look, just because I don't be givin' no man a foot massage don't make it 
+											right for Marsellus to throw...
+										</span>
+									</span>
+									<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+								</a>
+							</li>
+							<li class="item">
+								<a href="#">
+									<img src="img/samples/messages-photo-2.png" alt=""/>
+									<span class="content">
+										<span class="content-headline">
+											Emma Watson
+										</span>
+										<span class="content-text">
+											Look, just because I don't be givin' no man a foot massage don't make it 
+											right for Marsellus to throw...
+										</span>
+									</span>
+									<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+								</a>
+							</li>
+							<li class="item">
+								<a href="#">
+									<img src="img/samples/messages-photo-3.png" alt=""/>
+									<span class="content">
+										<span class="content-headline">
+											Robert Downey Jr.
+										</span>
+										<span class="content-text">
+											Look, just because I don't be givin' no man a foot massage don't make it 
+											right for Marsellus to throw...
+										</span>
+									</span>
+									<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+								</a>
+							</li>
+							<li class="item-footer">
+								<a href="#">
+									View all messages
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="hidden-xs">
+						<a class="btn">
+							<i class="fa fa-cog"></i>
+						</a>
+					</li>
+					<li class="dropdown profile-dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<img src="img/samples/profile-photo.png" alt=""/>
+							<span class="hidden-xs">Scarlett Johansson</span> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="user-profile.html"><i class="fa fa-user"></i>Profile</a></li>
+							<li><a href="#"><i class="fa fa-cog"></i>Settings</a></li>
+							<li><a href="#"><i class="fa fa-envelope-o"></i>Messages</a></li>
+							<li><a href="#"><i class="fa fa-power-off"></i>Logout</a></li>
+						</ul>
+					</li>
+					<li class="hidden-xxs">
+						<a class="btn">
+							<i class="fa fa-power-off"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+            -->
+		</div>
+	</header>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2" id="nav-col">
+				<section id="col-left">
+					<div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">	
+						<ul class="nav nav-pills nav-stacked">
+							<li>
+								<a href="/manage/">
+									<i class="fa fa-dashboard"></i>
+									<span>Dashboard</span>
+								</a>
+							</li>
+							<li class="active">
+								<a href="/manage/companies">
+									<i class="fa fa-table"></i>
+									<span>Companies</span>
+								</a>
+							</li>
+							<li>
+								<a href="/manage/users">
+									<i class="fa fa-users"></i>
+									<span>Users</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</section>
+			</div>
+			<div class="col-md-10" id="content-wrapper">
+				<div class="row">
+					<div class="col-lg-12">
+					
+						<div class="clearfix">
+							<h1 class="pull-left">Edit Company</h1>
+							
+							<div class="pull-right top-page-ui">
+								<a href="javascript:void(0);" id="updateCompany" class="btn btn-primary pull-right">
+                                    Update Company
+								</a>
+							</div>
+						</div>
+					
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="main-box">
+									<h2>Basic Details</h2>
+									<form role="form" id="basicDetails">
+										<div class="form-group">
+											<label for="name">Company Name</label>
+											<input type="text" class="form-control" name="name"
+                                            id="name" placeholder="Enter Company Name"
+                                                      value="{{ company.name }}">
+										</div>
+										<div class="form-group">
+											<label for="code">Company Code</label>
+											<input type="text" class="form-control" name="code"
+                                            id="code" placeholder="Company Code"
+                                            value="{{ company.code }}">
+										</div>
+										<div class="form-group">
+											<label for="description">Description</label>
+											<textarea class="form-control" name="description" id="description" rows="3">
+                                                {{ company.description }}
+                                            </textarea>
+										</div>
+										<div class="form-group">
+											<label for="stockExchangeCode">Company Stock Market</label>
+											<input type="text" class="form-control" name="stockExchangeCode"
+                                            id="stockExchangeCode" placeholder="Company Stock Market"
+                                            value="{{ company.stockExchangeCode }}">
+										</div>
+										<div class="form-group">
+											<label for="companyLogo">Company logo</label>
+											<input type="text" class="form-control" name="companyLogo"
+                                            id="companyLogo" placeholder="Company Logo"
+                                            value="{{ company.logo }}">
+										</div>
+										
+									</form>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="main-box">
+									<h2>Other Details</h2>
+									
+                                    <div id="otherDetailsContainer">
+                                        {% for key, value in company.details.iteritems() %}
+                                        <div class="row other-details">
+                                            <div class="form-group col-md-3">
+                                                <label class="sr-only" for="inputName">Input Name</label>
+                                                <input type="text" class="form-control inputName"
+                                                id="inputName" placeholder="Input Name"
+                                                               value="{{ key }}">
+                                            </div>
+                                            <div class="form-group col-md-8">
+                                                <label class="sr-only" for="inputValue">Input Value</label>
+                                                <input type="text" class="form-control inputValue"
+                                                id="inputValue" placeholder="Input Value"
+                                                                value="{{ value }}">
+                                            </div>
+                                            <div class="form-group col-md-1">
+                                                <a href="javascript:void(0);" class="table-link red close-btn">
+                                                    <span class="fa-stack">
+                                                        <i class="fa fa-square fa-stack-2x"></i>
+                                                        <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div>
+                                        <a href="javascript:void(0);" class="btn btn-primary" id="addMoreRow">
+                                            <i class="fa fa-plus-circle fa-lg"></i> Add More
+                                        </a>
+                                    </div>
+									
+									<br/><br/>
+										
+								</div>
+							</div>	
+						</div>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer id="footer-bar">
+		<p id="footer-copyright">
+			&copy; 2017 <a href="http://www.noodlestock.com" target="_blank">Noodle Stock</a>. Powered by aahho.
+		</p>
+	</footer>
+	
+	<!-- global scripts -->
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+	
+	<!-- this page specific scripts -->
+    <!-- <script src="http://superhero.phoonio.comjs/jquery.maskedinput.min.js"></script> -->
+	<script src="http://superhero.phoonio.com/js/bootstrap-datepicker.js"></script>
+	<script src="http://superhero.phoonio.com/js/moment.min.js"></script>
+	<script src="http://superhero.phoonio.com/js/daterangepicker.js"></script>
+	<script src="http://superhero.phoonio.com/js/bootstrap-timepicker.min.js"></script>
+	<script src="http://superhero.phoonio.com/js/select2.min.js"></script>
+	<script src="http://superhero.phoonio.com/js/hogan.js"></script>
+	<script src="http://superhero.phoonio.com/js/typeahead.min.js"></script>
+	<script src="http://superhero.phoonio.com/js/jquery.pwstrength.js"></script>
+	
+	<!-- theme scripts -->
+	<script src="http://superhero.phoonio.com/js/scripts.js"></script>
+	
+	<!-- this page specific inline scripts -->
+	<script>
+        function getRowHtml(data) {
+            return ' <div class="form-group col-md-3">' + 
+                '<label class="sr-only" for="inputName">input Name</label>' + 
+                '<input type="text" class="form-control inputName" id="inputName" placeholder="Input Name">' + 
+                '</div>' + 
+                '<div class="form-group col-md-8">' + 
+                '<label class="sr-only" for="inputValue">Input Value</label>' + 
+                '<input type="text" class="form-control inputValue" id="inputValue" placeholder="Input Value">' +
+                '</div>' + 
+                '<div class="form-group col-md-1">' + 
+                '<a href="javascript:void(0);" class="table-link red close-btn">' +
+                '<span class="fa-stack">' + 
+                '<i class="fa fa-square fa-stack-2x"></i>' +
+                '<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>' + 
+                '</span>' + 
+                '</a>' + 
+                '</div>';
+        }
+        function removeRow() {
+            $(this).parents()[1].remove();
+        }
+	$(function($) {
+        
+        $('#addMoreRow').bind('click', function() {
+            var row = $('<div class="row other-details"/>');
+            row.html(getRowHtml(""));
+            $('#otherDetailsContainer').append(row);
+            $('.close-btn').bind('click', removeRow);
+        });
+
+        $('.close-btn').bind('click', removeRow);
+
+        $("#updateCompany").bind('click', function() {
+            var data = {
+                'name': $('#name').val(),
+                'code': $('#code').val(),
+                'description': $('#description').val(),
+                'stockExchangeCode': $('#stockExchangeCode').val(),
+                'logo': $('#companyLogo').val(),
+                'otherDetails': {},
+            };
+
+            var otherDetails = $(".other-details").map(function(){
+                var oName = $(this).find("#inputName").val();
+                var oValue = $(this).find("#inputValue").val();
+                if(oName.trim() && oValue.trim()) {
+                    data["otherDetails"][oName] = oValue;
+                }
+            });
+            console.log(this);
+            var btn = this;
+            $(btn).attr("disabled", true);
+
+            $.ajax({
+                url: '',
+                type: 'post',
+                headers: {'Content-Type': 'application/json'},
+                success: function (data) {
+                    $(btn).attr("disabled", false);
+                    console.log(data);
+                },
+                data: JSON.stringify(data)
+            });
+        });
+
+		//tooltip init
+		$('#exampleTooltip').tooltip();
+
+		//nice select boxes
+		$('#sel2').select2();
+		
+		$('#sel2Multi').select2({
+			placeholder: 'Select a Country',
+			allowClear: true
+		});
+	
+		//masked inputs
+        /*
+		$("#maskedDate").mask("99/99/9999");
+		$("#maskedPhone").mask("(999) 999-9999");
+		$("#maskedPhoneExt").mask("(999) 999-9999? x99999");
+		$("#maskedTax").mask("99-9999999");
+		$("#maskedSsn").mask("999-99-9999");
+		
+		$("#maskedProductKey").mask("a*-999-a999",{placeholder:" ",completed:function(){alert("You typed the following: "+this.val());}});
+		
+		$.mask.definitions['~']='[+-]';
+		$("#maskedEye").mask("~9.99 ~9.99 999");
+	
+        */
+		//datepicker
+		$('#datepickerDate').datepicker({
+		  format: 'mm-dd-yyyy'
+		});
+
+		$('#datepickerDateComponent').datepicker();
+		
+		//daterange picker
+		$('#datepickerDateRange').daterangepicker();
+		
+		//timepicker
+		$('#timepicker').timepicker({
+			minuteStep: 5,
+			showSeconds: true,
+			showMeridian: false,
+			disableFocus: false,
+			showWidget: true
+		}).focus(function() {
+			$(this).next().trigger('click');
+		});
+		
+		//autocomplete simple
+		$('#exampleAutocompleteSimple').typeahead({                              
+			prefetch: '/data/countries.json',
+			limit: 10
+		});
+		
+		//autocomplete with templating
+		$('#exampleAutocomplete').typeahead({                              
+			name: 'twitter-oss',                                                        
+			prefetch: '/data/repos.json',                                             
+			template: [                                                              
+				'<p class="repo-language">{{language}}</p>',                              
+				'<p class="repo-name">{{name}}</p>',                                      
+				'<p class="repo-description">{{description}}</p>'                         
+			].join(''),                                                                 
+			engine: Hogan                                                               
+		});
+		
+		//password strength meter
+		$('#examplePwdMeter').pwstrength({
+			label: '.pwdstrength-label'
+		});
+		
+	});
+	</script>
+</body>
+</html>

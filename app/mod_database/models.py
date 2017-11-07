@@ -46,6 +46,16 @@ class Base(db.Document):
     def get_id(self):
         return self.id.__str__()
 
+class CompanyDetail(db.DynamicDocument):
+
+    includes = []
+    excludes = []
+
+    meta = {
+            'collection': 'company_details'    
+        }
+    #transformer = transformers.transform_upload
+
 class Company(Base):
     name = db.StringField()
     code = db.StringField(required=True, unique=True)
@@ -59,6 +69,8 @@ class Company(Base):
     history = db.ListField(db.DictField(), default_empty=True)
     historyCount = db.IntField(default=0)
     watchlistCount = db.IntField(default=0)
+    logo = db.StringField(default='/static/img/no_image.svg')
+    details = db.ReferenceField(CompanyDetail)
     #columns = db.ListField(db.StringField(), default_empty=True)
 
     meta = {
@@ -86,8 +98,6 @@ class Company(Base):
     @property
     def watchlistcount(self):
         return User.objects.no_dereference().filter(favourites=self).count()
-        #return self.watchlistCount
-
 
 """
 class ComanyNews(Base):

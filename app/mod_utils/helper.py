@@ -38,7 +38,10 @@ def now():
     return datetime.now()
 
 def str_to_datetime(string):
-    return parser.parse(string)
+    try:
+        return parser.parse(string)
+    except:
+        return None
 
 def add_days_to_date(date, days):
     return date + timedelta(days=days)

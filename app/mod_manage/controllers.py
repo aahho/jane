@@ -1,3 +1,5 @@
+import json
+
 # Import flask dependencies
 from flask import Blueprint, request, render_template, redirect, url_for
 
@@ -22,6 +24,21 @@ def companies_admin(company_id):
     else:
         company = views.get_company_details(company_id)
     return render_template('manage/company/details.html', company = company)
+
+@mod_manage.route('/companies/<company_id>/edit', methods=['GET', 'POST'])
+def company_update_admin(company_id):
+    if request.method == 'POST':
+        company = views.update_company(company_id, request.json)
+        return "Success"
+    else:
+        company = views.get_company_details(company_id)
+    print company.name
+    if company.details:
+         company.details = json.loads(company.details.to_json())
+         del company.details['_id']
+    else:
+         company.details = {}
+    return render_template('manage/company/edit.html', company = company)
 
 @mod_manage.route('/users')
 def user_list():

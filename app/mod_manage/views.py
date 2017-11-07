@@ -1,14 +1,32 @@
 
-from app.mod_repository.stocktwist import CompanyRepo, UserRepo, UploadRepo
+from app.mod_repository.stocktwist import CompanyRepo, UserRepo, UploadRepo, CompanyDetailsRepo
 
 def list_companies():
     return CompanyRepo().paginate()
 
 def get_company_details(company_id):
-    return CompanyRepo().filter(id=company_id)
+    return CompanyRepo().filter(id=company_id).first()
 
 def update_company(company_id, data):
-    return CompanyRepo().filter(id=company_id).update(**data)
+    company = get_company_details(company_id)
+    d = data.get('otherDetails', [])
+    company.name = data.get('name', company.name)
+    company.code = data.get('code', company.code)
+    company.description = data.get('name', company.description)
+    company.stockExchangeCode = data.get('stockExchangeCode', company.stockExchangeCode)
+    company.logo = data.get('logo', company.logo)
+
+    # delete the key which is not in data but in details
+    if company.details is None:
+        details = CompanyDetailsRepo.model(**d)
+        details.save()
+        company.details = details
+    else:
+        for key, value in d.iteritems():
+            company.details.__setattr__(key, value)
+        company.details.save()
+    company.save()
+    return company
 
 def create_user(data):
     pass

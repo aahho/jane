@@ -15,6 +15,9 @@ class CompanyRepo(BaseRepo):
             raise SException("Comany not found", 404)
         return company
 
+class CompanyDetailsRepo(BaseRepo):
+    model = models.CompanyDetail
+
 class CommentRepo(BaseRepo):
     model = models.Comment
 
