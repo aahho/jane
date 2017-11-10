@@ -3,10 +3,11 @@ from flask.wrappers import Response
 
 from config import API_VERSION
 from app.mod_library import response
+from app.mod_home import validators
 
 api_parent = Blueprint('API', __name__, url_prefix='/api/' + API_VERSION + '/')
 
-def api(rule, validator=lambda x : True, **options):
+def api(rule, validator=validators.VDefault, **options):
 
     def route(route_func):
         def route_control_func(*args, **kwargs):

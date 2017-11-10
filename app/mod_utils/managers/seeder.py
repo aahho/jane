@@ -126,7 +126,7 @@ class FirstTimeDataSeeder(BaseCommand):
         return
 
     def company_code_exists(self, company_code):
-        return True
+        return self.company_repo.filter(code=company_code).count()
 
     def create_company(self, json_data):
         company_data = self._extract_company_data(json_data)
@@ -137,7 +137,7 @@ class FirstTimeDataSeeder(BaseCommand):
         return {
             "name": data['name'],
             "code": data['dataset_code'],
-            "quandlCode": data['dataset_code'],
+            #"quandlCode": data['dataset_code'],
             "description": data['description'],
             "stockExchangeCode": data['database_code'],
             "type": data['type'],

@@ -48,6 +48,10 @@ class Validator(object):
             return isinstance(request_value, dict) 
         return True
 
+class VDefault(Validator):
+    pass
+
+
 def login(data):
     return True
 

@@ -22,6 +22,7 @@ def update_company(company_id, data):
         details.save()
         company.details = details
     else:
+        company.details.delete()
         for key, value in d.iteritems():
             company.details.__setattr__(key, value)
         company.details.save()
