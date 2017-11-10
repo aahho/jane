@@ -356,14 +356,29 @@
 	
 	<!-- this page specific inline scripts -->
 	<script>
-        function getRowHtml(data) {
+    var rowNames = {
+        "companyStatus": "",
+        "RoC": "",
+        "registrationNumber": "",
+        "companyCategory": "",
+        "companySubCategory": "",
+        "classofcompany": "",
+        "dateofIncorporation": "",
+        "activity": "",
+        "numberofMembers": "",
+        "numberofEmployees": "",
+        "email": "",
+        "address": "",
+        "director": "",
+    };
+        function getRowHtml(name="", value="") {
             return ' <div class="form-group col-md-3">' + 
                 '<label class="sr-only" for="inputName">input Name</label>' + 
-                '<input type="text" class="form-control inputName" id="inputName" placeholder="Input Name">' + 
+                '<input type="text" class="form-control inputName" id="inputName" placeholder="Input Name" value="'+ name +'">' + 
                 '</div>' + 
                 '<div class="form-group col-md-8">' + 
                 '<label class="sr-only" for="inputValue">Input Value</label>' + 
-                '<input type="text" class="form-control inputValue" id="inputValue" placeholder="Input Value">' +
+                '<input type="text" class="form-control inputValue" id="inputValue" placeholder="Input Value" value="'+ value +'">' +
                 '</div>' + 
                 '<div class="form-group col-md-1">' + 
                 '<a href="javascript:void(0);" class="table-link red close-btn">' +
@@ -374,16 +389,26 @@
                 '</a>' + 
                 '</div>';
         }
+
         function removeRow() {
             $(this).parents()[1].remove();
         }
+        
+        function addRow(rowName, rowValue) {
+            var row = $('<div class="row other-details"/>');
+            row.html(getRowHtml(rowName, rowValue));
+            $('#otherDetailsContainer').append(row);
+            $('.close-btn').bind('click', removeRow);
+        }
+
+    for(var key in rowNames) {
+        addRow(key, rowNames[key]);
+    }
+
 	$(function($) {
         
         $('#addMoreRow').bind('click', function() {
-            var row = $('<div class="row other-details"/>');
-            row.html(getRowHtml(""));
-            $('#otherDetailsContainer').append(row);
-            $('.close-btn').bind('click', removeRow);
+            addRow("");
         });
 
         $('.close-btn').bind('click', removeRow);

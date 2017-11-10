@@ -15,6 +15,7 @@ def update_company(company_id, data):
     company.description = data.get('name', company.description)
     company.stockExchangeCode = data.get('stockExchangeCode', company.stockExchangeCode)
     company.logo = data.get('logo', company.logo)
+    print len(d)
 
     # delete the key which is not in data but in details
     if company.details is None:
@@ -22,10 +23,14 @@ def update_company(company_id, data):
         details.save()
         company.details = details
     else:
-        company.details.delete()
-        for key, value in d.iteritems():
-            company.details.__setattr__(key, value)
-        company.details.save()
+        if len(d) == 0:
+            company.details.delete()
+            company.details = None
+        else:
+            company.details.delete()
+            for key, value in d.iteritems():
+                company.details.__setattr__(key, value)
+            company.details.save()
     company.save()
     return company
 
