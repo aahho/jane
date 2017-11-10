@@ -293,13 +293,13 @@
                                                 <label class="sr-only" for="inputName">Input Name</label>
                                                 <input type="text" class="form-control inputName"
                                                 id="inputName" placeholder="Input Name"
-                                                               value="{{ key }}">
+                                                               details="{{ key }}" value="{{ key }}">
                                             </div>
                                             <div class="form-group col-md-8">
                                                 <label class="sr-only" for="inputValue">Input Value</label>
                                                 <input type="text" class="form-control inputValue"
                                                 id="inputValue" placeholder="Input Value"
-                                                                value="{{ value }}">
+                                                               details="{{ value }}" value="{{ value }}">
                                             </div>
                                             <div class="form-group col-md-1">
                                                 <a href="javascript:void(0);" class="table-link red close-btn">
@@ -374,11 +374,11 @@
         function getRowHtml(name="", value="") {
             return ' <div class="form-group col-md-3">' + 
                 '<label class="sr-only" for="inputName">input Name</label>' + 
-                '<input type="text" class="form-control inputName" id="inputName" placeholder="Input Name" value="'+ name +'">' + 
+                '<input type="text" class="form-control inputName" details="'+ name +'" id="inputName" placeholder="Input Name" value="'+ name +'">' + 
                 '</div>' + 
                 '<div class="form-group col-md-8">' + 
                 '<label class="sr-only" for="inputValue">Input Value</label>' + 
-                '<input type="text" class="form-control inputValue" id="inputValue" placeholder="Input Value" value="'+ value +'">' +
+                '<input type="text" class="form-control inputValue" details="'+ value +'" id="inputValue" placeholder="Input Value" value="'+ value +'">' +
                 '</div>' + 
                 '<div class="form-group col-md-1">' + 
                 '<a href="javascript:void(0);" class="table-link red close-btn">' +
@@ -402,6 +402,7 @@
         }
 
     for(var key in rowNames) {
+        if($('[details='+key+']').length){continue;}
         addRow(key, rowNames[key]);
     }
 
