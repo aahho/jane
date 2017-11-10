@@ -330,11 +330,15 @@
 									<ul class="pagination pull-right">
 										<li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
                                         {% for p in paginator.iter_pages() %}
-                                        {% if p == None %}
-                                        <li><a href="javascript:void(0)">. . .</a></li>
-                                        {% else %}
-                                        <li><a href="{{ url_for('manage.company_list', page=p, items=50) }}">{{ p }}</a></li>
-                                        {% endif %}
+                                            {% if p == None %}
+                                            <li><a href="javascript:void(0)">. . .</a></li>
+                                            {% else %}
+                                                {% if p == paginator.page %}
+                                                <li class="disabled"><a style="background-color: #d8d4da;" href="{{ url_for('manage.company_list', page=p, items=50) }}">{{ p }}</a></li>
+                                                {% else %}
+                                                <li><a href="{{ url_for('manage.company_list', page=p, items=50) }}">{{ p }}</a></li>
+                                                {% endif %}
+                                            {% endif %}
                                         {% endfor %}
 										<li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
 									</ul>
