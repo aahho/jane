@@ -1,9 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-{% include 'manage/head.html' %}
-<body style="background:#f4f3ef;">
-{% block content %}{% endblock %}
-{#% include 'footer.html' %#}
-{% include 'manage/js.html' %}
+<head>
+    {% block head %}
+    <title>{% block title %}{% endblock %} - NoodleStock</title>
+    {% include "manage/css.html" %}
+    {% endblock %}
+</head>
+<body>
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+        {% block footer %}
+            <footer id="footer-bar">
+                <p id="footer-copyright">
+                    &copy; 2017 <a href="http://www.noodlestock.com/" target="_blank">Noodle Stock</a>. Powered by Aahho.
+                </p>
+            </footer>
+        {% endblock %}
+    </div>
+        {% include "manage/js.html" %}
+        {% block script %}
+        {% endblock %}
 </body>
 </html>

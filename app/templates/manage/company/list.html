@@ -1,47 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "manage/base.html" %}
+{% block title %} Company List {% endblock %}
 
-	<title>List of Companies</title>
-	
-    <!-- bootstrap -->
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
-
-    <!-- libraries -->
-    <link href="{{ url_for('static', filename='css/font-awesome.css') }}" type="text/css" rel="stylesheet" />
-
-    <!-- global styles -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/layout.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/element.css') }}">
-
-    <!-- this page specific styles -->
-
-    <!-- google font libraries -->
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
-
-    <style type="text/css">
-        .disabled {
-            pointer-events: none;
-            color: #cec8d2 !important;
-        }
-    </style>
-    
-	<script>
-        /*
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	  ga('create', 'UA-49262924-1', 'phoonio.com');
-	  ga('send', 'pageview');
-      */
-
-	</script>
-</head>
-<body>
+    {% block content %} 
 	<header class="navbar" id="header-navbar">
 		<div class="container">
 			<a href="index.html" id="logo" class="navbar-brand col-md-3 col-sm-3 col-xs-12">
@@ -352,16 +312,10 @@
 			</div>
 		</div>
 	</div>
-	<footer id="footer-bar">
-		<p id="footer-copyright">
-			&copy; 2017 <a href="http://www.noodlestock.com/" target="_blank">Noodle Stock</a>. Powered by Aahho.
-		</p>
-	</footer>
 	
-	<!-- global scripts -->
-    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-	
+    {% endblock content %}
+
+    {% block script %}
 	<!-- this page specific scripts -->
 
 	
@@ -421,5 +375,4 @@
 	
 	<!-- this page specific inline scripts -->
 	
-</body>
-</html>
+    {% endblock %}
