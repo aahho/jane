@@ -61,7 +61,7 @@
 }
 
 .list-container{
-	background-color:#ccc;
+	background-color:rgba(204, 204, 204, 0.27);
 	padding:20px 0px;
 }
 .treding-item{
@@ -111,4 +111,30 @@
 .company-name{
     font-size: 14px;
     font-weight: 500;
+}
+.updated-at{
+    color: #828181;
+}
+.company-list{
+    padding-left:10px;
+}
+.border-list-green{
+    border-left:4px solid green;
+}
+.border-list-red{
+    border-left:4px solid red;
+}
+.green{
+    color:green;
+}
+.red{
+    color:red;
+}
+.company-data > span{
+    margin-right: 5px;
+}
+.watchers{
+    font-size: 14px;
+    font-weight: 500;
+    color: #607D8B;
 }
