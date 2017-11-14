@@ -105,7 +105,12 @@ def logout():
     views.logout_user()
     return redirect("/")
 
-@router.api('users', methods=['POST'])
-def signup():
-    return views.signup_user(request.json)
+#@router.api('users', methods=['POST'])
+#def signup():
+#    return views.signup_user(request.json)
+
+@mod_home.route('user/signup', methods=['POST'])
+def user_signup():
+    views.signup_user(request.form)
+    return redirect("/")
 

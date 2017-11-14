@@ -72,10 +72,14 @@
                         <p style="color: grey;">You are not watching any company.</p>
                         {% endif %}
                         {% for w_company in watchlist %}
-                        <div class="treding-item p-0 m-1 col-12 green-sm-border">
-                            <span>BOM501630</span>
-                            <span>18.3</span>
-                            <span class="float-right">(0.00)&nbsp; 0.00% &nbsp;</span>
+                        {% set w_stock = w_company.history[0] %}
+                        {% set w_stock_change = (w_stock.close|float - w_stock.open|float)|abs %}
+                        {% set w_stock_change_percentage = (100 * (w_stock_change / w_stock.open|float))|round(2, 'floor')  %}
+                        <div class="treding-item p-0 m-1 col-12 
+                            {% if w_stock.close < w_stock.open %}red-sm-border{% else %}green-sm-border{% endif %}">
+                            <span>{{ w_company.code }}</span>
+                            <span>{{ w_company.close }}</span>
+                            <span class="float-right">({{ w_stock_change }})&nbsp; {{ w_stock_change_percentage }}% &nbsp;</span>
                         </div>
                         {% endfor %}
                     </div>
@@ -248,7 +252,7 @@
     <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form class="submit-form" name="submitform">
+                <form action="/user/signup" method="POST" class="submit-form" name="submitform">
                     <div class="modal-header">
                         <h5 class="modal-title" id="signupModal">Signup</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -257,8 +261,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="signupUsername">Username</label>
-                            <input type="text" class="form-control" id="signupUsername" aria-describedby="emailHelp" placeholder="Enter username">
+                            <label for="signupUsername">Name</label>
+                            <input type="text" name="name" class="form-control" id="signupUsername" aria-describedby="emailHelp" placeholder="Enter name">
                         </div>
                         <div class="form-group">
                             <label for="signupEmail">Email address</label>
@@ -268,10 +272,12 @@
                             <label for="signupPassword1">Password</label>
                             <input type="password" class="form-control" id="signupPassword1" name="password" placeholder="Password">
                         </div>
+                        <!--
                         <div class="form-group">
                             <label for="signupPassword2">Confirm Password</label>
                             <input type="password" class="form-control" id="signupPassword2" name="password" placeholder="Password">
                         </div>
+                        -->
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary" ng-click="">Signup</button>
