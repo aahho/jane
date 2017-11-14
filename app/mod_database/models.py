@@ -146,6 +146,13 @@ class User(Base):
         d = UserToken.objects(**{'user': self})
         return d.all()
 
+    @classmethod
+    def auth(cls):
+        from flask import session
+        if 'authenticate' in session:
+            return cls.objects.filter(id=session['authenticate']['user']['_id']['$oid']).first()
+        return None
+
 class UserToken(Base):
     user = db.ReferenceField(User)
     token = db.StringField()

@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, session
 
 from app.mod_repository.stocktwist import UserTokenRepo
 
@@ -7,7 +7,8 @@ class Auth():
 
     @classmethod
     def user(cls, token=None, for_decorator=False):
-        token = request.headers.get('Authorization') if token is None else token
+        #token = request.headers.get('Authorization') if token is None else token
+        token = session['authenticate']['token']['token'] if 'authenticate' in session else None
         if token in cls.token_user:
             return cls.token_user[token]
         user = UserTokenRepo().get_auth_user(token)

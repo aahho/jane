@@ -3,7 +3,7 @@ from datetime import datetime, date, timedelta
 import json
 
 import quandl
-from flask import request
+from flask import request, session
 from mongoengine.queryset.visitor import Q
 
 from app.mod_repository.stocktwist import CompanyRepo, UserRepo,\
@@ -18,19 +18,16 @@ yesterday_date = date.today() - timedelta(1)
 yesterday_date = yesterday_date.strftime("%Y-%m-%d")
 today_date = date.today().strftime("%Y-%m-%d")
 
-def list_all_company():
-    #r = company_repo.filter(company_repo.model.name == 'TCS').fields(('name', 'code',))
-    #r = company_repo.filter(name = 'TCS').fields(('name', 'code',))
-    #r = company_repo.filter({'name' : 'TCS'}).fields(('name', 'code',))
+def list_all_company(per_page=50):
     #r = company_repo.set_transformer(transformers.company).all()
-    r = company_repo.set_transformer(transformers.company)\
-            .skip_list('slice__history', 0, 1)\
+    #r = company_repo.set_transformer(transformers.company)\
+    r = company_repo.skip_list('slice__history', 0, 1)\
             .set_excludes([])\
-            .orderBy('-historyCount').paginate()
+            .orderBy('-historyCount').paginate(per_page=per_page)
     return r
 
-def list_trending_companies():
-    return list_all_company()
+def list_trending_companies(per_page=10):
+    return list_all_company(per_page).items
 
 def filter(data):
     if data is None:
@@ -47,12 +44,16 @@ def get_current_stock_of_company(company_code):
     company = CompanyRepo().get(code=company_code)
     if not company:
         raise SException("Error in company code", 400)
+    if company.stockExchangeCode == 'NSE':
+        print "ASDF"
+        pass
     response = requests.get('https://www.quandl.com/api/v3/datasets/' + \
             company.stockExchangeCode + '/' + company_code + '.json?api_key=xMH7BiBu6s24LHCizug3')
     #response = requests.get('https://www.quandl.com/api/v3/datasets/NSE/' + company_code + '.json?api_key=xMH7BiBu6s24LHCizug3')
     if response.status_code == 200:
         data = response.json()['dataset']
         data['company'] = company
+        #start_new_thread(CompanyRepo().update_stock, (data,))
         return transformers.company_with_current_stock(data)
     else:
         return response.json()
@@ -151,6 +152,12 @@ def login_user(data):
         raise SException('Invalid credentials', 400)
     return transformers.user(user_repository.user)
     """
+    if user:
+        session['authenticate'] = {
+                    'user': user.user,
+                    'token': user,
+                }
+    return user
     return transformers.user_with_token(user)
 
 def google_login_user(code):
@@ -161,5 +168,8 @@ def google_login_user(code):
     return transformers.user_with_token(user)
 
 def logout_user():
+    if 'authenticate' in session:
+        del session['authenticate']
+    return "Success"
     return UserTokenRepo().filter(token=request.headers.get('Authorization')).delete()
 

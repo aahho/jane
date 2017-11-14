@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base href="/"></base>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+    <title>{% block title %}NoodleStocks {% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css?family=ABeeZee" rel="stylesheet" />
+    <link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}" sizes="32x32">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}">
+</head>
+
+<body>
+    {% block body %} {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

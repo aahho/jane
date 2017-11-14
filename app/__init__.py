@@ -1,6 +1,6 @@
 import pytz
 # Import flask and template operators
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 from flask_mongoalchemy import MongoAlchemy
 from flask_cors import CORS
 from  mod_database.models import db
@@ -25,7 +25,8 @@ def not_found(error):
 
 @app.errorhandler(exception.SException)
 def own_error(error):
-    return response.exception(error)
+    # return response.exception(error)
+    return redirect('/')
 
 # Import a module / component using its blueprint handler variable (mod_auth)
 # from app.mod_auth.controllers import mod_auth as auth_module

@@ -14,7 +14,14 @@ mod_home = Blueprint('home', __name__, url_prefix='/')
 # Set the route and accepted methods
 @mod_home.route('/')
 def index():
-    return render_template('company/list.html')
+    paginator = views.list_all_company()
+    trendings = views.list_trending_companies()
+    watchlist = []
+    if 'authenticate' in session:
+        from app.mod_database.models import User
+        watchlist = User.auth().favourites
+    #    return render_template('company/authenticated_list.html', paginator=paginator, trendings=trendings)
+    return render_template('company/list.html', paginator=paginator, trendings=trendings, watchlist=watchlist)
 
 @mod_home.route('companies/<company_code>')
 @mod_home.route('companies/<company_code>/<slug>')
@@ -51,6 +58,11 @@ def reply(company_id, comment_id):
     else:
         return response.paginate(views.list_replies_of_comments(company_id, comment_id))
 
+@mod_home.route('companies/<company_id>/watch')
+def watch_company(company_id):
+    views.add_to_watchlist(company_id)
+    return redirect("/")
+
 @router.api('users/watchlist', methods=['GET'])
 @router.api('companies/<company_id>/watchlist', methods=['POST', 'DELETE'])
 def watchlist(company_id=None):
@@ -69,7 +81,8 @@ def filter():
 def trending():
     return response.paginate(views.list_trending_companies())
 
-@router.api('login', methods=['POST'], validator=validators.VLogin)
+#@router.api('login', methods=['POST'], validator=validators.VLogin)
+@mod_home.route('login', methods=['POST'])
 def login():
     """
     request.args
@@ -78,16 +91,19 @@ def login():
     request.values
     request.json
     """
-    return views.login_user(request.json)
+    print request.values
+    user = views.login_user(request.values)
+    return redirect("/")
 
 @router.api('login/google', methods=['GET'])
 def google_login():
     return views.google_login_user(request.args.get('code'))
 
-@router.api('users/logout', methods=['GET'])
+#@router.api('user/logout', methods=['GET'])
+@mod_home.route('user/logout', methods=['GET'])
 def logout():
     views.logout_user()
-    return "Success"
+    return redirect("/")
 
 @router.api('users', methods=['POST'])
 def signup():
