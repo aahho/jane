@@ -121,7 +121,9 @@ class BaseRepo(object):
         return self.query.fields(field_names)
 
     def all(self):
-        return [self.transformer(obj) for obj in iter(self.query.fields(*self.fields))]
+        return self.objects.only(*self.includes)\
+                    .exclude(*self.excludes)\
+                    .all()
 
     def _all(self, query_set):
         return [self.transformer(obj) for obj in iter(query_set)]

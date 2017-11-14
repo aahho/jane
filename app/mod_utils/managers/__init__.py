@@ -12,4 +12,4 @@ seed_manager = SeedManager(sub_opts)
 # seed_manager = SeedManager(app) 
 
 seed_manager.add_command('FirstTimeDataSeeder', FirstTimeDataSeeder())
-seed_manager.add_command('StockGetter', StockGetter())
+seed_manager.add_command('update_stocks', StockGetter())
