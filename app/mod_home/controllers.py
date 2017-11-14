@@ -14,14 +14,14 @@ mod_home = Blueprint('home', __name__, url_prefix='/')
 # Set the route and accepted methods
 @mod_home.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('company/list.html')
 
 @mod_home.route('companies/<company_code>')
 @mod_home.route('companies/<company_code>/<slug>')
 def company_details(company_code, slug="adf"):
     if slug != "adf":
         return redirect("companies/{}/{}".format(company_code, "adf"))
-    return response.json([company_code, slug])
+    return render_template('company/details.html')
     return response.json(views.get_current_stock_of_company(company_code))
 
 @mod_home.route('companies/<company_code>/<slug>/stocks')

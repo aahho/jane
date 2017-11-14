@@ -1,0 +1,114 @@
+
+@mixin clearfix() {
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}
+
+.element {
+  @include clearfix;
+}
+
+.navbar{
+	background-color: #283593 !important;
+	color:#fff !important;
+}
+.navbar-brand{
+	color:#fff !important;
+
+}
+.fa-bars{
+	color:#fff !important;
+}
+.nav-link{
+	color:#fff !important;
+	cursor: pointer;
+}
+.left-side-box,.middle-box{
+	background: #fff;
+    padding: 10px 20px 0px 20px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+.left-side-box-header{
+	    color: #888;
+}
+.left-side-box-header > i{
+	background: #888;
+    width: 26px;
+    height: 26px;
+    line-height: 16px;
+    border-radius: 50%;
+    padding: 5px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+}
+.left-side-box-header > span{
+    line-height: 26px;
+    margin-left: 5px;
+    font-size: 16px;
+    font-weight:500;
+}
+.left-side-box-header > a{
+	color: #2196F3 !important;
+    cursor: pointer;
+}
+.left-side-box-header > a:hover{
+	text-decoration: underline !important;
+}
+
+.list-container{
+	background-color:#ccc;
+	padding:20px 0px;
+}
+.treding-item{
+	font-size:14px;
+	cursor: pointer;
+}
+.treding-item:hover{
+	background-color: #dcdcdc;
+}
+.treding-item > span{
+	padding:0px 0.5rem;
+}
+.green-sm-border{
+	border-left:2px solid green;
+}
+.red-sm-border{
+	border-left:2px solid red;
+}
+.btn{
+	cursor:pointer;
+}
+.list-thumbnail{
+    float: right;
+    clear: right;
+    margin: 3px 0 6px 6px;
+}
+.list-thumbnail>img{
+	height:60px;
+}
+.list-group-item{
+	border: none;
+	border-bottom:1px solid #dcdcdc !important;
+}
+.m-list{
+	position: relative;
+    margin: 0px;
+    overflow: hidden;
+    min-height: 50px;
+}
+.stock-item{
+	cursor: pointer;
+    background: #fff;
+    color: #34445D;
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+}
+.company-name{
+    font-size: 14px;
+    font-weight: 500;
+}
