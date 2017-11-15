@@ -138,3 +138,15 @@
     font-weight: 500;
     color: #607D8B;
 }
+.company-stock-data > span:first-child{
+    color: #fff;
+    font-weight: 500;
+    background-color: #03A9F4;
+    padding: 2px 3px;
+    font-size: 14px;
+    border-radius: 2px;
+}
+.last-updated{
+    font-weight: 500;
+    color: darkgrey;
+}
