@@ -5,6 +5,7 @@ import json
 import quandl
 from flask import request, session
 from mongoengine.queryset.visitor import Q
+from nsetools import Nse
 
 from app.mod_repository.stocktwist import CompanyRepo, UserRepo,\
 UserTokenRepo, CommentRepo, ReplyCommentRepo, UploadRepo
@@ -12,6 +13,7 @@ import transformers
 from app.mod_library.exception import SException
 from app.mod_library import auth
 
+nse = Nse()
 company_repo = CompanyRepo()
 user_repo = UserRepo()
 yesterday_date = date.today() - timedelta(1)
@@ -45,16 +47,20 @@ def get_current_stock_of_company(company_code):
     if not company:
         raise SException("Error in company code", 400)
     if company.stockExchangeCode == 'NSE':
-        print "ASDF"
+        #stock_dict = nse.get_quote(str(company.code))
+        #print type(stock)
+        print "NSE Stock"
         pass
     response = requests.get('https://www.quandl.com/api/v3/datasets/' + \
             company.stockExchangeCode + '/' + company_code + '.json?api_key=xMH7BiBu6s24LHCizug3')
     #response = requests.get('https://www.quandl.com/api/v3/datasets/NSE/' + company_code + '.json?api_key=xMH7BiBu6s24LHCizug3')
     if response.status_code == 200:
         data = response.json()['dataset']
-        data['company'] = company
+        #data['company'] = company
         #start_new_thread(CompanyRepo().update_stock, (data,))
-        return transformers.company_with_current_stock(data)
+        company.stock = transformers.transform_quandl_stock(data)
+        return company
+        #return transformers.company_with_current_stock(data)
     else:
         return response.json()
         raise Exception('Error in company_code')

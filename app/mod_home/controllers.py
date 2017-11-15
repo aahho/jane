@@ -25,11 +25,16 @@ def index():
 
 @mod_home.route('companies/<company_code>')
 @mod_home.route('companies/<company_code>/<slug>')
-def company_details(company_code, slug="adf"):
-    if slug != "adf":
-        return redirect("companies/{}/{}".format(company_code, "adf"))
-    return render_template('company/details.html')
-    return response.json(views.get_current_stock_of_company(company_code))
+def company_details(company_code, slug=None):
+    company = views.get_current_stock_of_company(company_code)
+    #if slug is None:
+    #    return redirect("companies/{}/{}".format(company_code, "adf"))
+    trendings = views.list_trending_companies()
+    watchlist = []
+    if 'authenticate' in session:
+        from app.mod_database.models import User
+        watchlist = User.auth().favourites
+    return render_template('company/details.html', company=company, trendings=trendings, watchlist=watchlist)
 
 @mod_home.route('companies/<company_code>/<slug>/stocks')
 def company_stock_details(company_code, slug):
