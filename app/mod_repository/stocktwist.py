@@ -31,8 +31,12 @@ class UserRepo(BaseRepo):
         return bool(self.filter(email=email).count())
 
     def create_user(self, data):
-        data['password'] = helper.hash_it(data['password'])
-        return self.create(data)
+        db_data = {
+                'name': data['name'],
+                'email': data['email'],
+                'password': helper.hash_it(data['password'])
+            }
+        return self.create(db_data)
 
     def check_password(self, email, password):
         user = self.filter(email=email).first()

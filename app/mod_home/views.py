@@ -142,6 +142,7 @@ def signup_user(data):
     if UserRepo().user_exists(email=data['email']):
         raise SException('User already exists', 409)
     result = UserRepo().create_user(data)
+    return result
     return transformers.user(result)
 
 def login_user(data):
