@@ -1,5 +1,7 @@
 import json
 
+from app.mod_utils import helper
+
 def company_meta(model):
     return {
         "name": model.name,
@@ -40,6 +42,23 @@ def company_with_current_stock(data):
             "turnover": data['data'][0][7],
         }
     return result
+
+def transform_quandl_stock(data):
+    stock = None
+    if len(data['data']):
+        # send by stockExchangeCode
+        stock =  {
+            "date": data['data'][0][0],
+            "open": data['data'][0][1],
+            "high": data['data'][0][2],
+            "low": data['data'][0][3],
+            "last": data['data'][0][4],
+            "close": data['data'][0][5],
+            "totalTradeQuantity": data['data'][0][6],
+            "turnover": data['data'][0][7],
+        }
+        stock['refreshedAt'] = helper.str_to_datetime(data['refreshed_at'])
+    return stock
 
 def transform_upload(upload):
     data = json.loads(upload.to_json())

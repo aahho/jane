@@ -1,4 +1,8 @@
-{% extends "company/base.html" %} {% block body %}
+{% from "company/macros/_trending.html" import trending with context %}
+{% from "company/macros/_watchlist.html" import watchlist as watchlist_macro with context %}
+{% extends "company/base.html" %}
+{% block title %} {{ company.code }} - {{ company.name }}{% endblock %}
+{% block body %}
 <header class="navbar navbar-expand-lg sticky-top fixed-top">
     <a class="navbar-brand" href="/">
                 <img src="{{ url_for('static', filename='img/logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -33,52 +37,8 @@
 <div class="container-fluid list-container">
         <div class="row m-0">
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                <div class="col-12 left-side-box p-3">
-                    <div class="d-flex left-side-box-header">
-                        <i class="fa fa-line-chart" aria-hidden="true"></i>
-                        <span>Trending</span>
-                    </div>
-                    <hr class="m-2">
-                    <div class="d-flex row m-0">
-                        {% for t_company in trendings %}
-                        {% set t_stock = t_company.history[0] %}
-                        {% set t_stock_change = (t_stock.close|float - t_stock.open|float)|abs %}
-                        {% set t_stock_change_percentage = (100 * (t_stock_change / t_stock.open|float))|round(2, 'floor')  %}
-                        <div class="treding-item p-0 m-1 col-12 
-                        {% if t_stock.close < t_stock.open %}red-sm-border{% else %}green-sm-border{% endif %}" data-src="/companies/{{t_company.id}}">
-                            <span>{{ t_company.code }}</span>
-                            <span>{{ t_stock.close }}</span>
-                            <span class="float-right">({{ t_stock_change }})&nbsp; {{ t_stock_change_percentage }}% &nbsp;</span>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="col-12 left-side-box p-3">
-                    <div class="d-flex left-side-box-header">
-                        <i class="fa fa-bar-chart" aria-hidden="true"></i>
-                        <span>Watchlist</span>
-                    </div>
-                    <hr class="m-2">
-                    {% if 'authenticate' not in session %}
-                    <div class="row m-0">
-                        <small>Sign up with NoodleStocks to have watchlist for easy access to your favorite stocks.</small>
-                        <button type="button" class="btn btn-primary btn-sm mx-auto" data-toggle="modal" data-target="#signup">Sign up</button>
-                    </div>
-                    {% else %}
-                    <div class="d-flex row m-0">
-                        {% if not watchlist|length %}
-                        <p style="color: grey;">You are not watching any company.</p>
-                        {% endif %}
-                        {% for w_company in watchlist %}
-                        <div class="treding-item p-0 m-1 col-12 green-sm-border" data-src="/companies/{{w_company.id}}">
-                            <span>BOM501630</span>
-                            <span>18.3</span>
-                            <span class="float-right">(0.00)&nbsp; 0.00% &nbsp;</span>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-                </div>
+                {{ trending(trendings) }}
+                {{ watchlist_macro(watchlist) }}
                 <div class="col-12 left-side-box p-3">
                     <div class="left-side-box-header clearfix">
                         <i class="fa fa-newspaper-o float-left" aria-hidden="true"></i>
@@ -128,35 +88,46 @@
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                 <div class="middle-box col-12 p-3">
                     <div class="company-header row m-0 ">
-                    	<img src="{{ url_for('static', filename='img/logo.png') }}" width="60" height="60">
+                        <!--<img src="{{ url_for('static', filename='img/logo.png') }}" width="60" height="60">-->
+                    	<img src="{{ company.logo }}" width="60" height="60">
                     	<div class="company-n pl-2">
-                    		<h3>Tata Consultancy Services</h3>
-                    		<h6 class="pl-1">TCS</h6>
+                            <h3>{{ company.name }}</h3>
+                            <h6 class="pl-1">{{ company.code }}</h6>
                     	</div>
                     </div>
+                    {% set stock = company.stock %}
+                    {% set stock_change = (stock.close|float - stock.open|float) %}
+                    {% set stock_change_percentage = (100 * (stock_change / stock.open|float))|round(2, 'floor')  %}
+                    {% if stock.close|float < stock.open|float %}
+                        {% set s_class = 'red' %}
+                        {% set s_arrow = 'fa-arrow-down' %}
+                    {% else %}
+                        {% set s_class = 'green' %}
+                        {% set s_arrow = 'fa-arrow-up' %}
+                    {% endif %}
                     <div class="company-stock-data row m-0 p-2">
                     	<span class="mr-1">Live</span>
-                    	<small class="mr-2 my-auto last-updated">Nov 14 6.00PM</small>
-                    	<h5 class="red m-0 pr-2">2714.70</h5>
-                    	<span class="red pr-2"><i class="fa fa-arrow-down red pr-2"></i> -42.15</span>
-                    	<span class="red pr-2">(-1.73%)</span>
+                        <small class="mr-2 my-auto last-updated">{{ company.stock.refreshedAt.strftime('%a, %b %d %I:%M %p') }}</small>
+                        <h5 class="{{ s_class }} m-0 pr-2">{{ company.stock.close }}</h5>
+                        <span class="{{ s_class }} pr-2"><i class="fa {{ s_arrow }} {{ s_class }} pr-2"></i> {{ stock_change }}</span>
+                        <span class="{{ s_class }} pr-2">({{ stock_change_percentage }}%)</span>
                     </div>
                     <div class="row m-0 p-2">
                     	<div class="col-md-3 col-lg-3 col-xl-3">
                     		<span class="col-6">Open Price :</span>
-                    		<span>2680</span>
+                            <span>{{ company.stock.open }}</span>
                     	</div>
                     	<div class="col-md-3 col-lg-3 col-xl-3">
                     		<span class="col-6">high Price :</span>
-                    		<span>2680</span>
+                    		<span>{{ company.stock.high }}</span>
                     	</div>
                     	<div class="col-md-3 col-lg-3 col-xl-3">
                     		<span class="col-6">Low Price :</span>
-                    		<span>2680</span>
+                    		<span>{{ company.stock.low }}</span>
                     	</div>
                     	<div class="col-md-3 col-lg-3 col-xl-3">
                     		<span class="col-6">Prev Close Price :</span>
-                    		<span>2680</span>
+                    		<span>{{ company.stock.close }}</span>
                     	</div>
                     </div>
                 </div>
