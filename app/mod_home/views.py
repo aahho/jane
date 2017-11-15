@@ -38,19 +38,26 @@ def filter(data):
             .filter_self(Q(name__icontains=data) | Q(code__icontains=data)).paginate()
     return result
 
-def get_current_stock_of_company(company_code):
+def get_only_company(company_code):
+    #comp = CompanyRepo().set_excludes(['history']).filter(code=company_code).first()
+    comp = CompanyRepo().get(code=company_code)
+    if not comp:
+        raise SException("Invalid company code", 400)
+    return comp
+
+def get_current_stock_of_company(company_code, company=None):
     """
     https://www.quandl.com/api/v3/datasets/NSE/TCS.json?api_key=xMH7BiBu6s24LHCizug3
     """
     #response = requests.get('https://www.quandl.com/api/v3/datasets/NSE/' + company_code + '.json?start_date=' + yesterday_date + '&end_date=' + today_date + '&api_key=xMH7BiBu6s24LHCizug3')
-    company = CompanyRepo().get(code=company_code)
-    if not company:
-        raise SException("Error in company code", 400)
+    if company is None:
+        company = CompanyRepo().get(code=company_code)
+        if not company:
+            raise SException("Error in company code", 400)
     if company.stockExchangeCode == 'NSE':
-        #stock_dict = nse.get_quote(str(company.code))
-        #print type(stock)
-        print "NSE Stock"
-        pass
+        stock_dict = nse.get_quote(str(company.code))
+        company.stock = transformers.transform_nsetools_stock(stock_dict)
+        return company
     response = requests.get('https://www.quandl.com/api/v3/datasets/' + \
             company.stockExchangeCode + '/' + company_code + '.json?api_key=xMH7BiBu6s24LHCizug3')
     #response = requests.get('https://www.quandl.com/api/v3/datasets/NSE/' + company_code + '.json?api_key=xMH7BiBu6s24LHCizug3')
@@ -138,8 +145,8 @@ def remove_from_watchlist(company_id):
 def list_of_watchlist():
     user = UserRepo().objects.no_dereference().filter(id=auth.user().id).first()
     company_ids = [u.id for u in user.favourites]
-    return CompanyRepo().set_transformer(transformers.company)\
-            .skip_list('slice__history', 0, 1)\
+    #return CompanyRepo().set_transformer(transformers.company)\
+    return CompanyRepo().skip_list('slice__history', 0, 1)\
             .set_excludes([])\
             .filter_self(id__in=company_ids)\
             .paginate_self()

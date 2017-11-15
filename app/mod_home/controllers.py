@@ -16,24 +16,26 @@ mod_home = Blueprint('home', __name__, url_prefix='/')
 def index():
     paginator = views.list_all_company()
     trendings = views.list_trending_companies()
+    #trendings = []
     watchlist = []
     if 'authenticate' in session:
-        from app.mod_database.models import User
-        watchlist = User.auth().favourites
+        watchlist = views.list_of_watchlist().items
+        #from app.mod_database.models import User
+        #watchlist = User.auth().favourites
     #    return render_template('company/authenticated_list.html', paginator=paginator, trendings=trendings)
     return render_template('company/list.html', paginator=paginator, trendings=trendings, watchlist=watchlist)
 
 @mod_home.route('companies/<company_code>')
 @mod_home.route('companies/<company_code>/<slug>')
 def company_details(company_code, slug=None):
-    company = views.get_current_stock_of_company(company_code)
-    #if slug is None:
-    #    return redirect("companies/{}/{}".format(company_code, "adf"))
+    company = views.get_only_company(company_code)
+    if slug != company.slug:
+        return redirect("companies/{}/{}".format(company_code, company.slug))
+    company = views.get_current_stock_of_company(company_code, company=company)
     trendings = views.list_trending_companies()
     watchlist = []
     if 'authenticate' in session:
-        from app.mod_database.models import User
-        watchlist = User.auth().favourites
+        watchlist = views.list_of_watchlist().items
     return render_template('company/details.html', company=company, trendings=trendings, watchlist=watchlist)
 
 @mod_home.route('companies/<company_code>/<slug>/stocks')

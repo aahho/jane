@@ -239,3 +239,16 @@ class FirstTimeDataSeeder(BaseCommand):
     def _stock_details(self, data):
         return {}
 
+class SlugMaker(BaseCommand):
+
+    def __init__(self):
+        self.company_repo = CompanyRepo()
+
+    def run(self):
+        from slugify import slugify
+        companies = self.company_repo.set_excludes(['history']).all()
+        for company in companies:
+            company.slug = slugify(company.name)
+            company.save()
+            print company.name, company.slug
+        print "Done"
