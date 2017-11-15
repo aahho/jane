@@ -1,0 +1,33 @@
+{% macro watchlist(companies) %}
+
+<div class="col-12 left-side-box p-3">
+    <div class="d-flex left-side-box-header">
+        <i class="fa fa-bar-chart" aria-hidden="true"></i>
+        <span>Watchlist</span>
+    </div>
+    <hr class="m-2">
+    {% if 'authenticate' not in session %}
+    <div class="row m-0">
+        <small>Sign up with NoodleStocks to have watchlist for easy access to your favorite stocks.</small>
+        <button type="button" class="btn btn-primary btn-sm mx-auto" data-toggle="modal" data-target="#signup">Sign up</button>
+    </div>
+    {% else %}
+    <div class="d-flex row m-0">
+        {% if not companies|length %}
+        <p style="color: grey;">You are not watching any company.</p>
+        {% endif %}
+        {% for w_company in companies %}
+        {% set w_stock = w_company.history[0] %}
+        {% set w_stock_change = (w_stock.close|float - w_stock.open|float)|abs %}
+        {% set w_stock_change_percentage = (100 * (w_stock_change / w_stock.open|float))|round(2, 'floor')  %}
+        <div class="treding-item p-0 m-1 col-12 
+            {% if w_stock.close < w_stock.open %}red-sm-border{% else %}green-sm-border{% endif %}" data-src="/companies/{{w_company.code}}">
+            <span>{{ w_company.code }}</span>
+            <span>{{ w_company.close }}</span>
+            <span class="float-right">({{ w_stock_change }})&nbsp; {{ w_stock_change_percentage }}% &nbsp;</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endmacro %}
