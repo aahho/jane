@@ -60,6 +60,20 @@ def transform_quandl_stock(data):
         stock['refreshedAt'] = helper.str_to_datetime(data['refreshed_at'])
     return stock
 
+def transform_nsetools_stock(data):
+
+    return {
+            "date": data['cm_adj_low_dt'],
+            "open": data['open'],
+            "high": data['dayHigh'],
+            "low": data['dayLow'],
+            "last": data['lastPrice'],
+            "close": data['previousClose'],
+            "totalTradeQuantity": data['quantityTraded'],
+            "turnover": '-',
+            "refreshedAt": helper.now()
+        }
+
 def transform_upload(upload):
     data = json.loads(upload.to_json())
     data['id'] = upload.id.__str__()

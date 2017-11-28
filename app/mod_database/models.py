@@ -59,6 +59,7 @@ class CompanyDetail(db.DynamicDocument):
 class Company(Base):
     name = db.StringField()
     code = db.StringField(required=True, unique=True)
+    slug = db.StringField()
     description = db.StringField()
     stockExchangeCode = db.StringField(required=True)
     type = db.StringField()
