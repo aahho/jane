@@ -6,4 +6,17 @@ $(document).ready(function(){
 		window.location.href = url;
 	})
 
+	$('#anonymous-comment').on('click',function(event){
+		$('#login').modal('show');
+	})
+	$('.login-signup-modal').on('click',function(event){
+		$('#login').modal('hide');
+		$('#signup').modal('show');
+	})
+	
+	$('.signup-login-modal').on('click',function(event){
+		$('#signup').modal('hide');
+		$('#login').modal('show');
+	})
+
 })

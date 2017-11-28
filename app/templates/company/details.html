@@ -1,8 +1,4 @@
-{% from "company/macros/_trending.html" import trending with context %}
-{% from "company/macros/_watchlist.html" import watchlist as watchlist_macro with context %}
-{% extends "company/base.html" %}
-{% block title %} {{ company.code }} - {{ company.name }}{% endblock %}
-{% block body %}
+{% from "company/macros/_trending.html" import trending with context %} {% from "company/macros/_watchlist.html" import watchlist as watchlist_macro with context %} {% extends "company/base.html" %} {% block title %} {{ company.code }} - {{ company.name }}{% endblock %} {% block body %}
 <header class="navbar navbar-expand-lg sticky-top fixed-top">
     <a class="navbar-brand" href="/">
                 <img src="{{ url_for('static', filename='img/logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -35,211 +31,273 @@
     </div>
 </header>
 <div class="container-fluid list-container">
-        <div class="row m-0">
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                {{ trending(trendings) }}
-                {{ watchlist_macro(watchlist) }}
-                <div class="col-12 left-side-box p-3">
-                    <div class="left-side-box-header clearfix">
-                        <i class="fa fa-newspaper-o float-left" aria-hidden="true"></i>
-                        <span class="float-left">Latest News</span>
-                        <a class="float-right view-more">view more</a>
-                    </div>
-                    <hr class="m-2">
-                    <div class="d-flex row m-0">
-                        <div class="list-group col-12 px-2">
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-2 news-feed">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">List group item heading</h5>
-                                    <small>3 days ago</small>
-                                </div>
-                                <div class="list-thumbnail">
-                                    <img src="{{ url_for('static', filename='img/logo.png') }}">
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small>Donec id elit non mi porta.</small>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-2 news-feed">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">List group item heading</h5>
-                                    <small class="text-muted">3 days ago</small>
-                                </div>
-                                <div class="list-thumbnail">
-                                    <img src="{{ url_for('static', filename='img/logo.png') }}">
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small class="text-muted">Donec id elit non mi porta.</small>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-2 news-feed">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">List group item heading</h5>
-                                    <small class="text-muted">3 days ago</small>
-                                </div>
-                                <div class="list-thumbnail">
-                                    <img src="{{ url_for('static', filename='img/logo.png') }}">
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small class="text-muted">Donec id elit non mi porta.</small>
-                            </a>
-                        </div>
+    <div class="row m-0">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            {{ trending(trendings) }} {{ watchlist_macro(watchlist) }}
+            <div class="col-12 left-side-box p-3">
+                <div class="left-side-box-header clearfix">
+                    <i class="fa fa-newspaper-o float-left" aria-hidden="true"></i>
+                    <span class="float-left">Latest News</span>
+                    <a class="float-right view-more">view more</a>
+                </div>
+                <hr class="m-2">
+                <div class="d-flex row m-0">
+                    <div class="list-group col-12 px-2">
+                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-2 news-feed">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">List group item heading</h5>
+                                <small>3 days ago</small>
+                            </div>
+                            <div class="list-thumbnail">
+                                <img src="{{ url_for('static', filename='img/logo.png') }}">
+                            </div>
+                            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                            <small>Donec id elit non mi porta.</small>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-2 news-feed">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">List group item heading</h5>
+                                <small class="text-muted">3 days ago</small>
+                            </div>
+                            <div class="list-thumbnail">
+                                <img src="{{ url_for('static', filename='img/logo.png') }}">
+                            </div>
+                            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                            <small class="text-muted">Donec id elit non mi porta.</small>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-2 news-feed">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">List group item heading</h5>
+                                <small class="text-muted">3 days ago</small>
+                            </div>
+                            <div class="list-thumbnail">
+                                <img src="{{ url_for('static', filename='img/logo.png') }}">
+                            </div>
+                            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                            <small class="text-muted">Donec id elit non mi porta.</small>
+                        </a>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <div class="middle-box col-12 p-3">
-                    <div class="company-header row m-0 ">
-                        <!--<img src="{{ url_for('static', filename='img/logo.png') }}" width="60" height="60">-->
-                    	<img src="{{ company.logo }}" width="60" height="60">
-                    	<div class="company-n pl-2">
-                            <h3>{{ company.name }}</h3>
-                            <h6 class="pl-1">{{ company.code }}</h6>
-                    	</div>
-                    	<button class="btn btn-primary btn-sm my-auto ml-auto"><i class="fa fa-plus my-auto pr-1"></i> Watcher</button>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="middle-box col-12 p-3">
+                <div class="company-header row m-0 ">
+                    <!--<img src="{{ url_for('static', filename='img/logo.png') }}" width="60" height="60">-->
+                    <img src="{{ company.logo }}" width="60" height="60">
+                    <div class="company-n pl-2">
+                        <h3>{{ company.name }}</h3>
+                        <h6 class="pl-1">{{ company.code }}</h6>
                     </div>
-                    {% set stock = company.stock %}
-                    {% set stock_change = (stock.close|float - stock.open|float) %}
-                    {% set stock_change_percentage = (100 * (stock_change / stock.open|float))|round(2, 'floor')  %}
-                    {% if stock.close|float < stock.open|float %}
-                        {% set s_class = 'red' %}
-                        {% set s_arrow = 'fa-arrow-down' %}
-                    {% else %}
-                        {% set s_class = 'green' %}
-                        {% set s_arrow = 'fa-arrow-up' %}
-                    {% endif %}
-                    <div class="company-stock-data row m-0 p-2">
-                    	<span class="mr-1">Live</span>
-                        <small class="mr-2 my-auto last-updated">{{ company.stock.refreshedAt.strftime('%a, %b %d %I:%M %p') }}</small>
-                        <h5 class="{{ s_class }} m-0 pr-2">{{ company.stock.close }}</h5>
-                        <span class="{{ s_class }} pr-2"><i class="fa {{ s_arrow }} {{ s_class }} pr-2"></i> {{ stock_change }}</span>
-                        <span class="{{ s_class }} pr-2">({{ stock_change_percentage }}%)</span>
-                    </div>
-                    <div class="row m-0 p-2">
-                    	<div class="col-md-3 col-lg-3 col-xl-3 p-0 info-color">
-                    		<span class="col-6">Open Price :</span>
-                            <span>{{ company.stock.open }}</span>
-                    	</div>
-                    	<div class="col-md-3 col-lg-3 col-xl-3 p-0 green">
-                    		<span class="col-6">high Price :</span>
-                    		<span>{{ company.stock.high }}</span>
-                    	</div>
-                    	<div class="col-md-3 col-lg-3 col-xl-3 p-0 red">
-                    		<span class="col-6">Low Price :</span>
-                    		<span>{{ company.stock.low }}</span>
-                    	</div>
-                    	<div class="col-md-3 col-lg-3 col-xl-3">
-                    		<span class="col-6">Prev Close Price :</span>
-                    		<span>{{ company.stock.close }}</span>
-                    	</div>
-                    </div>
+                    <button class="btn btn-primary btn-sm my-auto ml-auto"><i class="fa fa-plus my-auto pr-1"></i> Watcher</button>
+                </div>
+                {% set stock = company.stock %} {% set stock_change = (stock.close|float - stock.open|float) %} {% set stock_change_percentage = (100 * (stock_change / stock.open|float))|round(2, 'floor') %} {% if stock.close|float
+                < stock.open|float %} {% set s_class='red' %} {% set s_arrow='fa-arrow-down' %} {% else %} {% set s_class='green' %} {% set s_arrow='fa-arrow-up' %} {% endif %} <div class="company-stock-data row m-0 p-2">
+                    <span class="mr-1">Live</span>
+                    <small class="mr-2 my-auto last-updated">{{ company.stock.refreshedAt.strftime('%a, %b %d %I:%M %p') }}</small>
+                    <h5 class="{{ s_class }} m-0 pr-2">{{ company.stock.close }}</h5>
+                    <span class="{{ s_class }} pr-2"><i class="fa {{ s_arrow }} {{ s_class }} pr-2"></i> {{ stock_change }}</span>
+                    <span class="{{ s_class }} pr-2">({{ stock_change_percentage }}%)</span>
+            </div>
+            <div class="row m-0 p-2 fw-500">
+                <div class="col-md-3 col-lg-3 col-xl-3 p-0 info-color">
+                    <span class="col-6">Open Price :</span>
+                    <span>{{ company.stock.open }}</span>
+                </div>
+                <div class="col-md-3 col-lg-3 col-xl-3 p-0 green">
+                    <span class="col-6">high Price :</span>
+                    <span>{{ company.stock.high }}</span>
+                </div>
+                <div class="col-md-3 col-lg-3 col-xl-3 p-0 red">
+                    <span class="col-6">Low Price :</span>
+                    <span>{{ company.stock.low }}</span>
+                </div>
+                <div class="col-md-3 col-lg-3 col-xl-3 p-0">
+                    <span class="col-6">Prev Close :</span>
+                    <span>{{ company.stock.close }}</span>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                <div class="col-12 left-side-box p-3">
-                    <div class="left-side-box-header clearfix">
-                        <i class="fa fa-newspaper-o float-left" aria-hidden="true"></i>
-                        <span class="float-left">Latest News</span>
-                        <a class="float-right view-more">view more</a>
+            <div class="row m-0 p-2">
+                <form name="coment-form" class="col-12">
+                    <div class="form-group">
+                        <label for="anonymous-comment" class="py-2">
+                            <img src="{{ url_for('static', filename='img/logo.png') }}" height="30" width="30" />
+                            <b class="pl-2">Anonymous</b>
+                        </label>
+                        <textarea class="form-control" id="anonymous-comment" rows="3"></textarea>
                     </div>
-                    <hr class="m-2">
-                    <div class="d-flex row m-0">
-                        <div class="list-group col-12 px-2">
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-2 news-feed">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">List group item heading</h5>
-                                    <small>3 days ago</small>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-md btn-primary">POST</button>
+                    </div>
+                </form>
+            </div>
+            <div class="row m-0 p-2">
+                <form name="coment-form-person" class="col-12">
+                    <div class="form-group">
+                        <label for="anonymous-comment-person " class="py-2">
+                            <span class="name-image">TS</span>
+                            <span class="pl-2 fw-500">Tarun Shahi</span>
+                        </label>
+                        <textarea class="form-control" id="anonymous-comment-person" rows="3" placeholder="Enter Comment"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="file" class="form-control-file" id="upload-file-person">
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-md btn-primary">POST</button>
+                    </div>
+                </form>
+            </div>
+            <div class="row m-0 p-2 comment-list-section">
+                <div class="row m-0">
+                    <div class="media p-2">
+                        <div class="mr-1 name-image">TS</div>
+                        <div class="media-body">
+                            <div class="row m-0 p-1">
+                                <h6 class="mt-0">Tarun Shahi</h6>
+                                <div class="ml-auto">
+                                    <small>6 min ago</small>
                                 </div>
-                                <div class="list-thumbnail">
-                                    <img src="{{ url_for('static', filename='img/logo.png') }}">
+                            </div>
+                            <p> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+                            <div class="row m-0 p-2">
+                            	<ul class="comment_options">
+	                                <li title="like">
+	                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+	                                </li>
+	                                <li title="Reply">
+	                                    <i class="fa fa-reply" aria-hidden="true"></i>
+	                                </li>
+                            	</ul>
+                            	<small class="ml-auto">3 likes</small>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                        		
+                    		</div>
+                            <div class="media p-2 mt-2">
+                                <a class="pr-3" href="#">
+        							<img src="..." alt="Generic placeholder image">
+      							</a>
+                                <div class="media-body">
+                                <   div></div>
+                                    <h5 class="mt-0">Media heading</h5> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                                 </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small>Donec id elit non mi porta.</small>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-2 news-feed">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">List group item heading</h5>
-                                    <small class="text-muted">3 days ago</small>
-                                </div>
-                                <div class="list-thumbnail">
-                                    <img src="{{ url_for('static', filename='img/logo.png') }}">
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small class="text-muted">Donec id elit non mi porta.</small>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-2 news-feed">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">List group item heading</h5>
-                                    <small class="text-muted">3 days ago</small>
-                                </div>
-                                <div class="list-thumbnail">
-                                    <img src="{{ url_for('static', filename='img/logo.png') }}">
-                                </div>
-                                <p class="mb-1">Done id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small class="text-muted">Donec id elit non mi porta.</small>
-                            </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="col-12 left-side-box p-3">
+            <div class="left-side-box-header clearfix">
+                <i class="fa fa-newspaper-o float-left" aria-hidden="true"></i>
+                <span class="float-left">Latest News</span>
+                <a class="float-right view-more">view more</a>
+            </div>
+            <hr class="m-2">
+            <div class="d-flex row m-0">
+                <div class="list-group col-12 px-2">
+                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-2 news-feed">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">List group item heading</h5>
+                            <small>3 days ago</small>
+                        </div>
+                        <div class="list-thumbnail">
+                            <img src="{{ url_for('static', filename='img/logo.png') }}">
+                        </div>
+                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        <small>Donec id elit non mi porta.</small>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-2 news-feed">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">List group item heading</h5>
+                            <small class="text-muted">3 days ago</small>
+                        </div>
+                        <div class="list-thumbnail">
+                            <img src="{{ url_for('static', filename='img/logo.png') }}">
+                        </div>
+                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        <small class="text-muted">Donec id elit non mi porta.</small>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-2 news-feed">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">List group item heading</h5>
+                            <small class="text-muted">3 days ago</small>
+                        </div>
+                        <div class="list-thumbnail">
+                            <img src="{{ url_for('static', filename='img/logo.png') }}">
+                        </div>
+                        <p class="mb-1">Done id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        <small class="text-muted">Donec id elit non mi porta.</small>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModal">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/login" method="POST" class="login-form" name="loginform">
+                    <div class="form-group">
+                        <label for="loginEmail">Email address</label>
+                        <input type="email" class="form-control" id="loginEmail" placeholder="Enter email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" class="form-control" id="loginPassword" name="password" placeholder="Password" />
+                    </div>
+                    <div class="login-signup-modal py-2">Don't have account, Please signup.</div>
+                    <button type="submit" class="btn btn-primary">login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form class="submit-form" name="submitform">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="loginModal">Login</h5>
+                    <h5 class="modal-title" id="signupModal">Signup</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/login" method="POST" class="login-form" name="loginform">
-                        <div class="form-group">
-                            <label for="loginEmail">Email address</label>
-                            <input type="email" class="form-control" id="loginEmail" placeholder="Enter email" name="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="loginPassword">Password</label>
-                            <input type="password" class="form-control" id="loginPassword" name="password" placeholder="Password" />
-                        </div>
-                        <button type="submit" class="btn btn-primary">login</button>
-                    </form>
+                    <div class="form-group">
+                        <label for="signupUsername">Username</label>
+                        <input type="text" class="form-control" id="signupUsername" aria-describedby="emailHelp" placeholder="Enter username">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email address</label>
+                        <input type="email" class="form-control" id="signupEmail" aria-describedby="emailHelp" placeholder="Enter email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword1">Password</label>
+                        <input type="password" class="form-control" id="signupPassword1" name="password" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword2">Confirm Password</label>
+                        <input type="password" class="form-control" id="signupPassword2" name="password" placeholder="Password">
+                    </div>
+                    <div class="signup-login-modal py-2">Already have account, Please login.</div>
                 </div>
-            </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" ng-click="">Signup</button>
+                </div>
+            </form>
         </div>
     </div>
-    <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form class="submit-form" name="submitform">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="signupModal">Signup</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="signupUsername">Username</label>
-                            <input type="text" class="form-control" id="signupUsername" aria-describedby="emailHelp" placeholder="Enter username">
-                        </div>
-                        <div class="form-group">
-                            <label for="signupEmail">Email address</label>
-                            <input type="email" class="form-control" id="signupEmail" aria-describedby="emailHelp" placeholder="Enter email" name="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="signupPassword1">Password</label>
-                            <input type="password" class="form-control" id="signupPassword1" name="password" placeholder="Password">
-                        </div>
-                        <div class="form-group">
-                            <label for="signupPassword2">Confirm Password</label>
-                            <input type="password" class="form-control" id="signupPassword2" name="password" placeholder="Password">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" ng-click="">Signup</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+</div>
 {% endblock %}
