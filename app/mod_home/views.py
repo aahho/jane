@@ -83,22 +83,24 @@ def add_comment_to_company(company_id, data):
     user = auth.user()
     company = CompanyRepo().get_company(company_id)
 
-    msg, upload_data = (data.get('comment', None), None)
-    if data['type'] == 'attachment':
-        if 'data' not in data:
-            raise SException("Please provide attachment to upload")
-        data['data']['uploaderId'] = data['data']['id']
-        del data['data']['id']
-        upload_data = UploadRepo().create(data['data'])
+    msg, attachment_obj, upload_data = data.get('comment', None), data.get('attachment', None), None
+    if attachment_obj is not None:
+        print "atttachment uploading"
+        #data['data']['uploaderId'] = data['data']['id']
+        #del data['data']['id']
+        #upload_data = UploadRepo().create(data['data'])
     elif msg is None or msg == '':
+        print "errot"
         raise SException("Please provide some comment")
+    print "creating comment"
     comment = CommentRepo().create({
                 'user': user,
                 'company': company,
                 'message': msg,
-                'type': data['type'],
+                'type': data.get('type'),
                 'attachment': upload_data
             })
+    return company
     return transformers.transform_comment(comment)
 
 def list_comments_of_company(company_id):

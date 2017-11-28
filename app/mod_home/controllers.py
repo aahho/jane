@@ -51,10 +51,17 @@ def companies():
 def stocks(company_code):
     return response.json(views.get_current_stock_of_company(company_code))
 
-@router.api('companies/<company_id>/comments', methods=['GET', 'POST'], validator=validators.VAttachment)
+#@router.api('companies/<company_id>/comments', methods=['GET', 'POST'], validator=validators.VAttachment)
+@mod_home.route('companies/<company_id>/comments', methods=['GET', 'POST'])
 def comments(company_id):
     if request.method == 'POST':
-        return response.json(views.add_comment_to_company(company_id, request.json))
+        #return response.json(views.add_comment_to_company(company_id, request.json))
+        data = {
+            'comment': request.values.get('comment', None),
+            'attachment': request.files.get('attachment', None)
+        }
+        company = views.add_comment_to_company(company_id, data)
+        return redirect('/companies/' + company.code + '/' + company.slug) 
     else:
         return response.paginate(views.list_comments_of_company(company_id))
 

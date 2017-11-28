@@ -100,6 +100,11 @@ class Company(Base):
     def watchlistcount(self):
         return User.objects.no_dereference().filter(favourites=self).count()
 
+    @property
+    def comments(self):
+        return Comment.objects\
+                .filter(company=self).paginate(1, 10, error_out=False)
+
 """
 class ComanyNews(Base):
     config_collection_name = 'companiesNews'
@@ -195,7 +200,8 @@ class Comment(Base):
 
     meta = {
             'collection': 'comments',
-            'indexes': ['createdAt']
+            'indexes': ['createdAt'],
+            'ordering': ['-createdAt'],
     }
 
     @property

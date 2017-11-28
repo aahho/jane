@@ -1,4 +1,14 @@
-{% from "company/macros/_trending.html" import trending with context %} {% from "company/macros/_watchlist.html" import watchlist as watchlist_macro with context %} {% extends "company/base.html" %} {% block title %} {{ company.code }} - {{ company.name }}{% endblock %} {% block body %}
+{% from "company/macros/_trending.html" import trending with context %}
+{% from "company/macros/_watchlist.html" import watchlist as watchlist_macro with context %}
+{% from "company/macros/_navbar.html" import navbar with context %}
+{% from "company/macros/_commentform.html" import commentform with context %}
+{% from "company/macros/_commentlist.html" import commentlist with context %}
+{% extends "company/base.html" %}
+
+{% block title %} {{ company.code }} - {{ company.name }}{% endblock %}
+
+{% block body %}
+
 <header class="navbar navbar-expand-lg sticky-top fixed-top">
     <a class="navbar-brand" href="/">
                 <img src="{{ url_for('static', filename='img/logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -94,6 +104,7 @@
                 {% set stock = company.stock %} {% set stock_change = (stock.close|float - stock.open|float) %} {% set stock_change_percentage = (100 * (stock_change / stock.open|float))|round(2, 'floor') %} {% if stock.close|float
                 < stock.open|float %} {% set s_class='red' %} {% set s_arrow='fa-arrow-down' %} {% else %} {% set s_class='green' %} {% set s_arrow='fa-arrow-up' %} {% endif %} <div class="company-stock-data row m-0 p-2">
                     <span class="mr-1">Live</span>
+                    <!--<small class="mr-2 my-auto last-updated">{#{ company.stock.refreshedAt|timesince }#}</small>-->
                     <small class="mr-2 my-auto last-updated">{{ company.stock.refreshedAt.strftime('%a, %b %d %I:%M %p') }}</small>
                     <h5 class="{{ s_class }} m-0 pr-2">{{ company.stock.close }}</h5>
                     <span class="{{ s_class }} pr-2"><i class="fa {{ s_arrow }} {{ s_class }} pr-2"></i> {{ stock_change }}</span>
@@ -117,74 +128,10 @@
                     <span>{{ company.stock.close }}</span>
                 </div>
             </div>
-            <div class="row m-0 p-2">
-                <form name="coment-form" class="col-12">
-                    <div class="form-group">
-                        <label for="anonymous-comment" class="py-2">
-                            <img src="{{ url_for('static', filename='img/logo.png') }}" height="30" width="30" />
-                            <b class="pl-2">Anonymous</b>
-                        </label>
-                        <textarea class="form-control" id="anonymous-comment" rows="3"></textarea>
-                    </div>
-                    <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-md btn-primary">POST</button>
-                    </div>
-                </form>
-            </div>
-            <div class="row m-0 p-2">
-                <form name="coment-form-person" class="col-12">
-                    <div class="form-group">
-                        <label for="anonymous-comment-person " class="py-2">
-                            <span class="name-image">TS</span>
-                            <span class="pl-2 fw-500">Tarun Shahi</span>
-                        </label>
-                        <textarea class="form-control" id="anonymous-comment-person" rows="3" placeholder="Enter Comment"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <input type="file" class="form-control-file" id="upload-file-person">
-                    </div>
-                    <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-md btn-primary">POST</button>
-                    </div>
-                </form>
-            </div>
+            {{ commentform(company) }}
             <div class="row m-0 p-2 comment-list-section">
                 <div class="row m-0">
-                    <div class="media p-2">
-                        <div class="mr-1 name-image">TS</div>
-                        <div class="media-body">
-                            <div class="row m-0 p-1">
-                                <h6 class="mt-0">Tarun Shahi</h6>
-                                <div class="ml-auto">
-                                    <small>6 min ago</small>
-                                </div>
-                            </div>
-                            <p> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-                            <div class="row m-0 p-2">
-                            	<ul class="comment_options">
-	                                <li title="like">
-	                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-	                                </li>
-	                                <li title="Reply">
-	                                    <i class="fa fa-reply" aria-hidden="true"></i>
-	                                </li>
-                            	</ul>
-                            	<small class="ml-auto">3 likes</small>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                        		
-                    		</div>
-                            <div class="media p-2 mt-2">
-                                <a class="pr-3" href="#">
-        							<img src="..." alt="Generic placeholder image">
-      							</a>
-                                <div class="media-body">
-                                <   div></div>
-                                    <h5 class="mt-0">Media heading</h5> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {{ commentlist(company.comments.items) }}
                 </div>
             </div>
         </div>

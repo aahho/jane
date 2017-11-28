@@ -45,3 +45,8 @@ app.register_blueprint(sandbox)
 app.register_blueprint(BaseLib)
 app.register_blueprint(APIParent)
 
+# Import filters and register to app in order to use in templates
+from app.mod_utils import filters
+
+app.jinja_env.filters['timesince'] = filters.timesince
+

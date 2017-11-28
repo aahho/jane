@@ -1,0 +1,38 @@
+{% macro commentform(company) %}
+
+{% if 'authenticate' not in session %}
+<div class="row m-0 p-2">
+    <form name="coment-form" class="col-12">
+        <div class="form-group">
+            <label for="anonymous-comment" class="py-2">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" height="30" width="30" />
+                <b class="pl-2">Anonymous</b>
+            </label>
+            <textarea class="form-control" id="anonymous-comment" rows="3"></textarea>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-md btn-primary">POST</button>
+        </div>
+    </form>
+</div>
+{% else %}
+<div class="row m-0 p-2">
+    <form name="comment-form-person" action="/companies/{{ company.id }}/comments" method="POST" class="col-12" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="anonymous-comment-person " class="py-2">
+                <span class="name-image">{{ session['authenticate'].user.name[0] }}</span>
+                <span class="pl-2 fw-500">{{ session['authenticate'].user.name }}</span>
+            </label>
+            <textarea class="form-control" id="comment-person" name="comment" rows="3" placeholder="Enter Comment"></textarea>
+        </div>
+        <div class="form-group">
+            <input type="file" class="form-control-file" name="attachment" id="upload-file-person">
+        </div>
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-md btn-primary">POST</button>
+        </div>
+    </form>
+</div>
+{% endif %}
+
+{% endmacro %}
