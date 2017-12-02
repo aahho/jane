@@ -26,6 +26,7 @@ def not_found(error):
 @app.errorhandler(exception.SException)
 def own_error(error):
     # return response.exception(error)
+    print error
     return redirect('/')
 
 # Import a module / component using its blueprint handler variable (mod_auth)

@@ -1,8 +1,6 @@
-{% macro commentlist(comments) %}
-
-{% for comment in comments %}
-<div class="media p-2">
-    <div class="mr-1 name-image">TS</div>
+{% macro commentlist(comments) %} {% for comment in comments %}
+<div class="media p-2 col-12 parent-comment">
+    <div class="mr-3 name-image">TS</div>
     <div class="media-body">
         <div class="row m-0 p-1">
             <h6 class="mt-0">Tarun Shahi</h6>
@@ -11,30 +9,50 @@
             </div>
         </div>
         <p>{{ comment.message }}</p>
+        <img class="comment-image" src="http://www.excel-easy.com/examples/images/bar-chart/bar-chart.png" width="100%" />
         <div class="row m-0 p-2">
             <ul class="comment_options">
                 <li title="like">
                     <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                 </li>
                 <li title="Reply">
-                    <i class="fa fa-reply" aria-hidden="true"></i>
+                    <a href="#collapseReplyform" data-toggle="collapse" aria-expanded="false" aria-controls="collapseReplyform">
+                        <i class="fa fa-reply black-color"></i>
+                    </a>
+                </li>
+                <li title="View Reply">
+                    <a href="#commentReply" data-toggle="collapse" aria-expanded="false" aria-controls="commentReply">
+                        <i class="fa fa-comments black-color"></i>
+                    </a>
                 </li>
             </ul>
             <small class="ml-auto">3 likes</small>
         </div>
-        <div class="d-flex justify-content-end">
-
+        <div id="collapseReplyform" class="collapse">
+            <form class="col-12 form-inline" name="reply">
+                <div class="form-group w-100">
+                    <textarea class="col-10 form-control" rows="2" name="replyContent"></textarea>
+                    <div class="col-2">
+                        <button class="btn btn-info btn-sm">reply</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="media p-2 mt-2">
-            <a class="pr-3" href="#">
-                <img src="..." alt="Generic placeholder image">
-            </a>
-            <div class="media-body">
-                <   div></div>
-            <h5 class="mt-0">Media heading</h5> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+        <div class="row w-100 m-100 collapse" id="commentReply">
+            <div class="media p-2 m-3 child-media w-100" >
+                <div class="mr-1 name-image">TS</div>
+                <div class="media-body">
+                    <div class="row m-0 p-1">
+                        <h6 class="mt-0">Tarun Shahi</h6>
+                        <div class="ml-auto">
+                            <small>{{ comment.createdAt|timesince('Just Now') }}</small>
+                        </div>
+                    </div>
+                    <p>this is text that allow you to checjkf hfdbkj jdfkkd jnfdkdk kjndkfd kjnkfnfdk</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-{% endfor %}
-
-{% endmacro %}
+<hr class="w-100"/>
+{% endfor %} {% endmacro %}

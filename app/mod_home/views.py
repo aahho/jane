@@ -161,6 +161,7 @@ def signup_user(data):
     return transformers.user(result)
 
 def login_user(data):
+    print "logining user"
     user = UserRepo().login_user(data.get('email'), data.get('password'))
     """
     user_repository = UserRepo()

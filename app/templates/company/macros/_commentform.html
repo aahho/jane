@@ -19,19 +19,24 @@
 <div class="row m-0 p-2">
     <form name="comment-form-person" action="/companies/{{ company.id }}/comments" method="POST" class="col-12" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="anonymous-comment-person " class="py-2">
-                <span class="name-image">{{ session['authenticate'].user.name[0] }}</span>
+            <label for="anonymous-comment-person" class="py-2" style="display: inline-flex;">
+                <div class="name-image">
+                    <span>{{ session['authenticate'].user.name[0] }}</span>
+                </div>
                 <span class="pl-2 fw-500">{{ session['authenticate'].user.name }}</span>
             </label>
             <textarea class="form-control" id="comment-person" name="comment" rows="3" placeholder="Enter Comment"></textarea>
         </div>
         <div class="form-group">
-            <input type="file" class="form-control-file" name="attachment" id="upload-file-person">
-        </div>
-        <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-md btn-primary">POST</button>
+            <input type="file" class="form-control-file float-left" name="attachment" id="upload-file-person">
+            <!-- <img class="float-left" src="{{url_for('static',filename='img/Spinner.svg')}}"> -->
+            <button type="submit" class="btn btn-sm btn-primary float-right">POST</button>
         </div>
     </form>
+</div>
+<div class="row m-3 py-2">
+    <h5 class="col-12 m-0 p-0">Comments</h5>
+    <hr class="col-12 p-0 mt-3 mb-0" />    
 </div>
 {% endif %}
 
