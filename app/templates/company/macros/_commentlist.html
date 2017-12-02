@@ -1,35 +1,38 @@
-{% macro commentlist(comments) %} {% for comment in comments %}
+{% macro commentlist(company, comments) %}
+{% for comment in comments %}
 <div class="media p-2 col-12 parent-comment">
-    <div class="mr-3 name-image">TS</div>
+    <div class="mr-3 name-image">{{ comment.user.name[0] }}</div>
     <div class="media-body">
         <div class="row m-0 p-1">
-            <h6 class="mt-0">Tarun Shahi</h6>
+            <h6 class="mt-0">{{ comment.user.name }}</h6>
             <div class="ml-auto">
                 <small>{{ comment.createdAt|timesince('Just Now') }}</small>
             </div>
         </div>
         <p>{{ comment.message }}</p>
-        <img class="comment-image" src="http://www.excel-easy.com/examples/images/bar-chart/bar-chart.png" width="100%" />
+        {% if comment._attachment %}
+        <img class="comment-image" src="{{ comment._attachment.selfLink }}" alt="http://www.excel-easy.com/examples/images/bar-chart/bar-chart.png" width="100%" />
+        {% endif %}
         <div class="row m-0 p-2">
             <ul class="comment_options">
                 <li title="like">
                     <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                 </li>
                 <li title="Reply">
-                    <a href="#collapseReplyform" data-toggle="collapse" aria-expanded="false" aria-controls="collapseReplyform">
+                    <a href="#collapseReplyform{{ loop.index }}" data-toggle="collapse" aria-expanded="false" aria-controls="collapseReplyform{{ loop.index }}">
                         <i class="fa fa-reply black-color"></i>
                     </a>
                 </li>
                 <li title="View Reply">
-                    <a href="#commentReply" data-toggle="collapse" aria-expanded="false" aria-controls="commentReply">
+                    <a href="#commentReply{{ loop.index }}" data-toggle="collapse" aria-expanded="false" aria-controls="commentReply{{ loop.index }}">
                         <i class="fa fa-comments black-color"></i>
                     </a>
                 </li>
             </ul>
             <small class="ml-auto">3 likes</small>
         </div>
-        <div id="collapseReplyform" class="collapse">
-            <form class="col-12 form-inline" name="reply">
+        <div id="collapseReplyform{{ loop.index }}" class="collapse">
+            <form class="col-12 form-inline" name="reply" method="POST" action="{{ url_for('home.reply', company_id=company.id, comment_id=comment.id) }}">
                 <div class="form-group w-100">
                     <textarea class="col-10 form-control" rows="2" name="replyContent"></textarea>
                     <div class="col-2">
@@ -38,21 +41,30 @@
                 </div>
             </form>
         </div>
-        <div class="row w-100 m-100 collapse" id="commentReply">
+        <div class="row w-100 m-100 collapse" id="commentReply{{ loop.index }}">
+            {% if comment.replies|length > 0 %}
+            {% for reply in comment.replies %}
             <div class="media p-2 m-3 child-media w-100" >
-                <div class="mr-1 name-image">TS</div>
+                <div class="mr-1 name-image">{{ reply.user.name[0] }}</div>
                 <div class="media-body">
                     <div class="row m-0 p-1">
-                        <h6 class="mt-0">Tarun Shahi</h6>
+                        <h6 class="mt-0">{{ reply.user.name }}</h6>
                         <div class="ml-auto">
-                            <small>{{ comment.createdAt|timesince('Just Now') }}</small>
+                            <small>{{ reply.createdAt|timesince('Just Now') }}</small>
                         </div>
                     </div>
-                    <p>this is text that allow you to checjkf hfdbkj jdfkkd jnfdkdk kjndkfd kjnkfnfdk</p>
+                    <p>{{ reply.message }}</p>
                 </div>
             </div>
+            {% endfor %}
+            {% else %}
+                <div class="media p-2 m-3 child-media w-100" >
+                 No replies
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>
 <hr class="w-100"/>
-{% endfor %} {% endmacro %}
+{% endfor %} 
+{% endmacro %}
