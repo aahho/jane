@@ -175,6 +175,32 @@
     cursor: pointer;
     font-size: 14px;
 }
+.company-header{
+    position: sticky;
+    top:55px;
+    background-color: #fff;
+    z-index:20;
+    background-color: #dcdcdc;
+    box-shadow: 1px 2px 3px #ccc;
+}
+.base-content-header{
+    overflow: hidden;
+    text-align: left;
+}
+
+.base-content-header:after {
+    background-color: #000;
+    content: "";
+    display: inline-block;
+    height: 1px;
+    position: relative;
+    vertical-align: middle;
+    width: 80%;
+}
+.base-content-header:after {
+    left: 0.5em;
+    margin-right: -10%;
+}
 .comment_options {
   list-style: none;
   padding: 0px;

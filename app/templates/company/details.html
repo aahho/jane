@@ -1,14 +1,4 @@
-{% from "company/macros/_trending.html" import trending with context %}
-{% from "company/macros/_watchlist.html" import watchlist as watchlist_macro with context %}
-{% from "company/macros/_navbar.html" import navbar with context %}
-{% from "company/macros/_commentform.html" import commentform with context %}
-{% from "company/macros/_commentlist.html" import commentlist with context %}
-{% extends "company/base.html" %}
-
-{% block title %} {{ company.code }} - {{ company.name }}{% endblock %}
-
-{% block body %}
-
+{% from "company/macros/_trending.html" import trending with context %} {% from "company/macros/_watchlist.html" import watchlist as watchlist_macro with context %} {% from "company/macros/_navbar.html" import navbar with context %} {% from "company/macros/_commentform.html" import commentform with context %} {% from "company/macros/_commentlist.html" import commentlist with context %} {% extends "company/base.html" %} {% block title %} {{ company.code }} - {{ company.name }}{% endblock %} {% block body %}
 <header class="navbar navbar-expand-lg sticky-top fixed-top">
     <a class="navbar-brand" href="/">
                 <img src="{{ url_for('static', filename='img/logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -44,7 +34,7 @@
     <div class="row m-0">
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             {{ trending(trendings) }} {{ watchlist_macro(watchlist) }}
-            <div class="col-12 left-side-box p-3">
+            <!-- <div class="col-12 left-side-box p-3">
                 <div class="left-side-box-header clearfix">
                     <i class="fa fa-newspaper-o float-left" aria-hidden="true"></i>
                     <span class="float-left">Latest News</span>
@@ -88,44 +78,72 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
             <div class="middle-box col-12 p-3">
-                <div class="company-header row m-0 ">
-                    <!--<img src="{{ url_for('static', filename='img/logo.png') }}" width="60" height="60">-->
-                    <img src="{{ company.logo }}" width="60" height="60">
-                    <div class="company-n pl-2">
-                        <h3>{{ company.name }}</h3>
-                        <h6 class="pl-1">{{ company.code }}</h6>
+                <div class="company-header row m-0">
+                    <div class="row m-0 w-100 p-2">
+                        <img src="{{ company.logo }}" width="60" height="60">
+                        <div class="company-n pl-2">
+                            <h3>{{ company.name }}</h3>
+                            <h6 class="pl-1">{{ company.code }}</h6>
+                        </div>
+                        <button class="btn btn-primary btn-sm my-auto ml-auto"><i class="fa fa-plus my-auto pr-1"></i> Watcher</button>
                     </div>
-                    <button class="btn btn-primary btn-sm my-auto ml-auto"><i class="fa fa-plus my-auto pr-1"></i> Watcher</button>
+                    {% set stock = company.stock %} {% set stock_change = (stock.close|float - stock.open|float) %} {% set stock_change_percentage = (100 * (stock_change / stock.open|float))|round(2, 'floor') %} {% if stock.close|float
+                    < stock.open|float %} {% set s_class='red' %} {% set s_arrow='fa-arrow-down' %} {% else %} {% set s_class='green' %} {% set s_arrow='fa-arrow-up' %} {% endif %} <div class="company-stock-data row m-0 p-2 w-100">
+                        <span class="mr-1">Live</span>
+                        <!--<small class="mr-2 my-auto last-updated">{#{ company.stock.refreshedAt|timesince }#}</small>-->
+                        <small class="mr-2 my-auto last-updated">{{ company.stock.refreshedAt.strftime('%a, %b %d %I:%M %p') }}</small>
+                        <h5 class="{{ s_class }} m-0 pr-2">{{ company.stock.close }}</h5>
+                        <span class="{{ s_class }} pr-2"><i class="fa {{ s_arrow }} {{ s_class }} pr-2"></i> {{ stock_change }}</span>
+                        <span class="{{ s_class }} pr-2">({{ stock_change_percentage }}%)</span>
                 </div>
-                {% set stock = company.stock %} {% set stock_change = (stock.close|float - stock.open|float) %} {% set stock_change_percentage = (100 * (stock_change / stock.open|float))|round(2, 'floor') %} {% if stock.close|float
-                < stock.open|float %} {% set s_class='red' %} {% set s_arrow='fa-arrow-down' %} {% else %} {% set s_class='green' %} {% set s_arrow='fa-arrow-up' %} {% endif %} <div class="company-stock-data row m-0 p-2">
-                    <span class="mr-1">Live</span>
-                    <!--<small class="mr-2 my-auto last-updated">{#{ company.stock.refreshedAt|timesince }#}</small>-->
-                    <small class="mr-2 my-auto last-updated">{{ company.stock.refreshedAt.strftime('%a, %b %d %I:%M %p') }}</small>
-                    <h5 class="{{ s_class }} m-0 pr-2">{{ company.stock.close }}</h5>
-                    <span class="{{ s_class }} pr-2"><i class="fa {{ s_arrow }} {{ s_class }} pr-2"></i> {{ stock_change }}</span>
-                    <span class="{{ s_class }} pr-2">({{ stock_change_percentage }}%)</span>
             </div>
-            <div class="row m-0 p-2 fw-500">
-                <div class="col-md-3 col-lg-3 col-xl-3 p-0 info-color">
-                    <span class="col-6">Open Price :</span>
+            <div class="row mx-0 my-2 p-2 fw-500">
+                <div class="col-12 p-0">
+                    <p><b>Company Stactics:</b></p>
+                </div>
+                <div class="col-md-6 col-lg-3 col-xl-3 px-0 py-2 info-color">
+                    <span class="col-6 p-0">Open Price :</span>
                     <span>{{ company.stock.open }}</span>
                 </div>
-                <div class="col-md-3 col-lg-3 col-xl-3 p-0 green">
-                    <span class="col-6">high Price :</span>
+                <div class="col-md-6 col-lg-3 col-xl-3 px-0 py-2 green">
+                    <span class="col-6 p-0">high Price :</span>
                     <span>{{ company.stock.high }}</span>
                 </div>
-                <div class="col-md-3 col-lg-3 col-xl-3 p-0 red">
-                    <span class="col-6">Low Price :</span>
+                <div class="col-md-6 col-lg-3 col-xl-3 px-0 py-2 red">
+                    <span class="col-6 p-0">Low Price :</span>
                     <span>{{ company.stock.low }}</span>
                 </div>
-                <div class="col-md-3 col-lg-3 col-xl-3 p-0">
-                    <span class="col-6">Prev Close :</span>
+                <div class="col-md-6 col-lg-3 col-xl-3 px-0 py-2">
+                    <span class="col-6 p-0">Prev Close :</span>
                     <span>{{ company.stock.close }}</span>
+                </div>
+            </div>
+            <div class="row m-0 px-2">
+                <div class="col-12 p-0">
+                    <p><b>Company Details:</b></p>
+                </div>
+                <div class="col-12 row m-0">
+                    <div class="col-md-6 col-xl-6 col-lg-6 col-sm-12 col-xs-12 p-0">
+                        <p class="col-12 p-0"><b>Registered Address</b></p>
+                        <address class="col-12 p-0">
+                             Plot No. 237A Gopal Tower,Ajmer Road , Jaipur - 302006 , Rajasthan , India.
+                        </address>
+                        <p class="col-12 p-0">
+                            <b>Phone no:</b> 9581468002
+                        </p>
+                    </div>
+                    <div class="col-md-6 col-xl-6 col-lg-6 col-sm-12 col-xs-12 p-0">
+                        <p class="col-12 p-0">
+                            <b>Email:</b> noodlestock@gmail.com
+                        </p>
+                        <p class="col-12 p-0">
+                            <b>website:</b> <a href="http://noodlestock.com/" target="_blank">noodlestock.com</a>
+                        </p>
+                    </div>
                 </div>
             </div>
             {{ commentform(company) }}
@@ -136,7 +154,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
         <div class="col-12 left-side-box p-3">
             <div class="left-side-box-header clearfix">
                 <i class="fa fa-newspaper-o float-left" aria-hidden="true"></i>
