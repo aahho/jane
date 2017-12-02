@@ -86,13 +86,14 @@ def add_comment_to_company(company_id, data):
     company = CompanyRepo().get_company(company_id)
 
     msg, attachment_obj, upload_data = data.get('comment', None), data.get('attachment', None), None
-    if attachment_obj is not None:
+    if attachment_obj is not None and attachment_obj.filename != '':
         data = uploader.upload(attachment_obj)
         data['uploaderId'] = data['id']
         del data['id']
         upload_data = UploadRepo().create(data)
     elif msg is None or msg == '':
         raise SException("Please provide some comment", redirect_url='/companies/' + company.code + '/' + company.slug)
+
     comment = CommentRepo().create({
                 'user': user,
                 'company': company,

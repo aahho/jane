@@ -21,6 +21,7 @@ db.init_app(app)
 # Sample HTTP error handling
 @app.errorhandler(404)
 def not_found(error):
+    return redirect('/')
     return render_template('404.html'), 404
 
 @app.errorhandler(405)
