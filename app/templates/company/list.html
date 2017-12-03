@@ -39,51 +39,9 @@
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                 {{ trending(trendings) }}
                 {{ watchlist_macro(watchlist)}}
-                <div class="col-12 left-side-box p-3">
-                    <div class="left-side-box-header clearfix">
-                        <i class="fa fa-newspaper-o float-left" aria-hidden="true"></i>
-                        <span class="float-left">Latest News</span>
-                        <a class="float-right view-more">view more</a>
-                    </div>
-                    <hr class="m-2">
-                    <div class="d-flex row m-0">
-                        <div class="list-group col-12 px-2">
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-2 news-feed">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">List group item heading</h5>
-                                    <small>3 days ago</small>
-                                </div>
-                                <div class="list-thumbnail">
-                                    <img src="{{ url_for('static', filename='img/logo.png') }}">
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small>Donec id elit non mi porta.</small>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-2 news-feed">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">List group item heading</h5>
-                                    <small class="text-muted">3 days ago</small>
-                                </div>
-                                <div class="list-thumbnail">
-                                    <img src="{{ url_for('static', filename='img/logo.png') }}">
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small class="text-muted">Donec id elit non mi porta.</small>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-2 news-feed">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">List group item heading</h5>
-                                    <small class="text-muted">3 days ago</small>
-                                </div>
-                                <div class="list-thumbnail">
-                                    <img src="{{ url_for('static', filename='img/logo.png') }}">
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small class="text-muted">Donec id elit non mi porta.</small>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                <!-- <div class="ads-block col-12 p-0">
+                    <ins class="adsbygoogle" style="display:block;width:100%;" data-ad-client="ca-pub-0503054612740442" data-ad-slot="2418973612" data-ad-format="auto" target="_newTab"></ins>
+                </div> -->
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                 <div class="middle-box col-12 p-3">
@@ -106,23 +64,29 @@
                                     <span class="stock status">{{ stock_change }}
                                         &nbsp; ({{ stock_change_percentage }}%) &nbsp;</span>
                                 </div>
-                                <div class="updated-at">
+                                <!-- <div class="updated-at">
                                     <small>Updated on {{ company.refreshedAt.strftime('%a, %b %d, %Y %I:%M %p') }}</small>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="pull-right">
-                                <div class="watchers">
-                                    <i class="fa fa-users" aria-hidden="true"></i> {{ company.watchlistcount }} Watchers
-                                </div>
-                                {% if company not in watchlist %}
-                                <a href="/companies/{{ company.id }}/watch" >
-                                    <button type="button" class="btn btn-sm btn-primary pull-right">Watch</button>
-                                </a>
+                                <!-- <div class="watchers"> -->
+                                {% if not session['authenticate'] %}
+                                <span style="font-size:12px;color:grey;">{{ company.watchlistcount }} follower</span>
+                                    <i class="fa fa-star unactive-watcher" onclick="openLoginModal(event)" ></i>
                                 {% else %}
-                                <a href="/companies/{{ company.id }}/unwatch" >
-                                    <button type="button" class="btn btn-sm btn-primary pull-right">Remove Watch</button>
-                                </a>
-                                {% endif %}
+                                    <span style="font-size:12px;color:grey;">{{ company.watchlistcount }} follower</span>
+                                    {% if company not in watchlist %}
+                                    <a href="/companies/{{ company.id }}/watch" title="Add to watchlist">
+                                        <!-- <button type="button" class="btn btn-sm btn-primary pull-right">Watch</button> -->
+                                        <i class="fa fa-star unactive-watcher"></i>
+                                    </a>
+                                    {% else %}
+                                    <a href="/companies/{{ company.id }}/unwatch" title="Remove from watchlist">
+                                        <!-- <button type="button" class="btn btn-sm btn-danger pull-right">Remove Watch</button> -->
+                                        <i class="fa fa-star active-watcher"></i>
+                                    </a>
+                                    {% endif %}
+                                {% endif %}    
                             </div>
                         </div>
                         {% endfor %}
@@ -139,41 +103,55 @@
                     <hr class="m-2">
                     <div class="d-flex row m-0">
                         <div class="list-group col-12 px-2">
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-2 news-feed">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">List group item heading</h5>
-                                    <small>3 days ago</small>
+                            <a href="#" class="list-group-item list-group-item-action p-1">
+                                <div class="row m-0 bb-1">
+                                    <div class="col-3 p-0">
+                                        <img src="{{ url_for('static', filename='img/logo.png') }}" height="75px">
+                                    </div>
+                                    <div class="col-9 p-0">
+                                        <p class="mb-1 fw-500">List group item heading</p>
+                                        <small>3 days ago</small>
+                                    </div>
                                 </div>
-                                <div class="list-thumbnail">
-                                    <img src="{{ url_for('static', filename='img/logo.png') }}">
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small>Donec id elit non mi porta.</small>
                             </a>
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-2 news-feed">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">List group item heading</h5>
-                                    <small class="text-muted">3 days ago</small>
+                            <a href="#" class="list-group-item list-group-item-action p-1">
+                                <div class="row m-0 bb-1">
+                                    <div class="col-3 p-0">
+                                        <img src="{{ url_for('static', filename='img/logo.png') }}" height="75px">
+                                    </div>
+                                    <div class="col-9 p-0">
+                                        <p class="mb-1 fw-500">List group item heading</p>
+                                        <small>3 days ago</small>
+                                    </div>
                                 </div>
-                                <div class="list-thumbnail">
-                                    <img src="{{ url_for('static', filename='img/logo.png') }}">
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small class="text-muted">Donec id elit non mi porta.</small>
                             </a>
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-2 news-feed">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">List group item heading</h5>
-                                    <small class="text-muted">3 days ago</small>
+                            <a href="#" class="list-group-item list-group-item-action p-1">
+                                <div class="row m-0 bb-1">
+                                    <div class="col-3 p-0">
+                                        <img src="{{ url_for('static', filename='img/logo.png') }}" height="75px">
+                                    </div>
+                                    <div class="col-9 p-0">
+                                        <p class="mb-1 fw-500">List group item heading</p>
+                                        <small>3 days ago</small>
+                                    </div>
                                 </div>
-                                <div class="list-thumbnail">
-                                    <img src="{{ url_for('static', filename='img/logo.png') }}">
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action p-1">
+                                <div class="row m-0 bb-1">
+                                    <div class="col-3 p-0">
+                                        <img src="{{ url_for('static', filename='img/logo.png') }}" height="75px">
+                                    </div>
+                                    <div class="col-9 p-0">
+                                        <p class="mb-1 fw-500">List group item heading</p>
+                                        <small>3 days ago</small>
+                                    </div>
                                 </div>
-                                <p class="mb-1">Done id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small class="text-muted">Donec id elit non mi porta.</small>
                             </a>
                         </div>
                     </div>
+                </div>
+                <div class="ads-block col-12 p-0">
+                    <ins class="adsbygoogle" style="display:block;width:100%;" data-ad-client="ca-pub-0503054612740442" data-ad-slot="2418973612" data-ad-format="auto" target="_newTab"></ins>
                 </div>
             </div>
         </div>

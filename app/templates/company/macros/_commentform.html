@@ -1,8 +1,8 @@
 {% macro commentform(company) %}
 
 {% if 'authenticate' not in session %}
-<div class="row m-0 p-2">
-    <form name="coment-form" class="col-12">
+<div class="row col-12 m-0 p-0">
+    <div name="coment-form" class="col-12">
         <div class="form-group">
             <label for="anonymous-comment" class="py-2">
                 <img src="{{ url_for('static', filename='img/logo.png') }}" height="30" width="30" />
@@ -11,13 +11,13 @@
             <textarea class="form-control" id="anonymous-comment" rows="3"></textarea>
         </div>
         <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-md btn-primary">POST</button>
+            <button class="btn btn-md btn-primary" data-toggle="modal" data-target="#login">POST</button>
         </div>
-    </form>
+    </div>
 </div>
 {% else %}
-<div class="row m-0 p-2">
-    <form name="comment-form-person" action="/companies/{{ company.id }}/comments" method="POST" class="col-12" enctype="multipart/form-data">
+<div class="row m-0 p-2 col-12">
+    <form name="comment-form-person" action="/companies/{{ company.id }}/comments" method="POST" class="col-12 p-0" enctype="multipart/form-data">
         <div class="form-group">
             <label for="anonymous-comment-person" class="py-2" style="display: inline-flex;">
                 <div class="name-image">
@@ -25,7 +25,7 @@
                 </div>
                 <span class="pl-2 fw-500">{{ session['authenticate'].user.name }}</span>
             </label>
-            <textarea class="form-control" id="comment-person" name="comment" rows="3" placeholder="Enter Comment"></textarea>
+            <textarea class="form-control" id="comment-person" name="comment" rows="3" placeholder="Share your view about company"></textarea>
         </div>
         <div class="form-group">
             <input type="file" class="form-control-file float-left" name="attachment" id="upload-file-person">
@@ -34,8 +34,8 @@
         </div>
     </form>
 </div>
-<div class="row m-3 py-2">
-    <h5 class="col-12 m-0 p-0">Comments count</h5>
+<div class="row col-12 m-0 px-0 py-2">
+    <h5 class="col-12 m-0 p-0">Comments <span class="badge badge-info">5</span></h5>
     <hr class="col-12 p-0 mt-3 mb-0" />    
 </div>
 {% endif %}

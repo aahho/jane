@@ -8,9 +8,11 @@ from mongoengine.queryset.visitor import Q
 from nsetools import Nse
 
 from app.mod_repository.stocktwist import CompanyRepo, UserRepo,\
-UserTokenRepo, CommentRepo, ReplyCommentRepo, UploadRepo
+                                        UserTokenRepo, CommentRepo, \
+                                        ReplyCommentRepo, UploadRepo
 import transformers
 from app.mod_library.exception import SException
+from app.mod_library import uploader
 from app.mod_library import auth
 
 nse = Nse()
@@ -84,15 +86,14 @@ def add_comment_to_company(company_id, data):
     company = CompanyRepo().get_company(company_id)
 
     msg, attachment_obj, upload_data = data.get('comment', None), data.get('attachment', None), None
-    if attachment_obj is not None:
-        print "atttachment uploading"
-        #data['data']['uploaderId'] = data['data']['id']
-        #del data['data']['id']
-        #upload_data = UploadRepo().create(data['data'])
+    if attachment_obj is not None and attachment_obj.filename != '':
+        data = uploader.upload(attachment_obj)
+        data['uploaderId'] = data['id']
+        del data['id']
+        upload_data = UploadRepo().create(data)
     elif msg is None or msg == '':
-        print "errot"
-        raise SException("Please provide some comment")
-    print "creating comment"
+        raise SException("Please provide some comment", redirect_url='/companies/' + company.code + '/' + company.slug)
+
     comment = CommentRepo().create({
                 'user': user,
                 'company': company,
@@ -110,7 +111,20 @@ def list_comments_of_company(company_id):
             .set_order_by('-createdAt')\
             .paginate()
 
+@auth.auth_required
 def reply_to_comment(company_id, comment_id, message, reply_to_id=None):
+    user = auth.user()
+    company = CompanyRepo().get_company(company_id)
+    comment = CommentRepo().get(id=comment_id)
+    reply = ReplyCommentRepo().create({
+            "user": user,
+            "message": message
+        })
+    comment.replies.append(reply)
+    comment.save()
+    return company
+
+def reply_to_comment_old(company_id, comment_id, message, reply_to_id=None):
     user = UserTokenRepo().get_auth_user(request.headers.get('Authorization'))
     company = CompanyRepo().get_company(company_id)
     comment = CommentRepo().get(id=comment_id)

@@ -21,13 +21,18 @@ db.init_app(app)
 # Sample HTTP error handling
 @app.errorhandler(404)
 def not_found(error):
+    return redirect('/')
     return render_template('404.html'), 404
+
+@app.errorhandler(405)
+def method_not_allowed(error):
+    return redirect('/')
 
 @app.errorhandler(exception.SException)
 def own_error(error):
     # return response.exception(error)
     print error
-    return redirect('/')
+    return redirect(error.redirect_url)
 
 # Import a module / component using its blueprint handler variable (mod_auth)
 # from app.mod_auth.controllers import mod_auth as auth_module

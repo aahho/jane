@@ -20,3 +20,9 @@ $(document).ready(function(){
 	})
 
 })
+
+function openLoginModal(e){
+	$('#login').modal('show');
+	e.stopPropagation();
+	return false;
+}

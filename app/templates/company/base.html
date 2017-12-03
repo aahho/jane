@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 
 <body>
@@ -19,7 +20,24 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script>
+       window.onload = function() {
+            try{
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            }
+            catch(e){
+
+            }
+        }
+    </script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-26826257-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-26826257-6');
+    </script>
 </body>
 
 </html>
