@@ -102,7 +102,8 @@ def watchlist(company_id=None):
 
 @router.api('companies/filter', methods=['GET'])
 def filter():
-    return response.paginate(views.filter(request.args.get('q', None)))
+    return response.json(views.filter(request.args.get('q', None)))
+    #return response.paginate(views.filter(request.args.get('q', None)))
 
 @router.api('companies/trending', methods=['GET'])
 def trending():

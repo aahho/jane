@@ -46,10 +46,13 @@ def list_latest_news(per_page=5):
 
 def filter(data):
     if data is None:
+        return []
         raise SException("You have to provide something.", 400)
     result = CompanyRepo().set_transformer(transformers.company)\
-            .filter_self(Q(name__icontains=data) | Q(code__icontains=data)).paginate()
-    return result
+            .filter_self(Q(name__icontains=data) | Q(code__icontains=data))\
+            .paginate(10)
+    #.filter_self(Q(name__icontains=data) | Q(code__icontains=data)).paginate()
+    return result.items
 
 def get_only_company(company_code):
     #comp = CompanyRepo().set_excludes(['history']).filter(code=company_code).first()
