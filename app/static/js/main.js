@@ -1,107 +1,88 @@
 $(document).ready(function() {
-
+	// click on left side nav to go profile page of company  
     $('.m-list ,.treding-item').on('click', function(event) {
         var url = $(event.currentTarget).data('src');
         console.log(url);
         window.location.href = url;
     })
 
+    // open login modal when anonymous user try to comment
     $('#anonymous-comment').on('click', function(event) {
         $('#login').modal('show');
     })
+
+    // Open signup modal when user dont have account
     $('.login-signup-modal').on('click', function(event) {
         $('#login').modal('hide');
         $('#signup').modal('show');
     })
 
+    //open login modal when user has already account
     $('.signup-login-modal').on('click', function(event) {
         $('#signup').modal('hide');
         $('#login').modal('show');
     })
 
-    // var bestPictures = new Bloodhound({
-    //    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-    //    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    //    prefetch: '../data/films/post_1960.json',
-    //    remote: {
-    //      url: '../data/films/queries/%QUERY.json',
-    //      wildcard: '%QUERY'
-    //    }
-    //  });
+    //when user select a company then redirect to profile page
 
-    // $('.typeahead').typeahead(null, {
-    //     name: 'best-pictures',
-    //     display: 'value',
-    //     source: function(query, process) {
-    //         var url = '/api/v1/companies/filter?q=' + query;
-    //         return $.ajax({
-    //             url: url,
-    //             type: 'GET',
-    //             dataType: 'json',
-    //             success: function(response) {
-    //                 console.log("data", response);
-    //                 return process(response.data);
-    //             }
-    //         });
-    //     },
-    //     templates: {
-    //         empty: [
-    //             '<div class="empty-message">',
-    //             'No result Found',
-    //             '</div>'
-    //         ].join('\n'),
-    //         suggestion: function(data) {
-    //             console.log(data);
-    //             return Handlebars.compile('<a href=\"/companies/' + data.code + "/" + data.name + '\"><p><strong>' + data.code + '</strong> - (' + data.name + ')</p></a>');
-    //         }
-    //     }
-    // });
+	$('#demo-input').bind('typeahead:selected', function(obj, datum, name) {      
+        if(datum.code){
+        	window.location.href = '/companies/'+ datum.code + '/'+datum.name;
+        }
 
-    var template = Handlebars.compile($("#result-template").html());
-    var empty = Handlebars.compile($("#empty-template").html());
+	});
 
+
+	// twitter typeahead integration and filtering
     var engine = new Bloodhound({
-        //identify: function(o) { return o.id_str; },
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name', 'code'),
-        //dupDetector: function(a, b) { return a.id_str === b.id_str; },
-        //prefetch: remoteHost + '/demo/prefetch',
+        datumTokenizer: function(d){
+        	var codeTokenizer = Bloodhound.tokenizers.obj.whitespace(d.code);
+        	var nameTokenizer = Bloodhound.tokenizers.obj.whitespace(d.name);
+        	return  codeTokenizer.concat(nameTokenizer);
+
+        },
         remote: {
             url: '/api/v1/companies/filter?q=%QUERY',
             wildcard: '%QUERY'
         }
     });
 
-    function engineWithDefaults(q, sync, async) {
-        if (q === '') {
-            //sync(engine.get('1090217586', '58502284', '10273252', '24477185'));
-            async([]);
-        } else {
-            engine.search(q, sync, async);
-        }
+    function engineWithDefaults(q, sync,async) {
+            engine.search(q,sync, async);
     }
 
+    engine.initialize();
+
     $('#demo-input').typeahead({
-            hint: $('.Typeahead-hint'),
             menu: $('.Typeahead-menu'),
             minLength: 1,
             classNames: {
                 open: 'is-open',
                 empty: 'is-empty',
                 cursor: 'is-active',
-                suggestion: 'Typeahead-suggestion',
                 selectable: 'Typeahead-selectable'
             }
         }, {
             source: engineWithDefaults,
-            displayKey: 'screen_name',
+            displayKey: 'code',
+            limit : 10,
             templates: {
-                suggestion: template,
-                empty: empty
+                suggestion: function(data){
+                	
+                	return '<a class=\"option-wrapper\" href=\"/companies/'+ data.code + '/'+ data.name +'\">'
+                	+'<p class=\"option-content-wraper\">'
+                	+ '<span class=\"fw-500 pr-1\">'+ data.code +'</span>'
+                	+'<span class="pl-1">'+ data.name +'</span> <p></a>'
+                },
+                empty: '<p> No result Found</p>'
             }
         })
 
+
+
 })
+
 
 function openLoginModal(e) {
     $('#login').modal('show');

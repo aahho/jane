@@ -55,4 +55,6 @@ app.register_blueprint(APIParent)
 from app.mod_utils import filters
 
 app.jinja_env.filters['timesince'] = filters.timesince
+app.jinja_env.filters['to_datetime'] = filters.to_datetime
+app.jinja_env.globals['current_url'] = filters.current_url
 

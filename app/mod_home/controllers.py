@@ -12,18 +12,20 @@ import validators
 mod_home = Blueprint('home', __name__, url_prefix='/')
 
 # Set the route and accepted methods
-@mod_home.route('/')
+@mod_home.route('')
 def index():
-    paginator = views.list_all_company()
+    paginator = views.list_all_company(per_page=int(request.args.get('items', 10)))
     trendings = views.list_trending_companies()
-    #trendings = []
+    news = views.list_latest_news()
     watchlist = []
     if 'authenticate' in session:
-        watchlist = views.list_of_watchlist().items
+        watchlist = views.list_of_watchlist(int(request.args.get('witems', 5)), int(request.args.get('wpage', 1))).items
         #from app.mod_database.models import User
         #watchlist = User.auth().favourites
     #    return render_template('company/authenticated_list.html', paginator=paginator, trendings=trendings)
-    return render_template('company/list.html', paginator=paginator, trendings=trendings, watchlist=watchlist)
+    return render_template('company/list.html', 
+            paginator=paginator, news_list=news,
+            trendings=trendings, watchlist=watchlist)
 
 @mod_home.route('companies/<company_code>')
 @mod_home.route('companies/<company_code>/<slug>')
@@ -33,10 +35,13 @@ def company_details(company_code, slug=None):
         return redirect("companies/{}/{}".format(company_code, company.slug))
     company = views.get_current_stock_of_company(company_code, company=company)
     trendings = views.list_trending_companies()
+    news = views.list_latest_news()
     watchlist = []
     if 'authenticate' in session:
         watchlist = views.list_of_watchlist().items
-    return render_template('company/details.html', company=company, trendings=trendings, watchlist=watchlist)
+    return render_template('company/details.html', 
+            company=company, trendings=trendings, 
+            news_list=news, watchlist=watchlist)
 
 @mod_home.route('companies/<company_code>/<slug>/stocks')
 def company_stock_details(company_code, slug):
@@ -78,7 +83,12 @@ def reply(company_id, comment_id):
 @mod_home.route('companies/<company_id>/watch')
 def watch_company(company_id):
     views.add_to_watchlist(company_id)
-    return redirect("/")
+    return redirect(request.args.get('referer', '/'))
+
+@mod_home.route('companies/<company_id>/unwatch')
+def unwatch_company(company_id):
+    views.remove_from_watchlist(company_id)
+    return redirect(request.args.get('referer', '/'))
 
 @router.api('users/watchlist', methods=['GET'])
 @router.api('companies/<company_id>/watchlist', methods=['POST', 'DELETE'])
@@ -92,7 +102,8 @@ def watchlist(company_id=None):
 
 @router.api('companies/filter', methods=['GET'])
 def filter():
-    return response.paginate(views.filter(request.args.get('q', None)))
+    return response.json(views.filter(request.args.get('q', None)))
+    #return response.paginate(views.filter(request.args.get('q', None)))
 
 @router.api('companies/trending', methods=['GET'])
 def trending():

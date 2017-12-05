@@ -2,8 +2,7 @@ from datetime import datetime
 import json
 
 from flask_mongoengine import MongoEngine
-from flask_mongoalchemy import MongoAlchemy
-from mongoalchemy.document import Index
+from flask import request
 
 from app.mod_home import transformers
 from app.mod_repository.base import MainQuerySet
@@ -56,6 +55,9 @@ class CompanyDetail(db.DynamicDocument):
         }
     #transformer = transformers.transform_upload
 
+    def get(self, key, default='-NA-'):
+        return getattr(self, key, default) or default
+
 class Company(Base):
     name = db.StringField()
     code = db.StringField(required=True, unique=True)
@@ -71,7 +73,7 @@ class Company(Base):
     historyCount = db.IntField(default=0)
     watchlistCount = db.IntField(default=0)
     logo = db.StringField(default='/static/img/no_image.svg')
-    details = db.ReferenceField(CompanyDetail)
+    details = db.ReferenceField(CompanyDetail, default=CompanyDetail())
     #columns = db.ListField(db.StringField(), default_empty=True)
 
     meta = {
@@ -102,8 +104,12 @@ class Company(Base):
 
     @property
     def comments(self):
-        return Comment.objects\
-                .filter(company=self).paginate(1, 10, error_out=False)
+        p = Comment.objects\
+                .filter(company=self)\
+                .paginate(int(request.args.get('cpage', 1)), 
+                        int(request.args.get('citems', 5)), 
+                        error_out=False)
+        return p
 
 """
 class ComanyNews(Base):

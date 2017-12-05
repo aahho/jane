@@ -182,8 +182,8 @@ class BaseRepo(object):
     def c_paginate(self, total_data, per_page=None, page=None):
         from flask_mongoengine.pagination import Pagination as PG
 
-        page = int(request.values.get('page', 1)) if page is None else page
-        per_page = int(request.values.get('items', 10)) if per_page is None else per_page
+        page = int(request.values.get('page', 1)) if page is None else int(page)
+        per_page = int(request.values.get('items', 10)) if per_page is None else int(per_page)
         pagination = PG(total_data, page, per_page)
         pagination.items = [self.transformer(item) for item in pagination.items]
         return pagination
@@ -191,8 +191,8 @@ class BaseRepo(object):
     def paginate_self(self, per_page=None, page=None):
         from flask_mongoengine.pagination import Pagination as PG
 
-        page = int(request.values.get('page', 1)) if page is None else page
-        per_page = int(request.values.get('items', 10)) if per_page is None else per_page
+        page = int(request.values.get('page', 1)) if page is None else int(page)
+        per_page = int(request.values.get('items', 10)) if per_page is None else int(per_page)
         pagination = PG(self.objects.all(), page, per_page)
         pagination.items = [self.transformer(item) for item in pagination.items]
         return pagination
