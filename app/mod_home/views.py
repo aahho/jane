@@ -22,7 +22,7 @@ yesterday_date = date.today() - timedelta(1)
 yesterday_date = yesterday_date.strftime("%Y-%m-%d")
 today_date = date.today().strftime("%Y-%m-%d")
 
-def list_all_company(per_page=50):
+def list_all_company(per_page=10):
     #r = company_repo.set_transformer(transformers.company).all()
     #r = company_repo.set_transformer(transformers.company)\
     r = company_repo.skip_list('slice__history', 0, 1)\
@@ -32,6 +32,17 @@ def list_all_company(per_page=50):
 
 def list_trending_companies(per_page=10):
     return list_all_company(per_page).items
+
+def list_latest_news(per_page=5):
+    url = 'http://139.59.4.41/feeds/articles/filter'
+    headers = {
+        'app-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBfbmFtZSI6Im5vb2RsZXN0b2NrIn0.4VWMttLhLQl0h-WSyB4CSuC62kBn9PLiU8DFYVTxmZs'        
+    }
+    res = requests.get(url, headers=headers)
+    if res.status_code != 200:
+        return []
+    news = res.json()['data']
+    return news[:4]
 
 def filter(data):
     if data is None:
@@ -158,14 +169,14 @@ def remove_from_watchlist(company_id):
     return "Removed successfully"
 
 @auth.auth_required
-def list_of_watchlist():
+def list_of_watchlist(per_page=5, page=1):
     user = UserRepo().objects.no_dereference().filter(id=auth.user().id).first()
     company_ids = [u.id for u in user.favourites]
     #return CompanyRepo().set_transformer(transformers.company)\
     return CompanyRepo().skip_list('slice__history', 0, 1)\
             .set_excludes([])\
             .filter_self(id__in=company_ids)\
-            .paginate_self()
+            .paginate_self(per_page=per_page, page=page)
 
 def signup_user(data):
     if UserRepo().user_exists(email=data['email']):

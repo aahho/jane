@@ -3,6 +3,8 @@
 {% from "company/macros/_navbar.html" import navbar with context %}
 {% from "company/macros/_commentform.html" import commentform with context %}
 {% from "company/macros/_commentlist.html" import commentlist with context %}
+{% from "company/macros/_pagination.html" import paginate with context %}
+{% from "company/macros/_news.html" import latest_news with context %}
 {% extends "company/base.html" %}
 
 {% block title %} {{ company.code }} - {{ company.name }}{% endblock %}
@@ -69,7 +71,31 @@
                             <h3>{{ company.name }}</h3>
                             <h6 class="pl-1">{{ company.code }} <span class="badge badge-primary">NSE</span></h6>
                         </div>
-                        <button class="btn btn-primary btn-sm my-auto ml-auto"><i class="fa fa-plus my-auto pr-1"></i> Watcher</button>
+                        {% if session['authenticate'] %}
+                            {% if company not in watchlist %}
+                            <!--
+                            <a href="{{ url_for('home.watch_company', company_id=company.id) }}" title="Add to watchlist">
+                            -->
+                            <button class="btn btn-primary btn-sm my-auto ml-auto">
+                                    <i class="fa fa-plus my-auto pr-1"></i> Watcher
+                                </button>
+                            <!--
+                            </a>
+                            -->
+                                <!-- <i class="fa fa-star unactive-watcher"></i> -->
+                            {% else %}
+                            <!--
+                            <a href="{{ url_for('home.unwatch_company', company_id=company.id) }}" title="Remove from watchlist">
+                            -->
+                                <button class="btn btn-primary btn-sm my-auto ml-auto" onclick="location.href='http://google.com';">
+                                    <i class="fa fa-minus my-auto pr-1"></i> Watcher
+                                </button>
+                            <!--
+                            </a>
+                            -->
+                                <!-- <i class="fa fa-star active-watcher"></i> -->
+                            {% endif %}
+                        {% endif %}    
                     </div>
                 
                     {% set stock = company.stock %} {% set stock_change = (stock.last|float - stock.close|float) %} {% set stock_change_percentage = (100 * (stock_change / stock.last|float))|round(2, 'floor') %} {% if stock.last|float
@@ -111,18 +137,18 @@
                         <div class="col-md-6 col-xl-6 col-lg-6 col-sm-12 col-xs-12 p-0">
                             <p class="col-12 p-0 fw-500 m-0">Registered Address</p>
                             <address class="col-12 p-0">
-                                 Plot No. 237A Gopal Tower,Ajmer Road , Jaipur - 302006 , Rajasthan , India.
+                                {{company.details.get('address')}}
                             </address>
                             <p class="col-12 p-0">
-                                <span class="fw-500">Phone no:</span> 9581468002
+                                <span class="fw-500">Phone no:</span> {{company.details.get('phone')}}
                             </p>
                         </div>
                         <div class="col-md-6 col-xl-6 col-lg-6 col-sm-12 col-xs-12 p-0">
                             <p class="col-12 p-0">
-                                <span class="fw-500">Email:</span> noodlestock@gmail.com
+                                <span class="fw-500">Email:</span> {{company.details.get('email')}}
                             </p>
                             <p class="col-12 p-0">
-                                <span class="fw-500">website:</span> <a href="http://noodlestock.com/" target="_blank">noodlestock.com</a>
+                            <span class="fw-500">website:</span> <a href="{{company.details.get('website')}}" target="_blank">{{company.details.get('website')}}</a>
                             </p>
                         </div>
                     </div>
@@ -133,8 +159,13 @@
                     </div>
                     <div class="col-12 row m-0 p-0">
                         {{ commentform(company) }}
+                        <div class="row col-12 m-0 px-0 py-2">
+                            <h5 class="col-12 m-0 p-0">Comments <span class="badge badge-info">{{ company.comments.total }}</span></h5>
+                            <hr class="col-12 p-0 mt-3 mb-0" />    
+                        </div>
                         <div class="row col-12 mx-0 p-2 comment-list-section">
                             {{ commentlist(company, company.comments.items) }}
+                            {{ paginate(company.comments, 'citems', 'cpage') }}
                         </div>
                     </div>
                 </div>
@@ -149,52 +180,7 @@
                 </div>
                 <hr class="m-2">
                 <div class="d-flex row m-0">
-                    <div class="list-group col-12 px-2">
-                            <a href="#" class="list-group-item list-group-item-action p-1">
-                                <div class="row m-0 bb-1">
-                                    <div class="col-3 p-0">
-                                        <img src="{{ url_for('static', filename='img/logo.png') }}" height="75px">
-                                    </div>
-                                    <div class="col-9 p-0">
-                                        <p class="mb-1 fw-500">List group item heading</p>
-                                        <small>3 days ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action p-1">
-                                <div class="row m-0 bb-1">
-                                    <div class="col-3 p-0">
-                                        <img src="{{ url_for('static', filename='img/logo.png') }}" height="75px">
-                                    </div>
-                                    <div class="col-9 p-0">
-                                        <p class="mb-1 fw-500">List group item heading</p>
-                                        <small>3 days ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action p-1">
-                                <div class="row m-0 bb-1">
-                                    <div class="col-3 p-0">
-                                        <img src="{{ url_for('static', filename='img/logo.png') }}" height="75px">
-                                    </div>
-                                    <div class="col-9 p-0">
-                                        <p class="mb-1 fw-500">List group item heading</p>
-                                        <small>3 days ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action p-1">
-                                <div class="row m-0 bb-1">
-                                    <div class="col-3 p-0">
-                                        <img src="{{ url_for('static', filename='img/logo.png') }}" height="75px">
-                                    </div>
-                                    <div class="col-9 p-0">
-                                        <p class="mb-1 fw-500">List group item heading</p>
-                                        <small>3 days ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                    {{ latest_news(news_list) }}
                 </div>
             </div>
             <div class="ads-block col-12 p-0">

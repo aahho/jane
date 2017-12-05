@@ -1,39 +1,14 @@
 {% from "company/macros/_trending.html" import trending with context %}
 {% from "company/macros/_watchlist.html" import watchlist as watchlist_macro with context %}
+{% from "company/macros/_navbar.html" import navbar with context %}
+{% from "company/macros/_pagination.html" import paginate with context %}
+{% from "company/macros/_news.html" import latest_news with context %}
 {% extends "company/base.html" %}
 
 {% block body %}
-    <header class="navbar navbar-expand-lg sticky-top fixed-top">
-        <a class="navbar-brand" href="/">
-                <img src="{{ url_for('static', filename='img/logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
-                NoodleStocks
-            </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <!-- <span class="navbar-toggler-icon"></span> -->
-            <i class="fa fa-bars" aria-hidden="true"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                {% if not session['authenticate'] %}
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-target="#login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-target="#signup">Signup</a>
-                </li>
-                {% else %}
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ session['authenticate'].user.name }}
-                    </a>
-                    <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a href="/user/logout" class="dropdown-item" style="color: #283593;cursor: pointer;">Logout</a>
-                    </div>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
-    </header>
+    
+    {{ navbar() }}
+
     <div class="container-fluid list-container">
         <div class="row m-0">
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
@@ -76,12 +51,12 @@
                                 {% else %}
                                     <span style="font-size:12px;color:grey;">{{ company.watchlistcount }} follower</span>
                                     {% if company not in watchlist %}
-                                    <a href="/companies/{{ company.id }}/watch" title="Add to watchlist">
+                                    <a href="{{ url_for('home.watch_company', company_id=company.id, referer=request.url) }}" title="Add to watchlist">
                                         <!-- <button type="button" class="btn btn-sm btn-primary pull-right">Watch</button> -->
                                         <i class="fa fa-star unactive-watcher"></i>
                                     </a>
                                     {% else %}
-                                    <a href="/companies/{{ company.id }}/unwatch" title="Remove from watchlist">
+                                    <a href="{{ url_for('home.unwatch_company', company_id=company.id, referer=request.url) }}" title="Remove from watchlist">
                                         <!-- <button type="button" class="btn btn-sm btn-danger pull-right">Remove Watch</button> -->
                                         <i class="fa fa-star active-watcher"></i>
                                     </a>
@@ -90,6 +65,7 @@
                             </div>
                         </div>
                         {% endfor %}
+                        {{ paginate(paginator) }}
                     </div>
                 </div>
             </div>
@@ -102,121 +78,12 @@
                     </div>
                     <hr class="m-2">
                     <div class="d-flex row m-0">
-                        <div class="list-group col-12 px-2">
-                            <a href="#" class="list-group-item list-group-item-action p-1">
-                                <div class="row m-0 bb-1">
-                                    <div class="col-3 p-0">
-                                        <img src="{{ url_for('static', filename='img/logo.png') }}" height="75px">
-                                    </div>
-                                    <div class="col-9 p-0">
-                                        <p class="mb-1 fw-500">List group item heading</p>
-                                        <small>3 days ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action p-1">
-                                <div class="row m-0 bb-1">
-                                    <div class="col-3 p-0">
-                                        <img src="{{ url_for('static', filename='img/logo.png') }}" height="75px">
-                                    </div>
-                                    <div class="col-9 p-0">
-                                        <p class="mb-1 fw-500">List group item heading</p>
-                                        <small>3 days ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action p-1">
-                                <div class="row m-0 bb-1">
-                                    <div class="col-3 p-0">
-                                        <img src="{{ url_for('static', filename='img/logo.png') }}" height="75px">
-                                    </div>
-                                    <div class="col-9 p-0">
-                                        <p class="mb-1 fw-500">List group item heading</p>
-                                        <small>3 days ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action p-1">
-                                <div class="row m-0 bb-1">
-                                    <div class="col-3 p-0">
-                                        <img src="{{ url_for('static', filename='img/logo.png') }}" height="75px">
-                                    </div>
-                                    <div class="col-9 p-0">
-                                        <p class="mb-1 fw-500">List group item heading</p>
-                                        <small>3 days ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                        {{ latest_news(news_list) }}
                     </div>
                 </div>
                 <div class="ads-block col-12 p-0">
                     <ins class="adsbygoogle" style="display:block;width:100%;" data-ad-client="ca-pub-0503054612740442" data-ad-slot="2418973612" data-ad-format="auto" target="_newTab"></ins>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginModal">Login</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="/login" method="POST" class="login-form" name="loginform">
-                        <div class="form-group">
-                            <label for="loginEmail">Email address</label>
-                            <input type="email" class="form-control" id="loginEmail" placeholder="Enter email" name="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="loginPassword">Password</label>
-                            <input type="password" class="form-control" id="loginPassword" name="password" placeholder="Password" />
-                        </div>
-                        <div class="login-signup-modal py-2">Don't have account, Please signup.</div>
-                        <button type="submit" class="btn btn-primary">login</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form action="/user/signup" method="POST" class="submit-form" name="submitform">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="signupModal">Signup</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="signupUsername">Name</label>
-                            <input type="text" name="name" class="form-control" id="signupUsername" aria-describedby="emailHelp" placeholder="Enter name">
-                        </div>
-                        <div class="form-group">
-                            <label for="signupEmail">Email address</label>
-                            <input type="email" class="form-control" id="signupEmail" aria-describedby="emailHelp" placeholder="Enter email" name="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="signupPassword1">Password</label>
-                            <input type="password" class="form-control" id="signupPassword1" name="password" placeholder="Password">
-                        </div>
-                        <!--
-                        <div class="form-group">
-                            <label for="signupPassword2">Confirm Password</label>
-                            <input type="password" class="form-control" id="signupPassword2" name="password" placeholder="Password">
-                        </div>
-                        -->
-                        <div class="signup-login-modal py-2">Already have account, Please login.</div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" ng-click="">Signup</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>

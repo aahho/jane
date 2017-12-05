@@ -1,4 +1,8 @@
 from datetime import datetime
+import time
+
+from flask import request
+from werkzeug import url_encode
 
 from app.mod_utils import helper
 
@@ -28,3 +32,19 @@ def timesince(date, default="Just Now"):
 
     return default
 
+def to_datetime(date):
+    """
+    Return datetime object from int/float/str
+    """
+    print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(date))
+    print date
+    d = datetime(date)
+    print d
+    return d
+
+def current_url(**new_values):
+    args = request.args.copy()
+    
+    for key, value in new_values.items():
+        args[key] = value
+    return '{}?{}'.format(request.path, url_encode(args))

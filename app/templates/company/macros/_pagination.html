@@ -1,0 +1,21 @@
+{% macro paginate(paginator, items_label='items', pageno_label='page') %}
+<ul class="pagination">
+    <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+    {% for p in paginator.iter_pages() %}
+        {% if p == None %}
+            <li><a href="javascript:void(0)">. . .</a></li>
+        {% else %}
+            {% if p == paginator.page %}
+                <li class="active">
+                    <a href="javascript::void(0)">{{ p }}</a>
+                </li>
+            {% else %}
+                {% set query_params = {items_label: paginator.per_page, pageno_label: p} %}
+                <li><a href="{{ current_url(**query_params) }}">{{ p }}</a></li>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+</ul>
+
+{% endmacro %}

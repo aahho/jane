@@ -22,7 +22,8 @@
                     <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                 </li>
                 <li class="my-auto">
-                    <span class="f-14 fw-500">4 reply</span>
+                    {% set replyCount = comment.replies|length %}
+                    <span class="f-14 fw-500">{{ replyCount }} {% if replyCount > 1 %} replies {% else %}reply{% endif %}</span>
                 </li>
                 <li class="custom-li" title="View Reply">
                     <a href="#commentReply{{ loop.index }}" data-toggle="collapse" aria-expanded="false" aria-controls="commentReply{{ loop.index }}">
