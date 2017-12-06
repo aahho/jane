@@ -116,7 +116,8 @@ class Company(Base):
     historyCount = db.IntField(default=0)
     watchlistCount = db.IntField(default=0)
     logo = db.StringField(default='/static/img/no_image.svg')
-    details = db.ReferenceField(CompanyDetail)
+    details = db.ReferenceField(CompanyDetail, required=False)
+    weight = db.IntField(default=0)
     #columns = db.ListField(db.StringField(), default_empty=True)
 
     meta = {

@@ -44,6 +44,8 @@ class Stock(object):
 
     def transform_quandl(self, data):
         stock = None
+        if 'data' not in data:
+            return self.transform(data)
         if len(data['data']):
             # send by stockExchangeCode
             stock =  {
