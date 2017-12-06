@@ -11,13 +11,33 @@ from app.mod_utils import helper
 #db = MongoAlchemy()
 db = MongoEngine()
 
-class Base(db.Document):
-    createdAt = db.DateTimeField()
-    updatedAt = db.DateTimeField(default=datetime.now)
+class BasicMixin(object):
 
     transformer = lambda x: x
     excludes = []
     includes = []
+
+class DynamicBase(db.DynamicDocument, BasicMixin):
+    createdAt = db.DateTimeField()
+    updatedAt = db.DateTimeField(default=datetime.now)
+
+    meta = {
+        'abstract': True,
+        'queryset_class': MainQuerySet
+    }
+    
+    def save(self, *args, **kwargs):
+        """
+        Override save method to set created field only once
+        """
+        if not self.createdAt:
+            self.createdAt = datetime.now()
+        self.updatedAt = datetime.now()
+        return super(DynamicBase, self).save(*args, **kwargs)
+
+class Base(db.Document, BasicMixin):
+    createdAt = db.DateTimeField()
+    updatedAt = db.DateTimeField(default=datetime.now)
 
     meta = {
         'abstract': True,
@@ -45,10 +65,7 @@ class Base(db.Document):
     def get_id(self):
         return self.id.__str__()
 
-class CompanyDetail(db.DynamicDocument):
-
-    includes = []
-    excludes = []
+class CompanyDetail(DynamicBase):
 
     meta = {
             'collection': 'company_details'    
@@ -57,6 +74,30 @@ class CompanyDetail(db.DynamicDocument):
 
     def get(self, key, default='-NA-'):
         return getattr(self, key, default) or default
+
+class Stock(DynamicBase):
+    # not using reference field, coz it will load every time and might slow down app
+    company_id = db.ObjectIdField(required=True) 
+    date = db.DateTimeField(required=True)
+    open = db.FloatField(default=1)
+    high = db.FloatField(default=1)
+    low = db.FloatField(default=1)
+    last = db.FloatField(default=1)
+    close = db.FloatField(default=1)
+    totalTradeQuantity = db.FloatField()
+    turnover = db.FloatField(null=True) # in lacs
+
+    excludes = ['company']
+
+    meta = {
+            'collection': 'stocks',
+            'indexes': [
+                {
+                    'fields': ('date', 'company_id'),
+                    'unique': True
+                }
+            ]
+    }
 
 class Company(Base):
     name = db.StringField()
@@ -70,10 +111,12 @@ class Company(Base):
     oldestAvailableDate = db.DateTimeField(required=False)
     newAvailableDate = db.DateTimeField(required=False)
     history = db.ListField(db.DictField(), default_empty=True)
+    stocks = db.ListField(db.ReferenceField(Stock), default_empty=True, reverse_delete_rule=db.PULL)
+    stock = db.ReferenceField(Stock, reverse_delete_rule=db.NULLIFY, default=Stock())
     historyCount = db.IntField(default=0)
     watchlistCount = db.IntField(default=0)
     logo = db.StringField(default='/static/img/no_image.svg')
-    details = db.ReferenceField(CompanyDetail, default=CompanyDetail())
+    details = db.ReferenceField(CompanyDetail)
     #columns = db.ListField(db.StringField(), default_empty=True)
 
     meta = {
@@ -111,6 +154,14 @@ class Company(Base):
                         error_out=False)
         return p
 
+class TrendingCompany(Base):
+    trendings = db.ListField(db.ReferenceField(Company), required=True)
+    date = db.DateTimeField(required=True)
+
+    meta = {
+        'collection': 'trending_companies'        
+    }
+
 """
 class ComanyNews(Base):
     config_collection_name = 'companiesNews'
@@ -119,22 +170,6 @@ class ComanyNews(Base):
     news = db.ListField(db.DictField(db.StringField()), default_empty=True)
     date = db.DateTimeField(use_tz=False, required=False)
 """
-
-class Stock(Base):
-    name = db.StringField()
-    company = db.ReferenceField(Company)
-    date = db.DateTimeField(use_tz=False, required=False)
-    open = db.FloatField()
-    high = db.FloatField()
-    low = db.FloatField()
-    last = db.FloatField()
-    close = db.FloatField()
-    totalTradeQuantity = db.FloatField()
-    turnover = db.FloatField() # in lacs
-
-    meta = {
-            'collection': 'stocks'        
-    }
 
 class User(Base):
     #id = db.ObjectIdField()
@@ -164,6 +199,9 @@ class User(Base):
         if 'authenticate' in session:
             return cls.objects.filter(id=session['authenticate']['user']['_id']['$oid']).first()
         return None
+
+    def like(self, comment):
+        return Like.objects.filter(user=self, comment=comment).count()
 
 class UserToken(Base):
     user = db.ReferenceField(User)
@@ -218,6 +256,27 @@ class Comment(Base):
         except Exception as e:
             pass
         return None
+
+    def like(self, user_id):
+        return Like.objects.no_dereference().filter(comment=str(self.id), user=str(user_id['$oid'])).count()
+
+    @property
+    def likes_count(self):
+        return Like.objects.no_dereference().filter(comment=str(self.id)).count()
+
+class Like(Base):
+    user = db.ReferenceField(User)
+    comment = db.ReferenceField(Comment)
+
+    meta = {
+        'collection': 'likes',
+        'indexes': [
+            {
+                'fields': ('user', 'comment'),
+                'unique': True
+            }    
+        ]
+    }
 
 """
 class FeedParser(Base):

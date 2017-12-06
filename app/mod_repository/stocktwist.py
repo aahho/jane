@@ -15,11 +15,28 @@ class CompanyRepo(BaseRepo):
             raise SException("Comany not found", 404)
         return company
 
+class TrendingCompanyRepo(BaseRepo):
+    model = models.TrendingCompany
+
 class CompanyDetailsRepo(BaseRepo):
     model = models.CompanyDetail
 
+class LikeRepo(BaseRepo):
+    model = models.Like
+
 class CommentRepo(BaseRepo):
     model = models.Comment
+
+    def like(self, comment, user):
+        like = LikeRepo().filter(comment=comment, user=user).first()
+        if not like:
+            print "liking"
+            return LikeRepo().create(comment=comment, user=user)
+        print "already liked"
+        return like
+
+    def unlike(self, comment, user):
+        return LikeRepo().filter(comment=comment, user=user).delete()
 
 class StockRepo(BaseRepo):
     model = models.Stock

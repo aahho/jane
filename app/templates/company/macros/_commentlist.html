@@ -16,10 +16,22 @@
         <div class="row m-0 p-2">
             <ul class="comment_options">
                 <li class="my-auto">
-                    <span class="f-14 fw-500">4 like</span>
+                    <span class="f-14 fw-500">{{ comment.likes_count|counts('like', 'likes') }}</span>
                 </li>
                 <li class="custom-li" title="like">
-                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                    {% if 'authenticate' in session %}
+                        {% if comment.like(session['authenticate'].user._id) %}
+                        <a href="{{ url_for('home.unlike_comment', company_id=company.id, comment_id=comment.id) }}" >
+                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                        </a>
+                        {% else %}
+                        <a href="{{ url_for('home.like_comment', company_id=company.id, comment_id=comment.id) }}" >
+                            <i class="fa fa-thumbs-o-up" style="color:grey;" aria-hidden="true"></i>
+                        </a>
+                        {% endif %}
+                    {% else %}
+                        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                    {% endif %}
                 </li>
                 <li class="my-auto">
                     {% set replyCount = comment.replies|length %}

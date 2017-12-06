@@ -48,3 +48,8 @@ def current_url(**new_values):
     for key, value in new_values.items():
         args[key] = value
     return '{}?{}'.format(request.path, url_encode(args))
+
+def counts(value, singluar, plural=None):
+    plural = plural or singluar + 's'
+    s_or_p = plural if value > 1 else singluar
+    return str(value) + ' ' + str(s_or_p)

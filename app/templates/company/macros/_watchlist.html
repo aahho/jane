@@ -17,9 +17,9 @@
         <p style="color: grey;">You are not watching any company.</p>
         {% endif %}
         {% for w_company in companies %}
-        {% set w_stock = w_company.history[0] %}
-        {% set w_stock_change = (w_stock.close|float - w_stock.open|float)|abs %}
-        {% set w_stock_change_percentage = (100 * (w_stock_change / w_stock.open|float))|round(2, 'floor')  %}
+        {% set w_stock = w_company.stock %}
+        {% set w_stock_change = (w_stock.last|float - w_stock.close|float) %}
+        {% set w_stock_change_percentage = (100 * (w_stock_change / w_stock.last|float))|round(2, 'floor')  %}
         <div class="treding-item p-0 m-1 col-12 
             {% if w_stock.close < w_stock.open %}red-sm-border{% else %}green-sm-border{% endif %}" data-src="/companies/{{w_company.code}}">
             <span>{{ w_company.code }}</span>

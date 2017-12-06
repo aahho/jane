@@ -98,8 +98,16 @@
                         {% endif %}    
                     </div>
                 
-                    {% set stock = company.stock %} {% set stock_change = (stock.last|float - stock.close|float) %} {% set stock_change_percentage = (100 * (stock_change / stock.last|float))|round(2, 'floor') %} {% if stock.last|float
-                    < stock.close|float %} {% set s_class='red' %} {% set s_arrow='fa-arrow-down' %} {% else %} {% set s_class='green' %} {% set s_arrow='fa-arrow-up' %} {% endif %} 
+                    {% set stock = company.stock %} 
+                    {% set stock_change = (stock.last|float - stock.close|float) %}
+                    {% set stock_change_percentage = (100 * (stock_change / stock.last|float))|round(2, 'floor') %}
+                    {% if stock.last|float < stock.close|float %}
+                        {% set s_class='red' %}
+                        {% set s_arrow='fa-arrow-down' %} 
+                    {% else %}
+                        {% set s_class='green' %}
+                        {% set s_arrow='fa-arrow-up' %} 
+                    {% endif %} 
                     <div class="company-stock-data row m-0 p-2">
                         <span class="mr-1">Live</span>
                         <small class="mr-2 my-auto last-updated">{{ company.stock.refreshedAt.strftime('%a, %b %d %I:%M %p') }}</small>
@@ -148,7 +156,12 @@
                                 <span class="fw-500">Email:</span> {{company.details.get('email')}}
                             </p>
                             <p class="col-12 p-0">
-                            <span class="fw-500">website:</span> <a href="{{company.details.get('website')}}" target="_blank">{{company.details.get('website')}}</a>
+                            <span class="fw-500">website:</span> 
+                            {% if company.details.get('website', None) %}
+                            <a href="{{company.details.get('website')}}" target="_blank">{{company.details.get('website')}}</a>
+                            {% else %}
+                            {{company.details.get('website')}}
+                            {% endif %}
                             </p>
                         </div>
                     </div>

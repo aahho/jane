@@ -1,4 +1,8 @@
-from flask import Response, render_template, jsonify
+from flask import Response, render_template, jsonify, request, redirect as flask_redirect
+
+def redirect(url=None):
+    url = url or request.args.get('referer', '/')
+    return flask_redirect(url)
 
 def json(data):
     return jsonify(data)

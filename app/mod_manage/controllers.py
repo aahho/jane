@@ -35,7 +35,8 @@ def company_update_admin(company_id):
     print company.name
     if company.details:
          company.details = json.loads(company.details.to_json())
-         del company.details['_id']
+         if company.details.get('_id', None):
+             del company.details['_id']
     else:
          company.details = {}
     return render_template('manage/company/edit.html', company = company)

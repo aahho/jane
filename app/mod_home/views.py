@@ -9,13 +9,14 @@ from nsetools import Nse
 
 from app.mod_repository.stocktwist import CompanyRepo, UserRepo,\
                                         UserTokenRepo, CommentRepo, \
-                                        ReplyCommentRepo, UploadRepo
+                                        ReplyCommentRepo, UploadRepo, \
+                                        TrendingCompanyRepo
 import transformers
 from app.mod_library.exception import SException
-from app.mod_library import uploader
-from app.mod_library import auth
+from app.mod_library import uploader, auth, stockapis
 
-nse = Nse()
+nse = stockapis.NSE()
+bse = stockapis.BSE()
 company_repo = CompanyRepo()
 user_repo = UserRepo()
 yesterday_date = date.today() - timedelta(1)
@@ -25,13 +26,15 @@ today_date = date.today().strftime("%Y-%m-%d")
 def list_all_company(per_page=10):
     #r = company_repo.set_transformer(transformers.company).all()
     #r = company_repo.set_transformer(transformers.company)\
-    r = company_repo.skip_list('slice__history', 0, 1)\
-            .set_excludes([])\
-            .orderBy('-historyCount').paginate(per_page=per_page)
+    #r = company_repo.skip_list('slice__history', 0, 1)\
+    #        .set_excludes([])\
+    #        .orderBy('-historyCount').paginate(per_page=per_page)
+    r = company_repo.paginate(per_page=per_page)
     return r
 
 def list_trending_companies(per_page=10):
     return list_all_company(per_page).items
+    return TrendingCompanyRepo().orderBy('-date').first()
 
 def list_latest_news(per_page=5):
     url = 'http://139.59.4.41/feeds/articles/filter'
@@ -62,33 +65,16 @@ def get_only_company(company_code):
     return comp
 
 def get_current_stock_of_company(company_code, company=None):
-    """
-    https://www.quandl.com/api/v3/datasets/NSE/TCS.json?api_key=xMH7BiBu6s24LHCizug3
-    """
-    #response = requests.get('https://www.quandl.com/api/v3/datasets/NSE/' + company_code + '.json?start_date=' + yesterday_date + '&end_date=' + today_date + '&api_key=xMH7BiBu6s24LHCizug3')
     if company is None:
         company = CompanyRepo().get(code=company_code)
         if not company:
             raise SException("Error in company code", 400)
     if company.stockExchangeCode == 'NSE':
-        stock_dict = nse.get_quote(str(company.code))
-        company.stock = transformers.transform_nsetools_stock(stock_dict)
-        return company
-    response = requests.get('https://www.quandl.com/api/v3/datasets/' + \
-            company.stockExchangeCode + '/' + company_code + '.json?api_key=xMH7BiBu6s24LHCizug3')
-    #response = requests.get('https://www.quandl.com/api/v3/datasets/NSE/' + company_code + '.json?api_key=xMH7BiBu6s24LHCizug3')
-    if response.status_code == 200:
-        data = response.json()['dataset']
-        #data['company'] = company
-        #start_new_thread(CompanyRepo().update_stock, (data,))
-        company.stock = transformers.transform_quandl_stock(data)
-        return company
-        #return transformers.company_with_current_stock(data)
+        company = nse.latest(company)
     else:
-        return response.json()
-        raise Exception('Error in company_code')
-    #print quandl.get('NSE/' + company_code, start_date="2017-10-03", end_date="2017-10-04")
-    #return data
+        company = bse.latest(company)
+
+    return company
 
 def get_all_stocks_of_company():
     pass
@@ -170,6 +156,22 @@ def remove_from_watchlist(company_id):
             .filter(id=auth.user().id)\
             .update(pull__favourites=company)
     return "Removed successfully"
+
+@auth.auth_required
+def like_a_comment(company_id, comment_id):
+    user = auth.user()
+    company = CompanyRepo().get_company(company_id)
+    comment = CommentRepo().get(id=comment_id)
+    CommentRepo().like(comment, user)
+    return company
+
+@auth.auth_required
+def unlike_a_comment(company_id, comment_id):
+    user = auth.user()
+    company = CompanyRepo().get_company(company_id)
+    comment = CommentRepo().get(id=comment_id)
+    CommentRepo().unlike(comment, user)
+    return company
 
 @auth.auth_required
 def list_of_watchlist(per_page=5, page=1):

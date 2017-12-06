@@ -14,6 +14,9 @@ from app.mod_utils import helper
 
 
 class StockGetter(BaseCommand):
+    """
+    To Update stock of the company to latest
+    """
     STOCK_API = "https://www.quandl.com/api/v3/datasets/{}/{}.json?api_key=xMH7BiBu6s24LHCizug3"
 
     def __init__(self):

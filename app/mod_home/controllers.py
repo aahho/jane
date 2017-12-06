@@ -29,6 +29,7 @@ def index():
 
 @mod_home.route('companies/<company_code>')
 @mod_home.route('companies/<company_code>/<slug>')
+@mod_home.route('companies/<company_code>/<slug>/')
 def company_details(company_code, slug=None):
     company = views.get_only_company(company_code)
     if slug != company.slug:
@@ -90,6 +91,18 @@ def unwatch_company(company_id):
     views.remove_from_watchlist(company_id)
     return redirect(request.args.get('referer', '/'))
 
+@mod_home.route('companies/<company_id>/comments/<comment_id>/like')
+def like_comment(company_id, comment_id):
+    company = views.like_a_comment(company_id, comment_id)
+    details_url = url_for('home.company_details', company_code=company.code, slug=company.slug) 
+    return redirect(details_url + '#' + comment_id)
+
+@mod_home.route('companies/<company_id>/comments/<comment_id>/unlike')
+def unlike_comment(company_id, comment_id):
+    company = views.unlike_a_comment(company_id, comment_id)
+    details_url = url_for('home.company_details', company_code=company.code, slug=company.slug) 
+    return redirect(details_url + '#' + comment_id)
+
 @router.api('users/watchlist', methods=['GET'])
 @router.api('companies/<company_id>/watchlist', methods=['POST', 'DELETE'])
 def watchlist(company_id=None):
@@ -119,9 +132,9 @@ def login():
     request.values
     request.json
     """
-    print request.values
+    #print request.values
     user = views.login_user(request.values)
-    return redirect("/")
+    return response.redirect()
 
 @router.api('login/google', methods=['GET'])
 def google_login():
@@ -131,7 +144,7 @@ def google_login():
 @mod_home.route('user/logout', methods=['GET'])
 def logout():
     views.logout_user()
-    return redirect("/")
+    return response.redirect()
 
 #@router.api('users', methods=['POST'])
 #def signup():
@@ -140,5 +153,5 @@ def logout():
 @mod_home.route('user/signup', methods=['POST'])
 def user_signup():
     views.signup_user(request.form)
-    return redirect("/")
+    return response.redirect()
 
