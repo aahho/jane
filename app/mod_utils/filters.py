@@ -13,7 +13,7 @@ def timesince(date, default="Just Now"):
     """
     now = helper.now()
     if not isinstance(date, datetime):
-        date = datetime(date)
+        date = helper.str_to_datetime(date)
     diff = now - date
 
     periods = (
@@ -36,11 +36,7 @@ def to_datetime(date):
     """
     Return datetime object from int/float/str
     """
-    print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(date))
-    print date
-    d = datetime(date)
-    print d
-    return d
+    return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(date / 1000))
 
 def current_url(**new_values):
     args = request.args.copy()

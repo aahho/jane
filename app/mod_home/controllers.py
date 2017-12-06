@@ -14,7 +14,7 @@ mod_home = Blueprint('home', __name__, url_prefix='/')
 # Set the route and accepted methods
 @mod_home.route('')
 def index():
-    paginator = views.list_all_company(per_page=int(request.args.get('items', 10)))
+    paginator = views.list_all_company(per_page=int(request.args.get('items', 15)))
     trendings = views.list_trending_companies()
     news = views.list_latest_news()
     watchlist = []
