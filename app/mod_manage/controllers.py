@@ -1,7 +1,7 @@
 import json
 
 # Import flask dependencies
-from flask import Blueprint, request, render_template, redirect, url_for
+from flask import Blueprint, request, render_template, redirect, url_for, session
 
 import views
 from app.mod_library import response
@@ -10,6 +10,28 @@ from app.mod_library.exception import SException
 
 # Define the blueprint: 'app', set its url prefix: app.url/auth
 mod_manage = Blueprint('manage', __name__, url_prefix='/manage')
+
+@mod_manage.before_request
+def admin_auth_required():
+    if request.endpoint != 'manage.admin_login':
+        if 'admin' not in session:
+            return redirect('/manage/login')
+
+@mod_manage.route('/login', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        res, data = views.login_admin(request.values)
+        if res:
+            return redirect('/manage/companies')
+        return redirect(url_for('manage.admin_login'))
+    else:
+        return render_template('manage/login.html')
+
+@mod_manage.route('/logout', methods=['GET'])
+def admin_logout():
+    if 'admin' in session:
+        del session['admin']
+    return redirect(url_for('manage.admin_login'))
 
 # Set the route and accepted methods
 @mod_manage.route('/companies')

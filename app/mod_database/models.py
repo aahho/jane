@@ -172,6 +172,14 @@ class ComanyNews(Base):
     date = db.DateTimeField(use_tz=False, required=False)
 """
 
+class AdminUser(Base):
+    email = db.StringField(required=True, unique=True)
+    password = db.StringField(required=True)
+
+    meta = {
+        'collection': 'admin_users'
+    }
+
 class User(Base):
     #id = db.ObjectIdField()
     name = db.StringField()

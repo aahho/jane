@@ -41,6 +41,9 @@ class CommentRepo(BaseRepo):
 class StockRepo(BaseRepo):
     model = models.Stock
 
+class AdminUserRepo(BaseRepo):
+    model = models.AdminUser
+
 class UserRepo(BaseRepo):
     model = models.User
 
