@@ -37,7 +37,7 @@ def list_trending_companies(per_page=10):
     return TrendingCompanyRepo().orderBy('-date').first()
 
 def list_latest_news(per_page=5):
-    url = 'http://139.59.4.41/feeds/articles/filter'
+    url = 'http://139.59.4.41/feeds/articles/filter?item=3'
     headers = {
         'app-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBfbmFtZSI6Im5vb2RsZXN0b2NrIn0.4VWMttLhLQl0h-WSyB4CSuC62kBn9PLiU8DFYVTxmZs'        
     }
@@ -45,7 +45,7 @@ def list_latest_news(per_page=5):
     if res.status_code != 200:
         return []
     news = res.json()['data']
-    return news[:4]
+    return news[:3]
 
 def filter(data):
     if data is None:
@@ -191,7 +191,6 @@ def signup_user(data):
     return transformers.user(result)
 
 def login_user(data):
-    print "logining user"
     user = UserRepo().login_user(data.get('email'), data.get('password'))
     """
     user_repository = UserRepo()
@@ -205,7 +204,7 @@ def login_user(data):
                     'token': user,
                 }
     return user
-    return transformers.user_with_token(user)
+    #return transformers.user_with_token(user)
 
 def google_login_user(code):
     # Get from google
