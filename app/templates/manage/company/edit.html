@@ -288,6 +288,8 @@
 									
                                     <div id="otherDetailsContainer">
                                         {% for key, value in company.details.iteritems() %}
+                                        {% if key == "createdAt" or key == "updatedAt" %}
+                                        {% else %}
                                         <div class="row other-details">
                                             <div class="form-group col-md-3">
                                                 <label class="sr-only" for="inputName">Input Name</label>
@@ -310,6 +312,7 @@
                                                 </a>
                                             </div>
                                         </div>
+                                        {% endif %}
                                         {% endfor %}
                                     </div>
 

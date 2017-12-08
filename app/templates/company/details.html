@@ -7,6 +7,10 @@
 {% from "company/macros/_news.html" import latest_news with context %}
 {% extends "company/base.html" %}
 
+{% block meta %}
+<meta name="description" content="{{ company.name }} - NoodleStock provides the latest stock market, financial and business news. Learn from other stock traders and get new ideas.">
+<meta name="keywords" content="{{ company.code }}, {{ company.name }}, {{ company.code }} {{ company.name }} stock, {{ company.code }} {{ company.name }} noodlestock, {{ company.code }} {{ company.name }} stock conversation, {{ company.code }} {{ company.name }} stock trends, {{ company.code }} {{ company.name }} financial trends, {{ company.code }} {{ company.name }} stocks, {{ company.code }} {{ company.name }} trade, {{ company.code }} {{ company.name }} trading, {{ company.code }} {{ company.name }} shares, {{ company.code }} {{ company.name }} financial forum, {{ company.code }} {{ company.name }} financial advice, {{ company.code }} {{ company.name }} financial conversation, {{ company.code }} {{ company.name }} financial news, {{ company.code }} {{ company.name }} stock forum, {{ company.code }} {{ company.name }} stock advice, {{ company.code }} {{ company.name }} stock conversation, {{ company.code }} {{ company.name }} trending stock, {{ company.code }} {{ company.name }} latest stock, {{ company.code }} {{ company.name }} Live Stock Markets, {{ company.code }} {{ company.name }} Live Stock Price, {{ company.code }} {{ company.name }} Stock Trading news, {{ company.code }} {{ company.name }} Share Market, {{ company.code }} {{ company.name }} Views and Analysis on Equity and Stock Markets Tips, {{ company.code }} {{ company.name }} sensex, {{ company.code }} {{ company.name }} nifty, {{ company.code }} {{ company.name }} Commodity Market, {{ company.code }} {{ company.name }} personal finance, {{ company.code }} {{ company.name }} mutual funds, {{ company.code }} {{ company.name }} insurance, {{ company.code }} {{ company.name }} bank and loans, stock, noodlestock, stock conversations, stock trends, financial trends, stocks, trade, trading, shares, financial forum, financial advice, financial conversation,  financial news, stock forum, stock advice, stock conversation, trending stock, latest stock,Live Stock Markets, Live Stock Price, Stock Trading news, Share Market, Views and Analysis on Equity and Stock Markets Tips, sensex, nifty, Commodity Market, personal finance, mutual funds, insurance, bank and loans.">
+{% endblock %}
 {% block title %} {{ company.code }} - {{ company.name }}{% endblock %}
 
 {% block body %}
@@ -69,7 +73,7 @@
                         <img src="{{ company.logo }}" width="60" height="60">
                         <div class="company-n pl-2">
                             <h3>{{ company.name }}</h3>
-                            <h6 class="pl-1">{{ company.code }} <span class="badge badge-primary">NSE</span></h6>
+                            <h6 class="pl-1">{{ company.code }} <span class="badge badge-primary">{{ company.stockExchangeCode|upper }}</span></h6>
                         </div>
                         {% if session['authenticate'] %}
                             {% if company not in watchlist %}

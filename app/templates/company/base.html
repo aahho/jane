@@ -5,9 +5,11 @@
     <base href="/"></base>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="format-detection" content="telephone=no" />
-     <meta name="description" content="NoodleStock provides the latest stock market, financial and business news. Learn from other stock traders and get new ideas.">
-     <meta name="keywords" content="stock, noodlestock, stock conversations, stock trends, financial trends, stocks, trade, trading, shares, financial forum, financial advice, financial conversation,  financial news, stock forum, stock advice, stock conversation, trending stock, latest stock,Live Stock Markets, Live Stock Price, Stock Trading news, Share Market, Views and Analysis on Equity and Stock Markets Tips, sensex, nifty, Commodity Market, personal finance, mutual funds, insurance, bank and loans.">
-     <meta name="author" content="NoodleStock">
+    {% block meta %}
+    <meta name="description" content="NoodleStock provides the latest stock market, financial and business news. Learn from other stock traders and get new ideas.">
+    <meta name="keywords" content="stock, noodlestock, stock conversations, stock trends, financial trends, stocks, trade, trading, shares, financial forum, financial advice, financial conversation,  financial news, stock forum, stock advice, stock conversation, trending stock, latest stock,Live Stock Markets, Live Stock Price, Stock Trading news, Share Market, Views and Analysis on Equity and Stock Markets Tips, sensex, nifty, Commodity Market, personal finance, mutual funds, insurance, bank and loans.">
+    {% endblock %}
+    <meta name="author" content="NoodleStock">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
     <title>{% block title %}NoodleStocks {% endblock %}</title>
     <link href="https://fonts.googleapis.com/css?family=ABeeZee" rel="stylesheet" />

@@ -29,7 +29,7 @@ def list_all_company(per_page=10):
     #r = company_repo.skip_list('slice__history', 0, 1)\
     #        .set_excludes([])\
     #        .orderBy('-historyCount').paginate(per_page=per_page)
-    r = company_repo.paginate(per_page=per_page)
+    r = company_repo.filter_self(stock__ne=None).paginate(per_page=per_page)
     return r
 
 def list_trending_companies(per_page=10):
