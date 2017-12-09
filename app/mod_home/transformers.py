@@ -44,6 +44,7 @@ def company_with_current_stock(data):
     return result
 
 def transform_quandl_stock(data):
+    """ Will not be used. Using in stockapis.BSE"""
     stock = None
     if len(data['data']):
         # send by stockExchangeCode
@@ -61,7 +62,7 @@ def transform_quandl_stock(data):
     return stock
 
 def transform_nsetools_stock(data):
-
+    """ Will not be used. Using in stockapis.NSE"""
     return {
             "date": data['cm_adj_low_dt'],
             "open": data['open'],

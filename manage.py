@@ -1,7 +1,8 @@
 from flask_script import Manager, Server
 
 from app import app
-from app.mod_utils.managers import base, seed_manager, ListRoutes
+from app.mod_utils.managers import base, seed_manager, ListRoutes, CreateAdminUser
+from app.mod_utils.managers.scripts import script_manager
 
 manager = Manager(app)
 server = Server(host="0.0.0.0", port=5000)
@@ -16,8 +17,10 @@ manager.add_command('runserver', server)
 
 # For seeding data
 manager.add_command('seed', seed_manager)
+manager.add_command('run', script_manager)
 
 manager.add_command('list:route', ListRoutes)
+manager.add_command('createadmin', CreateAdminUser)
 
 
 if __name__ == "__main__":

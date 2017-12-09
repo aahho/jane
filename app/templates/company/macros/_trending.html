@@ -8,13 +8,13 @@
     <hr class="m-2">
     <div class="d-flex row m-0">
         {% for t_company in companies %}
-        {% set t_stock = t_company.history[0] %}
-        {% set t_stock_change = (t_stock.close|float - t_stock.open|float)|abs %}
-        {% set t_stock_change_percentage = (100 * (t_stock_change / t_stock.open|float))|round(2, 'floor')  %}
-        <div class="treding-item p-0 m-1 col-12 f-14
-        {% if t_stock.close < t_stock.open %}red-sm-border{% else %}green-sm-border{% endif %}" data-src="/companies/{{t_company.code}}">
+        {% set t_stock = t_company.stock %}
+        {% set t_stock_change = (t_stock.last|float - t_stock.close|float) %}
+        {% set t_stock_change_percentage = (100 * (t_stock_change / t_stock.last|float))|round(2, 'floor') %}
+        <div class="treding-item p-0 m-1 col-12 f-13
+        {% if t_stock.last < t_stock.open %}red-sm-border{% else %}green-sm-border{% endif %}" data-src="/companies/{{t_company.code}}">
             <span>{{ t_company.code }}</span>
-            <span>{{ t_stock.close }}</span>
+            <span>{{ t_stock.last }}</span>
             <span class="float-right">({{ t_stock_change }})&nbsp; {{ t_stock_change_percentage }}% &nbsp;</span>
         </div>
         {% endfor %}

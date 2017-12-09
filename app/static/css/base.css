@@ -248,7 +248,10 @@
     color:#808080;
 }
 .f-14{
-    font-size: 14px;
+    font-size: 14px !important;
+}
+.f-13{
+    font-size: 13px !important;
 }
 
 .tt-menu{

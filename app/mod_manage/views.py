@@ -1,5 +1,8 @@
+from flask import session
 
-from app.mod_repository.stocktwist import CompanyRepo, UserRepo, UploadRepo, CompanyDetailsRepo
+from app.mod_repository.stocktwist import CompanyRepo, UserRepo,\
+        UploadRepo, CompanyDetailsRepo, AdminUserRepo
+from app.mod_utils import helper
 
 def list_companies():
     return CompanyRepo().paginate()
@@ -52,3 +55,11 @@ def update_upload(upload_id, data):
     if 'size' in data: data['_size'] = data['size']; del data['size'];
     return UploadRepo().objects.filter(uploaderId=upload_id).update(**data)
 
+def login_admin(data):
+    admin = AdminUserRepo().filter(email=data.get('email', None)).first()
+    if not admin:
+        return False, "User not found"
+    if helper.check_hash(data.get('password', None), admin.password):
+        session['admin'] = admin.__dict__
+        return True, admin
+    return False, 'Invalid Credential'

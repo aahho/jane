@@ -37,7 +37,7 @@
                     <div class="list-group feed-list-group">
                         {% for company in paginator.items %}
                         <div class="m-list list-group-item stock-item clearfix" data-src="/companies/{{company.code}}/{{company.name}}">
-                            {% set stock = company.history[0] %}
+                            {% set stock = company.stock %}
                             {% set stock_change = (stock.close|float - stock.open|float)|abs %}
                             {% set stock_change_percentage = (100 * (stock_change / stock.open|float))|round(2, 'floor')  %}
                             <div class="pull-left company-list {% if stock.close|float < stock.open|float %}border-list-red{% else %}border-list-green{% endif %}">
@@ -54,7 +54,7 @@
                                         &nbsp; ({{ stock_change_percentage }}%) &nbsp;</span>
                                 </div>
                                 <!-- <div class="updated-at">
-                                    <small>Updated on {{ company.refreshedAt.strftime('%a, %b %d, %Y %I:%M %p') }}</small>
+                                    <small>Updated on {#{ company.refreshedAt.strftime('%a, %b %d, %Y %I:%M %p') }#}</small>
                                 </div> -->
                             </div>
                             <div class="pull-right">
