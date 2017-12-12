@@ -72,7 +72,10 @@
 	background-color: #dcdcdc;
 }
 .treding-item > span{
-	padding:0px 0.5rem;
+	padding:0px 0.1rem;
+}
+.trending-item > span:first-child{
+    padding: 0px 0.5rem !important;
 }
 .green-sm-border{
 	border-left:2px solid green;

@@ -35,8 +35,12 @@ def timesince(date, default="Just Now"):
 def to_datetime(date):
     """
     Return datetime object from int/float/str
+    formula = date / 1000 # coz from server we are getting as date * 1000
+    formula = formula - 19800 # coz its timezone is GMT and we have to convert it to IST which is \
+            IST = GMT - 5h30m(5*60*60 + 30 * 60 seconds)
     """
-    return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(date / 1000))
+    return datetime.fromtimestamp((long(date)/ 1000) - 19800).strftime('%Y-%m-%d %H:%M:%S')
+    #return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(date / 1000))
 
 def current_url(**new_values):
     args = request.args.copy()

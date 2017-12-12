@@ -22,6 +22,10 @@ def update_company(company_id, data):
 
     # delete the key which is not in data but in details
     if company.details is None:
+        if "updatedAt" in d:
+            del d['updatedAt']
+        if 'createdAt' in d:
+            del d['createdAt']
         details = CompanyDetailsRepo.model(**d)
         details.save()
         company.details = details

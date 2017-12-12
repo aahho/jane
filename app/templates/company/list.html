@@ -5,6 +5,8 @@
 {% from "company/macros/_news.html" import latest_news with context %}
 {% extends "company/base.html" %}
 
+{% block title %} Noodlestock - Get realtime shares, stocks information, news & Discuss about investment - noodlestock.com {% endblock %}
+
 {% block body %}
     
     {{ navbar() }}
@@ -38,14 +40,14 @@
                         {% for company in paginator.items %}
                         <div class="m-list list-group-item stock-item clearfix" data-src="/companies/{{company.code}}/{{company.name}}">
                             {% set stock = company.stock %}
-                            {% set stock_change = (stock.close|float - stock.open|float)|abs %}
-                            {% set stock_change_percentage = (100 * (stock_change / stock.open|float))|round(2, 'floor')  %}
-                            <div class="pull-left company-list {% if stock.close|float < stock.open|float %}border-list-red{% else %}border-list-green{% endif %}">
+                            {% set stock_change = (stock.last|float - stock.close|float) %}
+                            {% set stock_change_percentage = (100 * (stock_change / stock.last|float))|round(2, 'floor') %}
+                            <div class="pull-left company-list {% if stock.last|float < stock.close|float %}border-list-red{% else %}border-list-green{% endif %}">
                                 <div class="company-name">{{ company.name }}</div>
                                 <div class="company-data">
                                     <span class="company-code">{{ company.code }}</span>
                                     <span class="current">{{ stock.close }}</span>
-                                    {% if stock.close|float < stock.open|float %}
+                                    {% if stock.last|float < stock.close|float %}
                                     <span class="up-down-arrow "><i class="fa fa-arrow-down red"></i></span>
                                     {% else %}
                                     <span class="up-down-arrow "><i class="fa fa-arrow-up green"></i></span>

@@ -68,10 +68,8 @@ class UserRepo(BaseRepo):
     def login_user(self, email, password):
         user = self.filter(email=email).first()
         if not user:
-            print "user not doung"
             raise SException('User not found', 404)
         if not helper.check_hash(password, user.password):
-            print "invalid"
             raise SException('Invalid credentials', 400)
         # create user token
         token = UserTokenRepo().create(user=user, token=helper.generate_token())

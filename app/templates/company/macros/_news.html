@@ -1,11 +1,11 @@
-{% macro latest_news(neww_list) %}
+{% macro latest_news(news_list) %}
 
 <div class="list-group col-12 px-2">
     {% for news in news_list %}
-    <a href="#" class="list-group-item list-group-item-action p-1">
+    <a href="{{ news.url }}" target="_blank" class="list-group-item list-group-item-action p-1">
         <div class="row m-0 bb-1">
             <div class="col-3 pl-2">
-                <img src="{{ news.image }}" height="auto" width="100%">
+                <img src="{{ news.image or '/static/img/no_image.svg' }}" height="auto" width="100%">
             </div>
             <div class="col-9 p-0">
                 <p class="mb-1 fw-500 f-14">{{ news.title }}</p>
