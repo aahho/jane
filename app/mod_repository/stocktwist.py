@@ -85,7 +85,6 @@ class UserTokenRepo(BaseRepo):
     def get_auth_user(self, token):
         token = self.filter(token=token, expiresAt__gt=helper.now()).first()
         if not token:
-            print "Asdf"
             raise SException('Invalid authorization token', 401)
         return token.user
 

@@ -2,7 +2,7 @@ import requests
 from datetime import datetime, date, timedelta
 import json
 
-import quandl
+#import quandl
 from flask import request, session
 from mongoengine.queryset.visitor import Q
 from nsetools import Nse
@@ -37,6 +37,7 @@ def list_trending_companies(per_page=10):
     return TrendingCompanyRepo().orderBy('-date').first()
 
 def list_latest_news(per_page=5):
+    return []
     url = 'http://139.59.4.41/feeds/articles/filter?item=3'
     headers = {
         'app-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBfbmFtZSI6Im5vb2RsZXN0b2NrIn0.4VWMttLhLQl0h-WSyB4CSuC62kBn9PLiU8DFYVTxmZs'        

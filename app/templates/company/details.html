@@ -149,22 +149,22 @@
                         <div class="col-md-6 col-xl-6 col-lg-6 col-sm-12 col-xs-12 p-0">
                             <p class="col-12 p-0 fw-500 m-0">Registered Address</p>
                             <address class="col-12 p-0">
-                                {{company.details.get('address')}}
+                                {{company._details.get('address')}}
                             </address>
                             <p class="col-12 p-0">
-                                <span class="fw-500">Phone no:</span> {{company.details.get('phone')}}
+                                <span class="fw-500">Phone no:</span> {{company._details.get('phone')}}
                             </p>
                         </div>
                         <div class="col-md-6 col-xl-6 col-lg-6 col-sm-12 col-xs-12 p-0">
                             <p class="col-12 p-0">
-                                <span class="fw-500">Email:</span> {{company.details.get('email')}}
+                                <span class="fw-500">Email:</span> {{company._details.get('email')}}
                             </p>
                             <p class="col-12 p-0">
                             <span class="fw-500">website:</span> 
-                            {% if company.details.get('website', None) %}
-                            <a href="{{company.details.get('website')}}" target="_blank">{{company.details.get('website')}}</a>
+                            {% if company._details.get('website', None) %}
+                            <a href="{{company._details.get('website')}}" target="_blank">{{company._details.get('website')}}</a>
                             {% else %}
-                            {{company.details.get('website')}}
+                            {{company._details.get('website')}}
                             {% endif %}
                             </p>
                         </div>

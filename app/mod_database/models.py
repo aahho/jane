@@ -116,7 +116,7 @@ class Company(Base):
     historyCount = db.IntField(default=0)
     watchlistCount = db.IntField(default=0)
     logo = db.StringField(default='/static/img/no_image.svg')
-    details = db.ReferenceField(CompanyDetail, required=False)
+    details = db.ReferenceField(CompanyDetail, required=False)#, db_field='details')
     weight = db.IntField(default=0)
     #columns = db.ListField(db.StringField(), default_empty=True)
 
@@ -141,6 +141,12 @@ class Company(Base):
 
     #transformer = transformers.company_meta
     excludes = ['history']
+
+    @property
+    def _details(self):
+        if self.details is None:
+            return CompanyDetail()
+        return self.details
 
     @property
     def watchlistcount(self):

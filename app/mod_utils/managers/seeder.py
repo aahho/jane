@@ -3,7 +3,7 @@ from thread import start_new_thread, allocate_lock
 from datetime import timedelta
 
 from flask import json
-import quandl
+#import quandl
 
 from base import BaseCommand
 from app.mod_database import models
