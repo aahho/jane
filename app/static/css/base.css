@@ -72,7 +72,10 @@
 	background-color: #dcdcdc;
 }
 .treding-item > span{
-	padding:0px 0.5rem;
+	padding:0px 0.1rem;
+}
+.trending-item > span:first-child{
+    padding: 0px 0.5rem !important;
 }
 .green-sm-border{
 	border-left:2px solid green;
@@ -248,7 +251,10 @@
     color:#808080;
 }
 .f-14{
-    font-size: 14px;
+    font-size: 14px !important;
+}
+.f-13{
+    font-size: 13px !important;
 }
 
 .tt-menu{
@@ -292,5 +298,8 @@
 .pagination >.page-item >.page-link{
     color:#795548;
     text-decoration: none;
+}
+.ads-block{
+    min-height:400px;
 }
 

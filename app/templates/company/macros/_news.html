@@ -4,11 +4,11 @@
     {% for news in news_list %}
     <a href="{{ news.url }}" target="_blank" class="list-group-item list-group-item-action p-1">
         <div class="row m-0 bb-1">
-            <div class="col-3 p-0">
-                <img src="{{ news.image or '/static/img/no_image.svg' }}" height="75px" width="75px">
+            <div class="col-3 pl-2">
+                <img src="{{ news.image or '/static/img/no_image.svg' }}" height="auto" width="100%">
             </div>
             <div class="col-9 p-0">
-                <p class="mb-1 fw-500">{{ news.title }}</p>
+                <p class="mb-1 fw-500 f-14">{{ news.title }}</p>
                 <small>{{ news.publishedAt|to_datetime|timesince }}</small>
             </div>
         </div>
