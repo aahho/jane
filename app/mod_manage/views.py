@@ -5,7 +5,7 @@ from app.mod_repository.stocktwist import CompanyRepo, UserRepo,\
 from app.mod_utils import helper
 
 def list_companies():
-    return CompanyRepo().paginate()
+    return CompanyRepo().set_order_by('name').paginate()
 
 def get_company_details(company_id):
     return CompanyRepo().filter(id=company_id).first()
